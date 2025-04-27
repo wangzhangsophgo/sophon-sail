@@ -6,7 +6,7 @@ on:
       - 'docs/**'  # 仅当 docs 目录下文件变化时触发
       - '.github/workflows/gh-pages.yml'  # 或 workflow 文件本身有变化时
     branches:
-      - main  # 仅在 main 分支推送时触发（如主分支不是 main，请修改为你的主分支名）
+      - master  # 仅在 main 分支推送时触发（如主分支不是 main，请修改为你的主分支名）
 
 jobs:
   build-deploy:  # 作业名称
