@@ -33,14 +33,14 @@ jobs:
         run: |
           sphinx-build -b html . ../build/html/zh  # 构建 HTML 到 docs/build/html/zh
 
-      - name: Build HTML docs (en)  # 步骤5：构建英文文档
-        working-directory: ./docs/source_en  # 切换到英文文档源码目录
-        run: |
-          sphinx-build -b html . ../build/html/en  # 构建 HTML 到 docs/build/html/en
+      # - name: Build HTML docs (en)  # 步骤5：构建英文文档
+      #   working-directory: ./docs/source_en  # 切换到英文文档源码目录
+      #   run: |
+      #     sphinx-build -b html . ../build/html/en  # 构建 HTML 到 docs/build/html/en
 
       - name: Deploy to GitHub Pages  # 步骤6：部署到 GitHub Pages
         uses: peaceiris/actions-gh-pages@v4  # 使用社区维护的部署 Action
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 自动提供的 token 进行推送
-          publish_dir: docs/build/html  # 指定要发布的目录（包含 zh 和 en）
+          publish_dir: docs/build/html/zh  # 指定要发布的目录（包含 zh 和 en）
           publish_branch: gh-pages  # 发布到 gh-pages 分支
