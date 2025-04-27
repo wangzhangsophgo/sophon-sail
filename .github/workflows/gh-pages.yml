@@ -31,12 +31,12 @@ jobs:
       - name: Build HTML docs (zh)  # 步骤4：构建中文文档
         working-directory: ./docs/source_zh  # 切换到中文文档源码目录
         run: |
-          sphinx-build -b html . ../../build/html/zh  # 构建 HTML 到 docs/build/html/zh
+          sphinx-build -b html . ../build/html/zh  # 构建 HTML 到 docs/build/html/zh
 
       - name: Build HTML docs (en)  # 步骤5：构建英文文档
         working-directory: ./docs/source_en  # 切换到英文文档源码目录
         run: |
-          sphinx-build -b html . ../../build/html/en  # 构建 HTML 到 docs/build/html/en
+          sphinx-build -b html . ../build/html/en  # 构建 HTML 到 docs/build/html/en
 
       - name: Deploy to GitHub Pages  # 步骤6：部署到 GitHub Pages
         uses: peaceiris/actions-gh-pages@v4  # 使用社区维护的部署 Action
