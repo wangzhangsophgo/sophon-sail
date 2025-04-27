@@ -1,0 +1,46 @@
+name: Deploy Sphinx docs to GitHub Pages  # 工作流名称
+
+on:
+  push:  # 当有推送时触发
+    paths:
+      - 'docs/**'  # 仅当 docs 目录下文件变化时触发
+      - '.github/workflows/gh-pages.yml'  # 或 workflow 文件本身有变化时
+    branches:
+      - main  # 仅在 main 分支推送时触发（如主分支不是 main，请修改为你的主分支名）
+
+jobs:
+  build-deploy:  # 作业名称
+    runs-on: ubuntu-latest  # 使用最新 Ubuntu 运行环境
+
+    steps:
+      - name: Checkout code  # 步骤1：检出仓库代码
+        uses: actions/checkout@v4
+
+      - name: Set up Python  # 步骤2：设置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'  # 这里指定 Python 版本为 3.9
+
+      - name: Install dependencies  # 步骤3：安装 Sphinx 及依赖
+        run: |
+          python -m pip install --upgrade pip
+          pip install sphinx
+          # 如有额外依赖（如 Sphinx 插件），可取消下面一行注释并补充 requirements.txt
+          # pip install -r docs/requirements.txt
+
+      - name: Build HTML docs (zh)  # 步骤4：构建中文文档
+        working-directory: ./docs/source_zh  # 切换到中文文档源码目录
+        run: |
+          sphinx-build -b html . ../../build/html/zh  # 构建 HTML 到 docs/build/html/zh
+
+      - name: Build HTML docs (en)  # 步骤5：构建英文文档
+        working-directory: ./docs/source_en  # 切换到英文文档源码目录
+        run: |
+          sphinx-build -b html . ../../build/html/en  # 构建 HTML 到 docs/build/html/en
+
+      - name: Deploy to GitHub Pages  # 步骤6：部署到 GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4  # 使用社区维护的部署 Action
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 自动提供的 token 进行推送
+          publish_dir: docs/build/html  # 指定要发布的目录（包含 zh 和 en）
+          publish_branch: gh-pages  # 发布到 gh-pages 分支
