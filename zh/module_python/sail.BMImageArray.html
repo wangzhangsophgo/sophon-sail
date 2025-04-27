@@ -1,0 +1,363 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.15. sail.BMImageArray &mdash; SOPHON-SAIL 3.10.2
+ 文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9080cc91"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="5.16. sail.bm_image" href="sail.bm_image.html" />
+    <link rel="prev" title="5.14. sail.Decoder_RawStream" href="sail.Decoder_RawStream.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. 声明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. 编译安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API 参考</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API 参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Basicfunction.html">5.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_enum_type/enum_index.html">5.2. SAIL 枚举类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Handle.html">5.3. sail.Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Tensor.html">5.4. sail.Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Engine.html">5.5. sail.Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.EngineLLM.html">5.6. sail.EngineLLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImage.html">5.7. sail.BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Bmcv.html">5.8. sail.Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder.html">5.9. sail.Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiDecoder.html">5.10. sail.MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Encoder.html">5.11. sail.Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.PaddingAtrr.html">5.12. sail.PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Blend.html">5.13. sail.Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder_RawStream.html">5.14. sail.Decoder_RawStream</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.15. sail.BMImageArray</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#init">5.15.1. __init__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getitem">5.15.2. __getitem__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setitem">5.15.3. __setitem__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#copy-from">5.15.4. copy_from</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#attach-from">5.15.5. attach_from</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-device-id">5.15.6. get_device_id</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sail.bm_image.html">5.16. sail.bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiEngine.html">5.17. sail.MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_high_perform_interface/high_perform_index.html">5.18. SAIL Python 高性能接口</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../5_module_python.html"><span class="section-number">5. </span>SAIL Python API 参考</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.15. </span>sail.BMImageArray</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_python/sail.BMImageArray.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sail-bmimagearray">
+<h1><span class="section-number">5.15. </span>sail.BMImageArray<a class="headerlink" href="#sail-bmimagearray" title="Link to this heading"></a></h1>
+<p>BMImageArray是BMImage的数组，可为多张图片申请连续的内存空间。</p>
+<p>在声明BMImageArray时需要根据图片数量指定不同的实例</p>
+<p>例：4张图片时BMImageArray的构造方式如：  images = BMImageArray4D()</p>
+<section id="init">
+<h2><span class="section-number">5.15.1. </span>__init__<a class="headerlink" href="#init" title="Link to this heading"></a></h2>
+<p>初始化BMImageArray。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+
+<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handle</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">Format</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">ImgDtype</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>handle: sail.Handle</p></li>
+</ul>
+<p>设定BMImage所在的设备句柄。</p>
+<ul class="simple">
+<li><p>h: int</p></li>
+</ul>
+<p>图像的高。</p>
+<ul class="simple">
+<li><p>w: int</p></li>
+</ul>
+<p>图像的宽。</p>
+<ul class="simple">
+<li><p>format : sail.Format</p></li>
+</ul>
+<p>图像的格式。</p>
+<ul class="simple">
+<li><p>dtype: sail.ImgDtype</p></li>
+</ul>
+<p>图像的数据类型。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># Create BMImageArray4D</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImageArray4D</span><span class="p">()</span>
+
+    <span class="c1"># Create BMImageArray4D with parameters</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">bmcv</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Bmcv</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="s2">&quot;your_image.jpg&quot;</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">ori_img</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImageArray4D</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">format</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">dtype</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="getitem">
+<h2><span class="section-number">5.15.2. </span>__getitem__<a class="headerlink" href="#getitem" title="Link to this heading"></a></h2>
+<p>获取index上的bm_image。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">sail</span><span class="o">.</span><span class="n">bm_image</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>i: int</p></li>
+</ul>
+<p>需要返回图像的index。</p>
+<p><strong>返回值说明:</strong></p>
+<ul class="simple">
+<li><p>img: sail.bm_image</p></li>
+</ul>
+<p>返回index上的图像。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># Create BMImageArray4D with parameters</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">bmcv</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Bmcv</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="s2">&quot;your_image.jpg&quot;</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">ori_img</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImageArray4D</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">format</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">dtype</span><span class="p">())</span>
+
+    <span class="n">images</span><span class="o">.</span><span class="n">copy_from</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ori_img</span><span class="p">)</span>
+    <span class="c1"># get the bm_image from index 0</span>
+    <span class="n">img_0</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;image0 from bmimg_array:&quot;</span><span class="p">,</span><span class="n">img_0</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span><span class="n">img_0</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span><span class="n">img_0</span><span class="o">.</span><span class="n">dtype</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="setitem">
+<h2><span class="section-number">5.15.3. </span>__setitem__<a class="headerlink" href="#setitem" title="Link to this heading"></a></h2>
+<p>将图像拷贝到特定的索引上。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">bm_image</span><span class="p">)</span><span class="o">-&gt;</span><span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>i: int</p></li>
+</ul>
+<p>输入需要拷贝到的index</p>
+<ul class="simple">
+<li><p>data: sail.bm_image</p></li>
+</ul>
+<p>需要拷贝的图像数据。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># Create BMImageArray4D with parameters</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">bmcv</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Bmcv</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="s2">&quot;your_image.jpg&quot;</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">ori_img</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImageArray4D</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">format</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">dtype</span><span class="p">())</span>
+    <span class="c1"># copy image to the specified index</span>
+    <span class="n">images</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">ori_img</span><span class="o">.</span><span class="n">data</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="copy-from">
+<h2><span class="section-number">5.15.4. </span>copy_from<a class="headerlink" href="#copy-from" title="Link to this heading"></a></h2>
+<p>将图像拷贝到特定的索引上。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">copy_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImage</span><span class="p">)</span><span class="o">-&gt;</span><span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>i: int</p></li>
+</ul>
+<p>输入需要拷贝到的index</p>
+<ul class="simple">
+<li><p>data: sail.BMImage</p></li>
+</ul>
+<p>需要拷贝的图像数据。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># Create BMImageArray4D with parameters</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">bmcv</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Bmcv</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="s2">&quot;your_image.jpg&quot;</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">ori_img</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImageArray4D</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">format</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">dtype</span><span class="p">())</span>
+    <span class="c1"># copy image to the specified index</span>
+    <span class="n">images</span><span class="o">.</span><span class="n">copy_from</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">ori_img</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="attach-from">
+<h2><span class="section-number">5.15.5. </span>attach_from<a class="headerlink" href="#attach-from" title="Link to this heading"></a></h2>
+<p>将图像attach到特定的索引上，这里没有内存拷贝，所以需要原始数据已经被缓存。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">attach_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">BMImage</span><span class="p">)</span><span class="o">-&gt;</span><span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># Create BMImageArray4D with parameters</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">bmcv</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Bmcv</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="s2">&quot;your_image.jpg&quot;</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">ori_img</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImageArray4D</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">format</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">dtype</span><span class="p">())</span>
+    <span class="c1"># Attach image to the specified index</span>
+    <span class="n">images</span><span class="o">.</span><span class="n">attach_from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ori_img</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-device-id">
+<h2><span class="section-number">5.15.6. </span>get_device_id<a class="headerlink" href="#get-device-id" title="Link to this heading"></a></h2>
+<p>获取BMImageArray中的设备号。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_device_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong></p>
+<ul class="simple">
+<li><p>device_id: int</p></li>
+</ul>
+<p>BMImageArray中的设备id号</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># Create BMImageArray4D with parameters</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">bmcv</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Bmcv</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="s2">&quot;your_image.jpg&quot;</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">ori_img</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImageArray4D</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">format</span><span class="p">(),</span> <span class="n">ori_img</span><span class="o">.</span><span class="n">dtype</span><span class="p">())</span>
+    <span class="c1"># Get device id of this BMImageArray</span>
+    <span class="n">devid</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">get_device_id</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;device id:&quot;</span><span class="p">,</span><span class="n">devid</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="sail.Decoder_RawStream.html" class="btn btn-neutral float-left" title="5.14. sail.Decoder_RawStream" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="sail.bm_image.html" class="btn btn-neutral float-right" title="5.16. sail.bm_image" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, SOPHGO。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

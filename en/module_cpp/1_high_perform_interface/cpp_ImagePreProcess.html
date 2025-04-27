@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-EN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.17.1. ImagePreProcess &mdash; SOPHON-SAIL 3.10.2
+ documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01d1187f"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.17.2. TensorPTRWithName" href="cpp_TensorPTRWithName.html" />
+    <link rel="prev" title="4.17. SAIL C++ high performance interface" href="high_perform_index_cpp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../1_disclaimer.html">1. Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../3_build.html">3. Compilation and Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../4_module_cpp.html">4. SAIL C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cpp_basicfunction.html">4.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../0_enum-type/enum-index.html">4.2. SAIL enum type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_PaddingAtrr.html">4.3. PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Handle.html">4.4. Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Tensor.html">4.5. Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Engine.html">4.6. Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_MultiEngine.html">4.7. MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_bm_image.html">4.8. bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_BMImage.html">4.9. BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_BMImageArray.html">4.10. BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Decoder.html">4.11. Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Encoder.html">4.12. Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Decoder_RawStream.html">4.13. Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Bmcv.html">4.14. Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Blend.html">4.15. Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_MultiDecoder.html">4.16. MultiDecoder</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="high_perform_index_cpp.html">4.17. SAIL C++ high performance interface</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.17.1. ImagePreProcess</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#constructor">4.17.1.1. Constructor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setresizeimageatrr">4.17.1.2. SetResizeImageAtrr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setpaddingatrr">4.17.1.3. SetPaddingAtrr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setconvertatrr">4.17.1.4. SetConvertAtrr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pushimage">4.17.1.5. PushImage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#getbatchdata">4.17.1.6. GetBatchData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#set-print-flag">4.17.1.7. set_print_flag</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cpp_TensorPTRWithName.html">4.17.2. TensorPTRWithName</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpp_EngineImagePreProcess.html">4.17.3. EngineImagePreProcess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#yolov5-post-processing-acceleration-interfaces">4.17.4. Yolov5 post-processing acceleration interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#yolox-post-processing-acceleration-interfaces">4.17.5. Yolox post-processing acceleration interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#yolov8-post-processing-acceleration-interfaces">4.17.6. Yolov8 post-processing acceleration interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#sort">4.17.7. sort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#deepsort">4.17.8. deepsort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#bytetrack">4.17.9. bytetrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#openpose">4.17.10. openpose</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../5_module_python.html">5. SAIL Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../6_appendix.html">6. Appendix</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../4_module_cpp.html"><span class="section-number">4. </span>SAIL C++ API</a></li>
+          <li class="breadcrumb-item"><a href="high_perform_index_cpp.html"><span class="section-number">4.17. </span>SAIL C++ high performance interface</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.17.1. </span>ImagePreProcess</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_cpp/1_high_perform_interface/cpp_ImagePreProcess.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="imagepreprocess">
+<h1><span class="section-number">4.17.1. </span>ImagePreProcess<a class="headerlink" href="#imagepreprocess" title="Link to this heading"></a></h1>
+<p>General preprocessing interface, internally implemented using thread pool.</p>
+<section id="constructor">
+<h2><span class="section-number">4.17.1.1. </span>Constructor<a class="headerlink" href="#constructor" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">ImagePreProcess</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">batch_size</span><span class="p">,</span>
+<span class="w">    </span><span class="n">sail_resize_type</span><span class="w"> </span><span class="n">resize_mode</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tpu_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_in_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_out_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">use_mat_flag</span><span class="o">=</span><span class="nb">false</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>batch_size: int</p></li>
+</ul>
+<p>Input parameter. The batch size of the output results.</p>
+<ul class="simple">
+<li><p>resize_mode: sail_resize_type</p></li>
+</ul>
+<p>Input parameter. Internal scale transformation method.</p>
+<ul class="simple">
+<li><p>tpu_id: int</p></li>
+</ul>
+<p>Input parameter. The tpu id used, the default is 0.</p>
+<ul class="simple">
+<li><p>queue_in_size: int</p></li>
+</ul>
+<p>Input parameter. Enter the maximum length of the image queue buffer. The default is 20.</p>
+<ul class="simple">
+<li><p>queue_out_size: int</p></li>
+</ul>
+<p>Input parameter. The maximum length of the output Tensor queue cache, the default is 20.</p>
+<ul class="simple">
+<li><p>use_mat_output: bool</p></li>
+</ul>
+<p>Input parameter. Whether to use Mat of OPENCV as the output of the image, the default is False, not used.</p>
+</section>
+<section id="setresizeimageatrr">
+<h2><span class="section-number">4.17.1.2. </span>SetResizeImageAtrr<a class="headerlink" href="#setresizeimageatrr" title="Link to this heading"></a></h2>
+<p>Set the properties of the image resizing.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">SetResizeImageAtrr</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">output_width</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">output_height</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">bgr2rgb</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bm_image_data_format_ext</span><span class="w">  </span><span class="n">dtype</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>parameters:</strong></p>
+<ul class="simple">
+<li><p>output_width: int</p></li>
+</ul>
+<p>Input parameter. Image width after scale transformation.</p>
+<ul class="simple">
+<li><p>output_height: int</p></li>
+</ul>
+<p>Input parameter. Image height after scale transformation.</p>
+<ul class="simple">
+<li><p>bgr2rgb: bool</p></li>
+</ul>
+<p>Input parameter. Whether to convert images with BGR to GRB.</p>
+<ul class="simple">
+<li><p>dtype: ImgDtype</p></li>
+</ul>
+<p>Input parameter. The data type after image scale conversion, the current version only supports BM_FLOAT32, BM_INT8, BM_UINT8. Can be set according to the input data type of the model.</p>
+</section>
+<section id="setpaddingatrr">
+<h2><span class="section-number">4.17.1.3. </span>SetPaddingAtrr<a class="headerlink" href="#setpaddingatrr" title="Link to this heading"></a></h2>
+<p>Setting the properties of Padding only takes effect when resize_mode is BM_PADDING_VPP_NEAREST, BM_PADDING_TPU_NEAREST, BM_PADDING_TPU_LINEAR, or BM_PADDING_TPU_BICUBIC.</p>
+<dl>
+<dt><strong>interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">SetPaddingAtrr</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">padding_b</span><span class="o">=</span><span class="mi">114</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">padding_g</span><span class="o">=</span><span class="mi">114</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">padding_r</span><span class="o">=</span><span class="mi">114</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">align</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong>
+* padding_b: int</p>
+<p>Input parameter. The b channel pixel value to be pdding, default is 114.</p>
+<ul class="simple">
+<li><p>padding_g: int</p></li>
+</ul>
+<p>Input parameter. The g channel pixel value to be pdding, default is 114.</p>
+<ul class="simple">
+<li><p>padding_r: int</p></li>
+</ul>
+<p>Input parameter. The r channel pixel value to be pdding, default is 114.</p>
+<ul class="simple">
+<li><p>align: int</p></li>
+</ul>
+<p>Input parameter. Image padding is position, 0 means filling from the upper left corner, 1 means center filling, default is 0.</p>
+</section>
+<section id="setconvertatrr">
+<h2><span class="section-number">4.17.1.4. </span>SetConvertAtrr<a class="headerlink" href="#setconvertatrr" title="Link to this heading"></a></h2>
+<p>Set the properties of the linear transformation.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">SetConvertAtrr</span><span class="p">(</span>
+<span class="w">   </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span>
+<span class="w">       </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">       </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">       </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">alpha_beta</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><p>alpha_beta: (a0, b0), (a1, b1), (a2, b2)。输入参数。</p>
+<blockquote>
+<div><p>a0 describes the linear transformation coefficient of the 0th channel;</p>
+<p>b0 describes the linear transformation offset of the 0th channel;</p>
+<p>a1 describes the linear transformation coefficient of the first channel;</p>
+<p>b1 describes the linear transformation offset of the first channel;</p>
+<p>a2 describes the linear transformation coefficient of the second channel;</p>
+<p>b2 describes the linear transformation offset of the second channel;</p>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<p>If the setting is successful, 0 is returned. If other values are set, the setting fails.</p>
+</section>
+<section id="pushimage">
+<h2><span class="section-number">4.17.1.5. </span>PushImage<a class="headerlink" href="#pushimage" title="Link to this heading"></a></h2>
+<p>Send data.</p>
+<dl>
+<dt><strong>interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">PushImage</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">channel_idx</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">image_idx</span><span class="p">,</span>
+<span class="w">    </span><span class="n">BMImage</span><span class="w"> </span><span class="o">&amp;</span><span class="n">image</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>channel_idx: int</p></li>
+</ul>
+<p>Input parameter. Enter the channel number of the image.</p>
+<ul class="simple">
+<li><p>image_idx: int</p></li>
+</ul>
+<p>Input parameter. Enter the number of the image.</p>
+<ul class="simple">
+<li><p>image: BMImage</p></li>
+</ul>
+<p>Input parameter. The input image.</p>
+<p><strong>返回值说明:</strong></p>
+<p>Returns 0 if set successfully, other values indicate failure.</p>
+</section>
+<section id="getbatchdata">
+<h2><span class="section-number">4.17.1.6. </span>GetBatchData<a class="headerlink" href="#getbatchdata" title="Link to this heading"></a></h2>
+<p>Get the result of processing.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">BMImage</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">GetBatchData</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong>
+tuple[data, images, channels, image_idxs, padding_attrs]</p>
+<ul>
+<li><p>data: Tensor</p>
+<blockquote>
+<div><p>The processed result Tensor.</p>
+</div></blockquote>
+</li>
+<li><p>images: std::vector&lt;BMImage&gt;</p>
+<blockquote>
+<div><p>Original image sequence.</p>
+</div></blockquote>
+</li>
+<li><p>channels: std::vector&lt;int&gt;</p>
+<blockquote>
+<div><p>The channel sequence of the original image.</p>
+</div></blockquote>
+</li>
+<li><p>image_idxs: std::vector&lt;int&gt;</p>
+<blockquote>
+<div><p>Numbered sequence of original images.</p>
+</div></blockquote>
+</li>
+<li><p>padding_attrs: std::vector&lt;std::vector&lt;int&gt; &gt;</p>
+<blockquote>
+<div><p>Attribute list of the filled image, filled starting point coordinate x, starting point coordinate y, width after scale transformation, height after scale transformation</p>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="set-print-flag">
+<h2><span class="section-number">4.17.1.7. </span>set_print_flag<a class="headerlink" href="#set-print-flag" title="Link to this heading"></a></h2>
+<p>Set the flag for printing logs. If this interface is not called, the log will not be printed.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">set_print_flag</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">print_flag</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>flag: bool</p></li>
+</ul>
+<p>The printing flag, False means not printing, True means printing.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="high_perform_index_cpp.html" class="btn btn-neutral float-left" title="4.17. SAIL C++ high performance interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cpp_TensorPTRWithName.html" class="btn btn-neutral float-right" title="4.17.2. TensorPTRWithName" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SOPHGO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

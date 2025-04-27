@@ -1,0 +1,217 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-EN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.8. sail.bm_image &mdash; SOPHON-SAIL 3.10.2
+ documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01d1187f"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.9. sail.BMImage" href="sail.BMImage.html" />
+    <link rel="prev" title="5.7. sail.MultiEngine" href="sail.MultiEngine.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. Compilation and Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Basicfunction.html">5.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_enum_type/enum_index.html">5.2. SAIL enum type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Handle.html">5.3. sail.Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Tensor.html">5.4. sail.Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.PaddingAtrr.html">5.5. sail.PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Engine.html">5.6. sail.Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiEngine.html">5.7. sail.MultiEngine</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.8. sail.bm_image</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#width">5.8.1. width</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#height">5.8.2. height</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#format">5.8.3. format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dtype">5.8.4. dtype</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImage.html">5.9. sail.BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImageArray.html">5.10. sail.BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder.html">5.11. sail.Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Encoder.html">5.12. sail.Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder_RawStream.html">5.13. sail.Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Bmcv.html">5.14. sail.Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Blend.html">5.15. sail.Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiDecoder.html">5.16. sail.MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_high_perform_interface/high_perform_index.html">5.17. SAIL Python high performance interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. Appendix</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../5_module_python.html"><span class="section-number">5. </span>SAIL Python API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.8. </span>sail.bm_image</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_python/sail.bm_image.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sail-bm-image">
+<h1><span class="section-number">5.8. </span>sail.bm_image<a class="headerlink" href="#sail-bm-image" title="Link to this heading"></a></h1>
+<p>Functions to get bm_image attributes.</p>
+<section id="width">
+<h2><span class="section-number">5.8.1. </span>width<a class="headerlink" href="#width" title="Link to this heading"></a></h2>
+<p>Get width of image.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>width : int</p></li>
+</ul>
+<p>The width of image.</p>
+</section>
+<section id="height">
+<h2><span class="section-number">5.8.2. </span>height<a class="headerlink" href="#height" title="Link to this heading"></a></h2>
+<p>Get height of image.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">height</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>height : int</p></li>
+</ul>
+<p>The height of image.</p>
+</section>
+<section id="format">
+<h2><span class="section-number">5.8.3. </span>format<a class="headerlink" href="#format" title="Link to this heading"></a></h2>
+<p>Get format of image.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">bm_image_format_ext</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>format : bm_image_format_ext</p></li>
+</ul>
+<p>Get the format of image.</p>
+</section>
+<section id="dtype">
+<h2><span class="section-number">5.8.4. </span>dtype<a class="headerlink" href="#dtype" title="Link to this heading"></a></h2>
+<p>Get dtype of image.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">bm_image_data_format_ext</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>dtype : bm_image_data_format_ext</p></li>
+</ul>
+<p>The dtype of image.</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">tpu_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">tpu_id</span><span class="p">)</span>
+    <span class="n">image_name</span> <span class="o">=</span> <span class="s2">&quot;your_image.jpg&quot;</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">image_name</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="n">tpu_id</span><span class="p">)</span>
+    <span class="n">BMimg</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span><span class="c1"># here is a sail.BMImage</span>
+    <span class="n">bmimg</span> <span class="o">=</span> <span class="n">BMimg</span><span class="o">.</span><span class="n">data</span><span class="p">()</span><span class="c1"># here is a sail.bm_image</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">bmimg</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span><span class="n">bmimg</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span><span class="n">bmimg</span><span class="o">.</span><span class="n">format</span><span class="p">(),</span><span class="n">bmimg</span><span class="o">.</span><span class="n">dtype</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sail.MultiEngine.html" class="btn btn-neutral float-left" title="5.7. sail.MultiEngine" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sail.BMImage.html" class="btn btn-neutral float-right" title="5.9. sail.BMImage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SOPHGO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

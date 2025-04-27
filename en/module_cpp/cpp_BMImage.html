@@ -1,0 +1,499 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-EN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.9. BMImage &mdash; SOPHON-SAIL 3.10.2
+ documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01d1187f"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.10. BMImageArray" href="cpp_BMImageArray.html" />
+    <link rel="prev" title="4.8. bm_image" href="cpp_bm_image.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. Compilation and Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cpp_basicfunction.html">4.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_enum-type/enum-index.html">4.2. SAIL enum type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_PaddingAtrr.html">4.3. PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Handle.html">4.4. Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Tensor.html">4.5. Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Engine.html">4.6. Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_MultiEngine.html">4.7. MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_bm_image.html">4.8. bm_image</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.9. BMImage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#constructor">4.9.1. Constructor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#width">4.9.2. width</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#height">4.9.3. height</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#format">4.9.4. format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dtype">4.9.5. dtype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data">4.9.6. data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-device-id">4.9.7. get_device_id</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-handle">4.9.8. get_handle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-plane-num">4.9.9. get_plane_num</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#align">4.9.10. align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check-align">4.9.11. check_align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unalign">4.9.12. unalign</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check-contiguous-memory">4.9.13. check_contiguous_memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-pts-dts">4.9.14. get_pts_dts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_BMImageArray.html">4.10. BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Decoder.html">4.11. Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Encoder.html">4.12. Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Decoder_RawStream.html">4.13. Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Bmcv.html">4.14. Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Blend.html">4.15. Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_MultiDecoder.html">4.16. MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_high_perform_interface/high_perform_index_cpp.html">4.17. SAIL C++ high performance interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. Appendix</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../4_module_cpp.html"><span class="section-number">4. </span>SAIL C++ API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.9. </span>BMImage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_cpp/cpp_BMImage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bmimage">
+<h1><span class="section-number">4.9. </span>BMImage<a class="headerlink" href="#bmimage" title="Link to this heading"></a></h1>
+<p>BMImage encapsulates all the information of an image, and the Bmcv interface can be used to convert the BMImage into a Tensor for model inference.</p>
+<p>BMImage is also the basic data type for other image processing operations through the Bmcv interface.</p>
+<section id="constructor">
+<h2><span class="section-number">4.9.1. </span>Constructor<a class="headerlink" href="#constructor" title="Link to this heading"></a></h2>
+<p>Initialize BMImage.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">BMImage</span><span class="p">();</span>
+
+<span class="n">BMImage</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Handle</span><span class="o">&amp;</span><span class="w">                  </span><span class="n">handle</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">                      </span><span class="n">h</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">                      </span><span class="n">w</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bm_image_format_ext</span><span class="w">      </span><span class="n">format</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bm_image_data_format_ext</span><span class="w"> </span><span class="n">dtype</span><span class="p">);</span>
+
+<span class="n">BMImage</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Handle</span><span class="w">                   </span><span class="o">&amp;</span><span class="n">handle</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w">                    </span><span class="n">buffer</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">                      </span><span class="n">h</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">                      </span><span class="n">w</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bm_image_format_ext</span><span class="w">      </span><span class="n">format</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bm_image_data_format_ext</span><span class="w"> </span><span class="n">dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DATA_TYPE_EXT_1N_BYTE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w">         </span><span class="n">strides</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w">                   </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>handle: Handle</p></li>
+</ul>
+<p>Set the device handle where the BMImage is located.</p>
+<ul class="simple">
+<li><p>h: int</p></li>
+</ul>
+<p>The height of the image.</p>
+<ul class="simple">
+<li><p>w: int</p></li>
+</ul>
+<p>The width of the image.</p>
+<ul class="simple">
+<li><p>format : bm_image_format_ext</p></li>
+</ul>
+<p>The format of the image.
+Supported formats are listed in <a class="reference external" href="0_enum-type/cpp_Format.html">sail.Format</a> .</p>
+<ul class="simple">
+<li><p>dtype: bm_image_data_format_ext</p></li>
+</ul>
+<p>The data type of the image.
+Supported data types are listed in <a class="reference external" href="0_enum-type/cpp_ImgDtype.html">ImgDtype</a> .</p>
+<ul class="simple">
+<li><p>buffer: bytes | np.array</p></li>
+</ul>
+<p>The address of the buffer when creating an image with a buffer.</p>
+<ul class="simple">
+<li><p>strides</p></li>
+</ul>
+<p>The stride of the image when creating an image with a buffer. The unit is in bytes.
+The default is empty, indicating that it is the same as the data width of one row.
+If specified, ensure the number of elements in the list matches the number of image planes.</p>
+<ul class="simple">
+<li><p>offset</p></li>
+</ul>
+<p>The offset of valid data relative to the start address of the buffer when creating an image with a buffer.
+The unit is in bytes, and the default is 0.</p>
+</section>
+<section id="width">
+<h2><span class="section-number">4.9.2. </span>width<a class="headerlink" href="#width" title="Link to this heading"></a></h2>
+<p>Get the width of the image.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">width</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>width : int</p></li>
+</ul>
+<p>Returns the width of the image.</p>
+</section>
+<section id="height">
+<h2><span class="section-number">4.9.3. </span>height<a class="headerlink" href="#height" title="Link to this heading"></a></h2>
+<p>Get the height of the image.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">height</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>height : int</p></li>
+</ul>
+<p>Returns the height of the image.</p>
+</section>
+<section id="format">
+<h2><span class="section-number">4.9.4. </span>format<a class="headerlink" href="#format" title="Link to this heading"></a></h2>
+<p>Get the format of the image.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">bm_image_format_ext</span><span class="w"> </span><span class="nf">format</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>format : bm_image_format_ext</p></li>
+</ul>
+<p>Returns the format of the image.</p>
+</section>
+<section id="dtype">
+<h2><span class="section-number">4.9.5. </span>dtype<a class="headerlink" href="#dtype" title="Link to this heading"></a></h2>
+<p>Get the data type of the image.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">bm_image_data_format_ext</span><span class="w"> </span><span class="nf">dtype</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>dtype: bm_image_data_format_ext</p></li>
+</ul>
+<p>Returns the data type of the image.</p>
+</section>
+<section id="data">
+<h2><span class="section-number">4.9.6. </span>data<a class="headerlink" href="#data" title="Link to this heading"></a></h2>
+<p>Get bm_image inside BMImage.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">bm_image</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">data</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>img : bm_image</p></li>
+</ul>
+<p>Returns bm_image inside the image.</p>
+</section>
+<section id="get-device-id">
+<h2><span class="section-number">4.9.7. </span>get_device_id<a class="headerlink" href="#get-device-id" title="Link to this heading"></a></h2>
+<p>Get the device id number in BMImage.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">get_device_id</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>device_id : int</p></li>
+</ul>
+<p>Returns the device id in BMImage</p>
+</section>
+<section id="get-handle">
+<h2><span class="section-number">4.9.8. </span>get_handle<a class="headerlink" href="#get-handle" title="Link to this heading"></a></h2>
+<p>Get Handle of the BMImage.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">Handle</span><span class="w"> </span><span class="nf">get_handle</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Return:</strong></p>
+<ul class="simple">
+<li><p>Handle : Handle</p></li>
+</ul>
+<p>Return the Handle of BMImage.</p>
+</section>
+<section id="get-plane-num">
+<h2><span class="section-number">4.9.9. </span>get_plane_num<a class="headerlink" href="#get-plane-num" title="Link to this heading"></a></h2>
+<p>Get the number of image planes in BMImage.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">get_plane_num</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>planes_num : int</p></li>
+</ul>
+<p>Returns the number of image planes in BMImage.</p>
+</section>
+<section id="align">
+<h2><span class="section-number">4.9.10. </span>align<a class="headerlink" href="#align" title="Link to this heading"></a></h2>
+<p>Align BMImage as 64 bits</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">align</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>ret : int</p></li>
+</ul>
+<p>Returns whether the BMImage is successfully aligned, -1 represents failure, 0 represents success</p>
+</section>
+<section id="check-align">
+<h2><span class="section-number">4.9.11. </span>check_align<a class="headerlink" href="#check-align" title="Link to this heading"></a></h2>
+<p>Get whether the image in BMImage is aligned</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">check_align</span><span class="p">()</span><span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>ret : bool</p></li>
+</ul>
+<p>1 means aligned, 0 means not aligned</p>
+</section>
+<section id="unalign">
+<h2><span class="section-number">4.9.12. </span>unalign<a class="headerlink" href="#unalign" title="Link to this heading"></a></h2>
+<p>unalign the BMImage</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">unalign</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>ret : int</p></li>
+</ul>
+<p>Returns whether the BMImage is successfully unaligned, -1 means failure, 0 means success</p>
+</section>
+<section id="check-contiguous-memory">
+<h2><span class="section-number">4.9.13. </span>check_contiguous_memory<a class="headerlink" href="#check-contiguous-memory" title="Link to this heading"></a></h2>
+<p>Get whether the image memory in BMImage is continuous</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">check_contiguous_memory</span><span class="p">()</span><span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>ret : bool</p></li>
+</ul>
+<p>1 means continuous, 0 means discontinuous</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">image_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;your_image.jpg&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Decoder</span><span class="w"> </span><span class="n">decoder</span><span class="p">(</span><span class="n">image_name</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">BMImage</span><span class="w"> </span><span class="n">BMimg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">decoder</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Get the image information</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BMimg</span><span class="p">.</span><span class="n">width</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BMimg</span><span class="p">.</span><span class="n">height</span><span class="p">();</span>
+<span class="w">    </span><span class="n">bm_image_format_ext</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BMimg</span><span class="p">.</span><span class="n">format</span><span class="p">();</span>
+<span class="w">    </span><span class="n">bm_image_data_format_ext</span><span class="w"> </span><span class="n">dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BMimg</span><span class="p">.</span><span class="n">dtype</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Convert BMImage to bm_image data structure</span>
+<span class="w">    </span><span class="n">bm_image</span><span class="w"> </span><span class="n">bmimg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BMimg</span><span class="p">.</span><span class="n">data</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Get the device id and handle</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">device_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BMimg</span><span class="p">.</span><span class="n">get_device_id</span><span class="p">();</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BMimg</span><span class="p">.</span><span class="n">get_handle</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">plane_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BMimg</span><span class="p">.</span><span class="n">get_plane_num</span><span class="p">();</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Width: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, Height: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, Format: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, Data Type: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">dtype</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, Device ID: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">device_id</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, Plane Num: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">plane_num</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Align the image</span>
+<span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BMimg</span><span class="p">.</span><span class="n">align</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Failed to align the image!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;is align: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">BMimg</span><span class="p">.</span><span class="n">check_align</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// unalign the image</span>
+<span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BMimg</span><span class="p">.</span><span class="n">unalign</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Failed to unalign the image!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;is align: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">BMimg</span><span class="p">.</span><span class="n">check_align</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// check contiguous memory</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;is continues: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="n">BMimg</span><span class="p">.</span><span class="n">check_contiguous_memory</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// create BMImage with data from buffer</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">buf</span><span class="p">(</span><span class="mi">200</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">BMImage</span><span class="w"> </span><span class="n">img_fromRawdata</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="n">sail</span><span class="o">::</span><span class="n">Format</span><span class="o">::</span><span class="n">FORMAT_BGR_PACKED</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-pts-dts">
+<h2><span class="section-number">4.9.14. </span>get_pts_dts<a class="headerlink" href="#get-pts-dts" title="Link to this heading"></a></h2>
+<p>Get pts or dts.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_pts_dts</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>result : int</p></li>
+</ul>
+<p>the value of pts and dts.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">sail</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">file_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;your_video_file_path.mp4&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tpu_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">tpu_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Decoder</span><span class="w"> </span><span class="n">decoder</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">tpu_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">BMImage</span><span class="w"> </span><span class="n">image</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">decoder</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">image</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Failed to read a frame!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pts_dts</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pts_dts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">image</span><span class="p">.</span><span class="n">get_pts_dts</span><span class="p">();</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;pts: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pts_dts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;dts: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pts_dts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cpp_bm_image.html" class="btn btn-neutral float-left" title="4.8. bm_image" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cpp_BMImageArray.html" class="btn btn-neutral float-right" title="4.10. BMImageArray" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SOPHGO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

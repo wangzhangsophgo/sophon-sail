@@ -1,0 +1,793 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-EN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.16. MultiDecoder &mdash; SOPHON-SAIL 3.10.2
+ documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01d1187f"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.17. SAIL C++ high performance interface" href="1_high_perform_interface/high_perform_index_cpp.html" />
+    <link rel="prev" title="4.15. Blend" href="cpp_Blend.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. Compilation and Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cpp_basicfunction.html">4.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_enum-type/enum-index.html">4.2. SAIL enum type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_PaddingAtrr.html">4.3. PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Handle.html">4.4. Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Tensor.html">4.5. Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Engine.html">4.6. Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_MultiEngine.html">4.7. MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_bm_image.html">4.8. bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_BMImage.html">4.9. BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_BMImageArray.html">4.10. BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Decoder.html">4.11. Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Encoder.html">4.12. Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Decoder_RawStream.html">4.13. Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Bmcv.html">4.14. Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Blend.html">4.15. Blend</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.16. MultiDecoder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#constructor">4.16.1. Constructor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-read-timeout">4.16.2. set_read_timeout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-channel">4.16.3. add_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#del-channel">4.16.4. del_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clear-queue">4.16.5. clear_queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read">4.16.6. read</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">4.16.7. read_</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reconnect">4.16.8. reconnect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-frame-shape">4.16.9. get_frame_shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-local-flag">4.16.10. set_local_flag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-channel-fps">4.16.11. get_channel_fps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-drop-num">4.16.12. get_drop_num</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="1_high_perform_interface/high_perform_index_cpp.html">4.17. SAIL C++ high performance interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. Appendix</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../4_module_cpp.html"><span class="section-number">4. </span>SAIL C++ API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.16. </span>MultiDecoder</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_cpp/cpp_MultiDecoder.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="multidecoder">
+<h1><span class="section-number">4.16. </span>MultiDecoder<a class="headerlink" href="#multidecoder" title="Link to this heading"></a></h1>
+<p>Multi-channel decoding interface supports decoding multiple channels of video at the same time.</p>
+<section id="constructor">
+<h2><span class="section-number">4.16.1. </span>Constructor<a class="headerlink" href="#constructor" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">MultiDecoder</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tpu_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>queue_size: int</p></li>
+</ul>
+<p>Input parameter. For each channel of video, the length of the decoding cache image queue.</p>
+<ul class="simple">
+<li><p>tpu_id: int</p></li>
+</ul>
+<p>Input parameter. The tpu id used, the default is 0.</p>
+<ul class="simple">
+<li><p>discard_mode: int</p></li>
+</ul>
+<p>Input parameter. The data discarding strategy after the cache reaches the maximum size. 0 means not to put data into the cache; 1 means to take out the picture at the head of the queue from the queue, discard it, and then cache the decoded picture. Default is 0.</p>
+</section>
+<section id="set-read-timeout">
+<h2><span class="section-number">4.16.2. </span>set_read_timeout<a class="headerlink" href="#set-read-timeout" title="Link to this heading"></a></h2>
+<p>Set the timeout for reading images, which takes effect on the read and read_ interfaces. If the image is not obtained after the timeout, the result will be returned.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">set_read_timeout</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">time_second</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>timeout: int</p></li>
+</ul>
+<p>Input parameter. Timeout time, unit is seconds.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/decoder_multi.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">MultiDecoder</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">(</span><span class="n">queue_size</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="n">discard_mode</span><span class="p">);</span>
+<span class="w">    </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">set_read_timeout</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="add-channel">
+<h2><span class="section-number">4.16.3. </span>add_channel<a class="headerlink" href="#add-channel" title="Link to this heading"></a></h2>
+<p>Add a channel.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">add_channel</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w">  </span><span class="n">file_path</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">                 </span><span class="n">frame_skip_num</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>file_path: string</p></li>
+</ul>
+<p>Input parameter. The path or link to the video.</p>
+<ul class="simple">
+<li><p>frame_skip_num: int</p></li>
+</ul>
+<p>Input parameter. The number of active frame drops in the decoding cache. The default is 0, which means no active frame drops.</p>
+<p><strong>Returns</strong></p>
+<p>Returns the unique channel number corresponding to the video. Type is int.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/decoder_multi.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">MultiDecoder</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">(</span><span class="n">queue_size</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="n">discard_mode</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel_list</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">add_channel</span><span class="p">(</span><span class="s">&quot;your_video_path&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">idx</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">channel_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="del-channel">
+<h2><span class="section-number">4.16.4. </span>del_channel<a class="headerlink" href="#del-channel" title="Link to this heading"></a></h2>
+<p>Delete an already added video channel.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">del_channel</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">channel_idx</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>channel_idx: int</p></li>
+</ul>
+<p>Input parameter. The channel number of the video to be deleted.</p>
+<p><strong>Returns:</strong></p>
+<p>Returns 0 on success, other values indicate failure.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/decoder_multi.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">MultiDecoder</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">(</span><span class="n">queue_size</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="n">discard_mode</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel_list</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">add_channel</span><span class="p">(</span><span class="s">&quot;your_video_path&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">idx</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">channel_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">del_channel</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Failed!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="clear-queue">
+<h2><span class="section-number">4.16.5. </span>clear_queue<a class="headerlink" href="#clear-queue" title="Link to this heading"></a></h2>
+<p>Clear the image cache of the specified channel.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">clear_queue</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">channel_idx</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>channel_idx: int</p></li>
+</ul>
+<p>Input parameter. The channel number of the video to be deleted.</p>
+<p><strong>Returns:</strong></p>
+<p>Returns 0 on success, other values indicate failure.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/decoder_multi.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">MultiDecoder</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">(</span><span class="n">queue_size</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="n">discard_mode</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel_list</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">add_channel</span><span class="p">(</span><span class="s">&quot;your_video_path&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">idx</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">channel_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">clear_queue</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Failed!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="read">
+<h2><span class="section-number">4.16.6. </span>read<a class="headerlink" href="#read" title="Link to this heading"></a></h2>
+<p>Get an image from the specified video channel.</p>
+<dl>
+<dt><strong>Interface 1:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">         </span><span class="n">channel_idx</span><span class="p">,</span>
+<span class="w">    </span><span class="n">BMImage</span><span class="o">&amp;</span><span class="w">    </span><span class="n">image</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">         </span><span class="n">read_mode</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters 1:</strong></p>
+<ul class="simple">
+<li><p>channel_idx: int</p></li>
+</ul>
+<p>Input parameter. Specified video channel number.</p>
+<ul class="simple">
+<li><p>image: BMImage</p></li>
+</ul>
+<p>Output parameter. Decoded picture.</p>
+<ul class="simple">
+<li><p>read_mode: int</p></li>
+</ul>
+<p>Input parameter. The mode for getting images, 0 means no waiting, read one directly from the cache, and it will return regardless of whether it is read or not. Others indicate waiting until the image is obtained before returning.</p>
+<p><strong>Returns 1:</strong></p>
+<p>Returns 0 on success, other values indicate failure.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/decoder_multi.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">MultiDecoder</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">(</span><span class="n">queue_size</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="n">discard_mode</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel_list</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">add_channel</span><span class="p">(</span><span class="s">&quot;your_video_path&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">idx</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">channel_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">channel_list</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">sail</span><span class="o">::</span><span class="n">BMImage</span><span class="w"> </span><span class="n">bmimg</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span><span class="w"> </span><span class="n">bmimg</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Interface 2:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">BMImage</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">channel_idx</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters 2:</strong></p>
+<ul class="simple">
+<li><p>channel_idx: int</p></li>
+</ul>
+<p>Input parameter. Specified video channel number.</p>
+<p><strong>返回值说明2:</strong></p>
+<p>Returns the decoded image, type is BMImage.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/decoder_multi.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">MultiDecoder</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">(</span><span class="n">queue_size</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="n">discard_mode</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel_list</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">add_channel</span><span class="p">(</span><span class="s">&quot;your_video_path&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">idx</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">channel_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">channel_list</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">sail</span><span class="o">::</span><span class="n">BMImage</span><span class="w"> </span><span class="n">bmimg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="id1">
+<h2><span class="section-number">4.16.7. </span>read_<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>Get an image from the specified video channel, usually used with BMImageArray.</p>
+<dl>
+<dt><strong>Interface 1:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">read_</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">         </span><span class="n">channel_idx</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bm_image</span><span class="o">&amp;</span><span class="w">   </span><span class="n">image</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w">         </span><span class="n">read_mode</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters 1:</strong></p>
+<ul class="simple">
+<li><p>channel_idx: int</p></li>
+</ul>
+<p>Input parameter. Specified video channel number.</p>
+<ul class="simple">
+<li><p>image: bm_image</p></li>
+</ul>
+<p>Output parameter. Decoded image.</p>
+<ul class="simple">
+<li><p>read_mode: int</p></li>
+</ul>
+<p>Input parameter. The mode for getting images, 0 means no waiting, read one directly from the cache, and it will return regardless of whether it is read or not. Others indicate waiting until the image is obtained before returning.</p>
+<p><strong>Returns 1:</strong></p>
+<p>Returns 0 on success, other values indicate failure.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/decoder_multi.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">MultiDecoder</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">(</span><span class="n">queue_size</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="n">discard_mode</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel_list</span><span class="p">;</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">frame_list</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">add_channel</span><span class="p">(</span><span class="s">&quot;your_video_path&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">idx</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">channel_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">        </span><span class="n">frame_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="o">&gt;</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">channel_list</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">sail</span><span class="o">::</span><span class="n">BMImage</span><span class="w"> </span><span class="n">image</span><span class="p">;</span>
+<span class="w">            </span><span class="n">sail</span><span class="o">::</span><span class="n">bm_image</span><span class="w"> </span><span class="n">bmimg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">image</span><span class="p">.</span><span class="n">data</span><span class="p">()</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">read_</span><span class="p">(</span><span class="n">idx</span><span class="p">,(</span><span class="n">id</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Interface 2:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">bm_image</span><span class="w"> </span><span class="nf">read_</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">channel_idx</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters 2:</strong></p>
+<ul class="simple">
+<li><p>channel_idx: int</p></li>
+</ul>
+<p>Input parameter. Specified video channel number.</p>
+<p><strong>Returns 2:</strong></p>
+<p>Returns the decoded image, type bm_image.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/decoder_multi.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">MultiDecoder</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">(</span><span class="n">queue_size</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="n">discard_mode</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel_list</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">add_channel</span><span class="p">(</span><span class="s">&quot;your_video_path&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">idx</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">channel_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">channel_list</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">bm_image</span><span class="w"> </span><span class="n">bmimg</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">read_</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="reconnect">
+<h2><span class="section-number">4.16.8. </span>reconnect<a class="headerlink" href="#reconnect" title="Link to this heading"></a></h2>
+<p>Reconnect video in the corresponding channel.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">reconnect</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">channel_idx</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>channel_idx: int</p></li>
+</ul>
+<p>Input parameter. Enter the channel number of the image.</p>
+<p><strong>Returns</strong></p>
+<p>Returns 0 on success, other values indicate failure.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/decoder_multi.h&gt;</span>
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">MultiDecoder</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">(</span><span class="n">queue_size</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="n">discard_mode</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel_list</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">add_channel</span><span class="p">(</span><span class="s">&quot;your_video_path&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">idx</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">channel_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">reconnect</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ret</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Failed!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-frame-shape">
+<h2><span class="section-number">4.16.9. </span>get_frame_shape<a class="headerlink" href="#get-frame-shape" title="Link to this heading"></a></h2>
+<p>Get the image shape of the corresponding channel.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_frame_shape</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">channel_idx</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<p>Input parameters. Enter the channel number of the image.</p>
+<p><strong>Returns:</strong></p>
+<p>Returns a list consisting of 1, number of channels, image height, and image width.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/decoder_multi.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">MultiDecoder</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">(</span><span class="n">queue_size</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="n">discard_mode</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel_list</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">add_channel</span><span class="p">(</span><span class="s">&quot;your_video_path&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">idx</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">channel_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">get_frame_shape</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="set-local-flag">
+<h2><span class="section-number">4.16.10. </span>set_local_flag<a class="headerlink" href="#set-local-flag" title="Link to this heading"></a></h2>
+<p>Set whether the video is a local video. If not called, the video is represented as a network video stream.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">set_local_flag</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">flag</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>flag: bool</p></li>
+</ul>
+<p>Standard bit. If it is True, each video channel will be decoded at a fixed rate of 25 frames per second.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/decoder_multi.h&gt;</span>
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">MultiDecoder</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">(</span><span class="n">queue_size</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="n">discard_mode</span><span class="p">);</span>
+<span class="w">    </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">set_local_flag</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-channel-fps">
+<h2><span class="section-number">4.16.11. </span>get_channel_fps<a class="headerlink" href="#get-channel-fps" title="Link to this heading"></a></h2>
+<p>Get the video fps of the specified channel</p>
+<dl>
+<dt><strong>Interface</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">float</span><span class="w"> </span><span class="n">get_channel_fps</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">channel_idx</span><span class="p">)</span><span class="o">:</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>channel_idx: int</p></li>
+</ul>
+<p>The specified channel index</p>
+<p><strong>Returns</strong></p>
+<p>Returns the video fps of the specified channel</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/decoder_multi.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">MultiDecoder</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">(</span><span class="n">queue_size</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="n">discard_mode</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel_list</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">add_channel</span><span class="p">(</span><span class="s">&quot;your_video_path&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">idx</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">channel_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">fps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">get_channel_fps</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-drop-num">
+<h2><span class="section-number">4.16.12. </span>get_drop_num<a class="headerlink" href="#get-drop-num" title="Link to this heading"></a></h2>
+<p>Obtain the number of dropped frames.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span><span class="w"> </span><span class="nf">get_drop_num</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">channel_idx</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>channel_idx: int</p></li>
+</ul>
+<p>The channel index of the input image.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/decoder_multi.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">MultiDecoder</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">(</span><span class="n">queue_size</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="n">discard_mode</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel_list</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">add_channel</span><span class="p">(</span><span class="s">&quot;your_video_path&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">idx</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">channel_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">get_drop_num</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>reset_drop_num</p>
+<hr class="docutils" />
+<p>Set the number of dropped frames to num.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span><span class="w"> </span><span class="nf">reset_drop_num</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">channel_idx</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>channel_idx: int</p></li>
+</ul>
+<p>The channel index of the input image.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/decoder_multi.h&gt;</span>
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">discard_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">MultiDecoder</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">(</span><span class="n">queue_size</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="n">discard_mode</span><span class="p">);</span>
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel_list</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">add_channel</span><span class="p">(</span><span class="s">&quot;your_video_path&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">idx</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">        </span><span class="n">channel_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">        </span><span class="n">multiDecoder</span><span class="p">.</span><span class="n">reset_drop_num</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cpp_Blend.html" class="btn btn-neutral float-left" title="4.15. Blend" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="1_high_perform_interface/high_perform_index_cpp.html" class="btn btn-neutral float-right" title="4.17. SAIL C++ high performance interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SOPHGO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

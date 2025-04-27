@@ -1,0 +1,144 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAIL &mdash; SOPHON-SAIL 3.10.2
+ 文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9080cc91"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. 声明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. 编译安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">SAIL</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module/sail.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sail">
+<h1>SAIL<a class="headerlink" href="#sail" title="Link to this heading"></a></h1>
+<p>SAIL (SOPHON Artificial Intelligent Library)是 SOPHON-SAIL 中的核心模块。
+SAIL对 SOPHONSDK 中的 BMLib、sophon-mw(对于BM1688或者CV186AH处理器,名称更改为sophon-media)、BMCV、BMRuntime 进行了封装，
+将 SOPHONSDK 中原有的 “加载 bmodel 并驱动智能视觉深度学习处理器推理”、“驱动智能视觉深度学习处理器做图像处理”、“驱动 VPU 做图像和视频解码”等功能抽象成更为简单的 C++ 接口对外提供；
+并且使用 pybind11 再次封装，提供简洁易用的 python 接口。</p>
+<p>目前，SAIL 模块中所有的类、枚举、函数都在 “sail” 命名空间下，
+本单元中的文档将向您深入介绍可能用到的 SAIL 中的模块和类。
+核心的类包括：</p>
+<ul class="simple">
+<li><p>Handle：</p></li>
+</ul>
+<p>SDK 中 BMLib 的 bm_handle_t 的包装类，设备句柄，上下文信息，用来和内核驱动交互信息。</p>
+<ul class="simple">
+<li><p>Tensor：</p></li>
+</ul>
+<p>SDK 中 BMLib 的包装类，封装了对 device memory 的管理以及与 system memory 的同步。</p>
+<ul class="simple">
+<li><p>Engine：</p></li>
+</ul>
+<p>SDK 中 BMRuntime 的包装类，可以加载 bmodel 并驱动智能视觉深度学习处理器进行推理。
+一个 Engine 实例可以加载一个任意的 bmodel，
+自动地管理输入张量与输出张量对应的内存。</p>
+<ul class="simple">
+<li><p>Decoder：</p></li>
+</ul>
+<p>使用VPU解码视频，JPU解码图像，均为硬件解码。</p>
+<ul class="simple">
+<li><p>Encoder：</p></li>
+</ul>
+<p>使用VPU编码视频，JPU和软件编码图像。视频编码支持h264，h265的本地视频和rtsp/rtmp流；像素格式支持NV12和I420。jpeg硬件编码和其他图片格式的软件编码。</p>
+<ul class="simple">
+<li><p>Bmcv：</p></li>
+</ul>
+<p>SDK 中 BMCV 的包装类，封装了一系列的图像处理函数，可以驱动智能视觉深度学习处理器进行图像处理。</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, SOPHGO。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

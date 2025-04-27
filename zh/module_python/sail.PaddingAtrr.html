@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.12. sail.PaddingAtrr &mdash; SOPHON-SAIL 3.10.2
+ 文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9080cc91"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="5.13. sail.Blend" href="sail.Blend.html" />
+    <link rel="prev" title="5.11. sail.Encoder" href="sail.Encoder.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. 声明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. 编译安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API 参考</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API 参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Basicfunction.html">5.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_enum_type/enum_index.html">5.2. SAIL 枚举类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Handle.html">5.3. sail.Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Tensor.html">5.4. sail.Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Engine.html">5.5. sail.Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.EngineLLM.html">5.6. sail.EngineLLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImage.html">5.7. sail.BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Bmcv.html">5.8. sail.Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder.html">5.9. sail.Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiDecoder.html">5.10. sail.MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Encoder.html">5.11. sail.Encoder</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.12. sail.PaddingAtrr</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#init">5.12.1. __init__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-stx">5.12.2. set_stx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-sty">5.12.3. set_sty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-w">5.12.4. set_w</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-h">5.12.5. set_h</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-r">5.12.6. set_r</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-g">5.12.7. set_g</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-b">5.12.8. set_b</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Blend.html">5.13. sail.Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder_RawStream.html">5.14. sail.Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImageArray.html">5.15. sail.BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.bm_image.html">5.16. sail.bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiEngine.html">5.17. sail.MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_high_perform_interface/high_perform_index.html">5.18. SAIL Python 高性能接口</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../5_module_python.html"><span class="section-number">5. </span>SAIL Python API 参考</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.12. </span>sail.PaddingAtrr</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_python/sail.PaddingAtrr.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sail-paddingatrr">
+<h1><span class="section-number">5.12. </span>sail.PaddingAtrr<a class="headerlink" href="#sail-paddingatrr" title="Link to this heading"></a></h1>
+<p>PaddingAtrr中存储了数据padding的各项属性，可通过配置PaddingAtrr进行数据填充</p>
+<section id="init">
+<h2><span class="section-number">5.12.1. </span>__init__<a class="headerlink" href="#init" title="Link to this heading"></a></h2>
+<p>初始化PaddingAtrr</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sty</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>stx: int</p></li>
+</ul>
+<p>原图像相对于目标图像在x方向上的偏移量</p>
+<ul class="simple">
+<li><p>sty: int</p></li>
+</ul>
+<p>原图像相对于目标图像在y方向上的偏移量</p>
+<ul class="simple">
+<li><p>width: int</p></li>
+</ul>
+<p>在padding的同时可对原图像进行resize，width为原图像resize后的宽，若不进行resize，则width为原图像的宽</p>
+<ul class="simple">
+<li><p>height: int</p></li>
+</ul>
+<p>在padding的同时可对原图像进行resize，height为原图像resize后的高，若不进行resize，则height为原图像的高</p>
+<ul class="simple">
+<li><p>r: int</p></li>
+</ul>
+<p>padding时在R通道上填充的像素值</p>
+<ul class="simple">
+<li><p>g: int</p></li>
+</ul>
+<p>padding时在G通道上填充的像素值</p>
+<ul class="simple">
+<li><p>b: int</p></li>
+</ul>
+<p>padding时在B通道上填充的像素值</p>
+</section>
+<section id="set-stx">
+<h2><span class="section-number">5.12.2. </span>set_stx<a class="headerlink" href="#set-stx" title="Link to this heading"></a></h2>
+<p>设置原图像相对于目标图像在x方向上的偏移量</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_stx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>stx: int</p></li>
+</ul>
+<p>原图像相对于目标图像在x方向上的偏移量</p>
+</section>
+<section id="set-sty">
+<h2><span class="section-number">5.12.3. </span>set_sty<a class="headerlink" href="#set-sty" title="Link to this heading"></a></h2>
+<p>设置原图像相对于目标图像在y方向上的偏移量</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_sty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sty</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>sty: int</p></li>
+</ul>
+<p>原图像相对于目标图像在y方向上的偏移量</p>
+</section>
+<section id="set-w">
+<h2><span class="section-number">5.12.4. </span>set_w<a class="headerlink" href="#set-w" title="Link to this heading"></a></h2>
+<p>设置原图像resize后的width</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_w</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>width: int</p></li>
+</ul>
+<p>在padding的同时可对原图像进行resize，width为原图像resize后的宽，若不进行resize，则width为原图像的宽</p>
+</section>
+<section id="set-h">
+<h2><span class="section-number">5.12.5. </span>set_h<a class="headerlink" href="#set-h" title="Link to this heading"></a></h2>
+<p>设置原图像resize后的height</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_h</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>height: int</p></li>
+</ul>
+<p>在padding的同时可对原图像进行resize，height为原图像resize后的高，若不进行resize，则height为原图像的高</p>
+</section>
+<section id="set-r">
+<h2><span class="section-number">5.12.6. </span>set_r<a class="headerlink" href="#set-r" title="Link to this heading"></a></h2>
+<p>设置R通道上的padding值</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_r</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明</strong></p>
+<ul class="simple">
+<li><p>r: int</p></li>
+</ul>
+<p>R通道上的padding值</p>
+</section>
+<section id="set-g">
+<h2><span class="section-number">5.12.7. </span>set_g<a class="headerlink" href="#set-g" title="Link to this heading"></a></h2>
+<p>设置G通道上的padding值</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_g</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>g: int</p></li>
+</ul>
+<p>G通道上的padding值</p>
+</section>
+<section id="set-b">
+<h2><span class="section-number">5.12.8. </span>set_b<a class="headerlink" href="#set-b" title="Link to this heading"></a></h2>
+<p>设置B通道上的padding值</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_b</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明</strong></p>
+<ul class="simple">
+<li><p>b: int</p></li>
+</ul>
+<p>B通道上的padding值</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">bmcv</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Bmcv</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+
+    <span class="n">bmimg1</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImage</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="n">sail</span><span class="o">.</span><span class="n">Format</span><span class="o">.</span><span class="n">FORMAT_BGR_PLANAR</span><span class="p">,</span> <span class="n">sail</span><span class="o">.</span><span class="n">ImgDtype</span><span class="o">.</span><span class="n">DATA_TYPE_EXT_1N_BYTE</span><span class="p">)</span>
+    <span class="n">resize_w</span> <span class="o">=</span> <span class="mi">512</span>
+    <span class="n">resize_h</span> <span class="o">=</span> <span class="mi">512</span>
+
+    <span class="n">paddingatt</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">PaddingAtrr</span><span class="p">()</span>
+    <span class="n">paddingatt</span><span class="o">.</span><span class="n">set_stx</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">paddingatt</span><span class="o">.</span><span class="n">set_sty</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">paddingatt</span><span class="o">.</span><span class="n">set_w</span><span class="p">(</span><span class="n">resize_w</span><span class="p">)</span>
+    <span class="n">paddingatt</span><span class="o">.</span><span class="n">set_h</span><span class="p">(</span><span class="n">resize_h</span><span class="p">)</span>
+    <span class="n">paddingatt</span><span class="o">.</span><span class="n">set_r</span><span class="p">(</span><span class="mi">114</span><span class="p">)</span>
+    <span class="n">paddingatt</span><span class="o">.</span><span class="n">set_g</span><span class="p">(</span><span class="mi">114</span><span class="p">)</span>
+    <span class="n">paddingatt</span><span class="o">.</span><span class="n">set_b</span><span class="p">(</span><span class="mi">114</span><span class="p">)</span>
+    <span class="n">output_temp</span> <span class="o">=</span> <span class="n">bmcv</span><span class="o">.</span><span class="n">crop_and_resize_padding</span><span class="p">(</span><span class="n">bmimg1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">bmimg1</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span><span class="n">bmimg1</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span><span class="n">resize_w</span><span class="p">,</span><span class="n">resize_h</span><span class="p">,</span><span class="n">paddingatt</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="sail.Encoder.html" class="btn btn-neutral float-left" title="5.11. sail.Encoder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="sail.Blend.html" class="btn btn-neutral float-right" title="5.13. sail.Blend" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, SOPHGO。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

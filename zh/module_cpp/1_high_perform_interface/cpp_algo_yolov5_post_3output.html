@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.17.4.2. algo_yolov5_post_3output &mdash; SOPHON-SAIL 3.10.2
+ 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=9080cc91"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=beaddf03"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="4.17.4.3. algo_yolov5_post_cpu_opt" href="cpp_algo_yolov5_post_cpu_opt.html" />
+    <link rel="prev" title="4.17.4.1. algo_yolov5_post_1output" href="cpp_algo_yolov5_post_1output.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../1_disclaimer.html">1. 声明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../3_build.html">3. 编译安装指南</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../4_module_cpp.html">4. SAIL C++ API 参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cpp_basicfunction.html">4.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../0_enum-type/enum-index.html">4.2. SAIL 枚举类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Handle.html">4.3. Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Tensor.html">4.4. Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Engine.html">4.5. Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_BMImage.html">4.6. BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Bmcv.html">4.7. Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Decoder.html">4.8. Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_MultiDecoder.html">4.9. MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Encoder.html">4.10. Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_PaddingAtrr.html">4.11. PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Blend.html">4.12. Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Decoder_RawStream.html">4.13. Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_BMImageArray.html">4.14. BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_bm_image.html">4.15. bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_MultiEngine.html">4.16. MultiEngine</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="high_perform_index_cpp.html">4.17. SAIL C++ 高性能接口</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cpp_ImagePreProcess.html">4.17.1. ImagePreProcess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpp_TensorPTRWithName.html">4.17.2. TensorPTRWithName</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpp_EngineImagePreProcess.html">4.17.3. EngineImagePreProcess</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="high_perform_index_cpp.html#yolov5">4.17.4. Yolov5 后处理加速接口</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cpp_algo_yolov5_post_1output.html">4.17.4.1. algo_yolov5_post_1output</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">4.17.4.2. algo_yolov5_post_3output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp_algo_yolov5_post_cpu_opt.html">4.17.4.3. algo_yolov5_post_cpu_opt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp_algo_yolov5_post_cpu_opt_async.html">4.17.4.4. algo_yolov5_post_cpu_opt_async</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp_tpu_kernel_api_yolov5_detect_out.html">4.17.4.5. tpu_kernel_api_yolov5_detect_out</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cpp_tpu_kernel_api_yolov5_out_without_decode.html">4.17.4.6. tpu_kernel_api_yolov5_out_without_decode</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#yolox">4.17.5. Yolox后处理加速接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#yolov8">4.17.6. Yolov8后处理加速接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#sort">4.17.7. sort 算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#deepsort">4.17.8. deepsort 算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#bytetrack">4.17.9. bytetrack 算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#openpose">4.17.10. openpose 算法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../5_module_python.html">5. SAIL Python API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../6_appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../4_module_cpp.html"><span class="section-number">4. </span>SAIL C++ API 参考</a></li>
+          <li class="breadcrumb-item"><a href="high_perform_index_cpp.html"><span class="section-number">4.17. </span>SAIL C++ 高性能接口</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.17.4.2. </span>algo_yolov5_post_3output</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_3output.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="algo-yolov5-post-3output">
+<h1><span class="section-number">4.17.4.2. </span>algo_yolov5_post_3output<a class="headerlink" href="#algo-yolov5-post-3output" title="Link to this heading"></a></h1>
+<p>针对以三输出YOLOv5模型的后处理接口，内部使用线程池的方式实现。</p>
+<section id="id1">
+<h2><span class="section-number">4.17.4.2.1. </span>构造函数<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">algo_yolov5_post_3output</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span><span class="w"> </span><span class="n">shape</span><span class="p">,</span>
+<span class="w">                        </span><span class="kt">int</span><span class="w"> </span><span class="n">network_w</span><span class="o">=</span><span class="mi">640</span><span class="p">,</span>
+<span class="w">                        </span><span class="kt">int</span><span class="w"> </span><span class="n">network_h</span><span class="o">=</span><span class="mi">640</span><span class="p">,</span>
+<span class="w">                        </span><span class="kt">int</span><span class="w"> </span><span class="n">max_queue_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="w">                        </span><span class="kt">bool</span><span class="w"> </span><span class="n">input_use_multiclass_nms</span><span class="o">=</span><span class="nb">true</span><span class="p">,</span>
+<span class="w">                        </span><span class="kt">bool</span><span class="w"> </span><span class="n">agnostic</span><span class="o">=</span><span class="nb">false</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>shape: std::vector&lt;std::vector&lt;int&gt;&gt;</p></li>
+</ul>
+<p>输入参数。输入数据的shape。</p>
+<ul class="simple">
+<li><p>network_w: int</p></li>
+</ul>
+<p>输入参数。模型的输入宽度，默认为640。</p>
+<ul class="simple">
+<li><p>network_h: int</p></li>
+</ul>
+<p>输入参数。模型的输入宽度，默认为640。</p>
+<ul class="simple">
+<li><p>max_queue_size: int</p></li>
+</ul>
+<p>输入参数。缓存数据的最大长度。</p>
+<ul class="simple">
+<li><p>input_use_multiclass_nms: bool</p></li>
+</ul>
+<p>输入参数。使用多分类NMS,每个框具有多个类别。</p>
+<ul class="simple">
+<li><p>agnostic: bool</p></li>
+</ul>
+<p>输入参数。使用不考虑类别的NMS算法。</p>
+</section>
+<section id="push-data">
+<h2><span class="section-number">4.17.4.2.2. </span>push_data<a class="headerlink" href="#push-data" title="Link to this heading"></a></h2>
+<p>输入数据，支持任意batchsize的输入。</p>
+<dl>
+<dt><strong>接口形式1:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">push_data</span><span class="p">(</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel_idx</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">image_idx</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TensorPTRWithName</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_data</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dete_threshold</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">nms_threshold</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ost_w</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ost_h</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">padding_attr</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明1:</strong></p>
+<ul class="simple">
+<li><p>channel_idx: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>输入参数。输入图像序列的通道号。</p>
+<ul class="simple">
+<li><p>image_idx: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>输入参数。输入图像序列的编号。</p>
+<ul class="simple">
+<li><p>input_data: std::vector&lt;TensorPTRWithName&gt;</p></li>
+</ul>
+<p>输入参数。输入数据，包含三个输出。</p>
+<ul class="simple">
+<li><p>dete_threshold: std::vector&lt;float&gt;</p></li>
+</ul>
+<p>输入参数。检测阈值序列。</p>
+<ul class="simple">
+<li><p>nms_threshold: std::vector&lt;float&gt;</p></li>
+</ul>
+<p>输入参数。nms阈值序列。</p>
+<ul class="simple">
+<li><p>ost_w: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>输入参数。原始图片序列的宽。</p>
+<ul class="simple">
+<li><p>ost_h: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>输入参数。 原始图片序列的高。</p>
+<ul class="simple">
+<li><p>padding_attrs: std::vector&lt;std::vector&lt;int&gt;&gt;</p></li>
+</ul>
+<p>输入参数。填充图像序列的属性列表，填充的起始点坐标x、起始点坐标y、尺度变换之后的宽度、尺度变换之后的高度。</p>
+<p><strong>返回值说明:</strong></p>
+<p>成功返回0，其他值表示失败。</p>
+<dl>
+<dt><strong>接口形式2:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">push_data</span><span class="p">(</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel_idx</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">image_idx</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TensorPTRWithName</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_data</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">dete_threshold</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">nms_threshold</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ost_w</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ost_h</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">padding_attr</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明2:</strong></p>
+<ul class="simple">
+<li><p>channel_idx: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>输入参数。输入图像序列的通道号。</p>
+<ul class="simple">
+<li><p>image_idx: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>输入参数。输入图像序列的编号。</p>
+<ul class="simple">
+<li><p>input_data: std::vector&lt;TensorPTRWithName&gt;</p></li>
+</ul>
+<p>输入参数。输入数据，包含三个输出。</p>
+<ul class="simple">
+<li><p>dete_threshold: std::vector&lt;std::vector&lt;float&gt;&gt;</p></li>
+</ul>
+<p>输入参数。检测阈值序列。</p>
+<ul class="simple">
+<li><p>nms_threshold: std::vector&lt;float&gt;</p></li>
+</ul>
+<p>输入参数。nms阈值序列。</p>
+<ul class="simple">
+<li><p>ost_w: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>输入参数。原始图片序列的宽。</p>
+<ul class="simple">
+<li><p>ost_h: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>输入参数。 原始图片序列的高。</p>
+<ul class="simple">
+<li><p>padding_attrs: std::vector&lt;std::vector&lt;int&gt;&gt;</p></li>
+</ul>
+<p>输入参数。填充图像序列的属性列表，填充的起始点坐标x、起始点坐标y、尺度变换之后的宽度、尺度变换之后的高度。</p>
+<p><strong>返回值说明:</strong></p>
+<p>成功返回0，其他值表示失败。</p>
+</section>
+<section id="get-result-npy">
+<h2><span class="section-number">4.17.4.2.3. </span>get_result_npy<a class="headerlink" href="#get-result-npy" title="Link to this heading"></a></h2>
+<p>获取最终的检测结果</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_result_npy</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong>
+tuple[tuple[left, top, right, bottom, class_id, score],channel_idx, image_idx]</p>
+<ul class="simple">
+<li><p>left: int</p></li>
+</ul>
+<p>检测结果最左x坐标。</p>
+<ul class="simple">
+<li><p>top: int</p></li>
+</ul>
+<p>检测结果最上y坐标。</p>
+<ul class="simple">
+<li><p>right: int</p></li>
+</ul>
+<p>检测结果最右x坐标。</p>
+<ul class="simple">
+<li><p>bottom: int</p></li>
+</ul>
+<p>检测结果最下y坐标。</p>
+<ul class="simple">
+<li><p>class_id: int</p></li>
+</ul>
+<p>检测结果的类别编号。</p>
+<ul class="simple">
+<li><p>score: float</p></li>
+</ul>
+<p>检测结果的分数。</p>
+<ul class="simple">
+<li><p>channel_idx: int</p></li>
+</ul>
+<p>原始图像的通道号。</p>
+<ul class="simple">
+<li><p>image_idx: int</p></li>
+</ul>
+<p>原始图像的编号。</p>
+</section>
+<section id="reset-anchors">
+<h2><span class="section-number">4.17.4.2.4. </span>reset_anchors<a class="headerlink" href="#reset-anchors" title="Link to this heading"></a></h2>
+<p>更新anchor尺寸.</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">reset_anchors</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">anchors_new</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>anchors_new: std::vector&lt;std::vector&lt;std::vector&lt;int&gt; &gt; &gt;</p></li>
+</ul>
+<p>要更新的anchor尺寸列表.</p>
+<p><strong>返回值说明:</strong></p>
+<p>成功返回0，其他值表示失败。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/tensor.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/algokit.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;queue&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;numeric&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">tpu_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">tpu_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">image_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;../../../sophon-demo/sample/YOLOv5/datasets/test/3.jpg&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">bmodel_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;../../../sophon-demo/sample/YOLOv5/models/BM1684X/yolov5s_v6.1_3output_int8_1b.bmodel&quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Decoder</span><span class="w"> </span><span class="n">decoder</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">tpu_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">BMImage</span><span class="w"> </span><span class="n">bmimg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">decoder</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">EngineImagePreProcess</span><span class="w"> </span><span class="n">engine_image_pre_process</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="w"> </span><span class="n">tpu_id</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">engine_image_pre_process</span><span class="p">.</span><span class="n">InitImagePreProcess</span><span class="p">(</span><span class="n">sail</span><span class="o">::</span><span class="n">sail_resize_type</span><span class="o">::</span><span class="n">BM_PADDING_TPU_LINEAR</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="w">    </span><span class="n">engine_image_pre_process</span><span class="p">.</span><span class="n">SetPaddingAtrr</span><span class="p">(</span><span class="mi">114</span><span class="p">,</span><span class="w"> </span><span class="mi">114</span><span class="p">,</span><span class="w"> </span><span class="mi">114</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">alpha_beta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">}};</span>
+<span class="w">    </span><span class="n">engine_image_pre_process</span><span class="p">.</span><span class="n">SetConvertAtrr</span><span class="p">(</span><span class="n">alpha_beta</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">engine_image_pre_process</span><span class="p">.</span><span class="n">PushImage</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">bmimg</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">output_tensor_map</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Image</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ost_images</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channels</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">imageidxs</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">padding_atrr</span><span class="p">;</span>
+<span class="w">    </span><span class="n">engine_image_pre_process</span><span class="p">.</span><span class="n">GetBatchData</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">output_tensor_map</span><span class="p">,</span><span class="w"> </span><span class="n">ost_images</span><span class="p">,</span><span class="w"> </span><span class="n">channels</span><span class="p">,</span><span class="w"> </span><span class="n">imageidxs</span><span class="p">,</span><span class="w"> </span><span class="n">padding_atrr</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">width_list</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">height_list</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">channels</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">index</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">width_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">ost_images</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">width</span><span class="p">());</span>
+<span class="w">        </span><span class="n">height_list</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">ost_images</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">height</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">algo_yolov5_post_3output</span><span class="w"> </span><span class="n">yolov5_post</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">85</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">85</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w"> </span><span class="mi">85</span><span class="p">]],</span><span class="w"> </span><span class="mi">640</span><span class="p">,</span><span class="w"> </span><span class="mi">640</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dete_thresholds</span><span class="p">(</span><span class="n">channels</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="mf">0.2</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">nms_thresholds</span><span class="p">(</span><span class="n">channels</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="mf">0.5</span><span class="p">);</span>
+<span class="w">    </span><span class="n">yolov5_post</span><span class="p">.</span><span class="n">push_data</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span><span class="w"> </span><span class="n">imageidxs</span><span class="p">,</span><span class="w"> </span><span class="n">output_tensor_map</span><span class="p">,</span><span class="w"> </span><span class="n">dete_thresholds</span><span class="p">,</span><span class="w"> </span><span class="n">nms_thresholds</span><span class="p">,</span><span class="w"> </span><span class="n">width_list</span><span class="p">,</span><span class="w"> </span><span class="n">height_list</span><span class="p">,</span><span class="w"> </span><span class="n">padding_atrr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">,</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">objs</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">channel</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">image_idx</span><span class="p">;</span>
+<span class="w">    </span><span class="n">yolov5_post</span><span class="p">.</span><span class="n">get_result_npy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">objs</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">channel</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">image_idx</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;objs: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">objs</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, channel: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">channel</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, image idx: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">image_idx</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="cpp_algo_yolov5_post_1output.html" class="btn btn-neutral float-left" title="4.17.4.1. algo_yolov5_post_1output" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="cpp_algo_yolov5_post_cpu_opt.html" class="btn btn-neutral float-right" title="4.17.4.3. algo_yolov5_post_cpu_opt" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, SOPHGO。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

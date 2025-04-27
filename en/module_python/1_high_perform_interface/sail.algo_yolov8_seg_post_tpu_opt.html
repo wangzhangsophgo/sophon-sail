@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-EN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.17.12.1. sail.algo_yolov8_seg_post_tpu_opt &mdash; SOPHON-SAIL 3.10.2
+ documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01d1187f"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="6. Appendix" href="../../6_appendix.html" />
+    <link rel="prev" title="5.17.11.1. sail.nms_rotated" href="sail.nms_rotated.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../1_disclaimer.html">1. Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../3_build.html">3. Compilation and Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../4_module_cpp.html">4. SAIL C++ API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../5_module_python.html">5. SAIL Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Basicfunction.html">5.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../0_enum_type/enum_index.html">5.2. SAIL enum type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Handle.html">5.3. sail.Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Tensor.html">5.4. sail.Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.PaddingAtrr.html">5.5. sail.PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Engine.html">5.6. sail.Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.MultiEngine.html">5.7. sail.MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.bm_image.html">5.8. sail.bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.BMImage.html">5.9. sail.BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.BMImageArray.html">5.10. sail.BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Decoder.html">5.11. sail.Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Encoder.html">5.12. sail.Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Decoder_RawStream.html">5.13. sail.Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Bmcv.html">5.14. sail.Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Blend.html">5.15. sail.Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.MultiDecoder.html">5.16. sail.MultiDecoder</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="high_perform_index.html">5.17. SAIL Python high performance interface</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sail.TensorPTRWithName.html">5.17.1. sail.TensorPTRWithName</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sail.ImagePreProcess.html">5.17.2. sail.ImagePreProcess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sail.EngineImagePreProcess.html">5.17.3. sail.EngineImagePreProcess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#yolov5-post-processing-acceleration-interfaces">5.17.4. Yolov5 post-processing acceleration interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#yolox-post-processing-acceleration-interfaces">5.17.5. Yolox post-processing acceleration interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#yolov8-post-processing-acceleration-interfaces">5.17.6. Yolov8 post-processing acceleration interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#sort">5.17.7. sort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#deepsort">5.17.8. deepsort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#bytetrack">5.17.9. bytetrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#openpose">5.17.10. openpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#nms-rotated">5.17.11. nms_rotated</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="high_perform_index.html#yolov8-seg-tpu-post-processing-acceleration-interfaces">5.17.12. Yolov8_seg TPU post-processing acceleration interfaces</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">5.17.12.1. sail.algo_yolov8_seg_post_tpu_opt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../6_appendix.html">6. Appendix</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../5_module_python.html"><span class="section-number">5. </span>SAIL Python API</a></li>
+          <li class="breadcrumb-item"><a href="high_perform_index.html"><span class="section-number">5.17. </span>SAIL Python high performance interface</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.17.12.1. </span>sail.algo_yolov8_seg_post_tpu_opt</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_python/1_high_perform_interface/sail.algo_yolov8_seg_post_tpu_opt.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sail-algo-yolov8-seg-post-tpu-opt">
+<h1><span class="section-number">5.17.12.1. </span>sail.algo_yolov8_seg_post_tpu_opt<a class="headerlink" href="#sail-algo-yolov8-seg-post-tpu-opt" title="Link to this heading"></a></h1>
+<p>For the YOLOv8 segmentation model, post-processing has been accelerated using TPU.</p>
+<section id="init">
+<h2><span class="section-number">5.17.12.1.1. </span>__init__<a class="headerlink" href="#init" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">bmodel_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">dev_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">detection_shape</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+            <span class="n">segmentation_shape</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+            <span class="n">network_h</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">network_w</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>bmodel_file: str</p></li>
+</ul>
+<p>Input. The TPU getmask bmodel path.</p>
+<ul class="simple">
+<li><p>dev_id: int</p></li>
+</ul>
+<p>Input. device id.</p>
+<ul class="simple">
+<li><p>detection_shape: list[int]</p></li>
+</ul>
+<p>Input. The shapes of detection head.</p>
+<ul class="simple">
+<li><p>segmentation_shape: list[int]</p></li>
+</ul>
+<p>Input. The shapes of segmentation head, that is the shapes of Prototype Mask.</p>
+<ul class="simple">
+<li><p>network_h: int</p></li>
+</ul>
+<p>Input. The input height of yolov8_seg network.</p>
+<ul class="simple">
+<li><p>network_w: int</p></li>
+</ul>
+<p>Input. The input width of yolov8_seg network.</p>
+</section>
+<section id="process">
+<h2><span class="section-number">5.17.12.1.2. </span>process<a class="headerlink" href="#process" title="Link to this heading"></a></h2>
+<p>Processing interface.</p>
+<dl>
+<dt><strong>Interface 1:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="n">detection_input</span><span class="p">:</span> <span class="n">TensorPTRWithName</span><span class="p">,</span>
+    <span class="n">segmentation_input</span><span class="p">:</span> <span class="n">TensorPTRWithName</span><span class="p">,</span>
+    <span class="n">ost_h</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">ost_w</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">dete_threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">nms_threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">input_keep_aspect_ratio</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">input_use_multiclass_nms</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span>
+        <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">contour</span><span class="p">,</span> <span class="n">mask</span><span class="p">]]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters 1:</strong></p>
+<ul class="simple">
+<li><p>detection_input: TensorPTRWithName</p></li>
+</ul>
+<p>Input. The input data of detection head.</p>
+<ul class="simple">
+<li><p>segmentation_input: TensorPTRWithName</p></li>
+</ul>
+<p>Input. The input data of segmentation head, that is Prototype Mask.</p>
+<ul class="simple">
+<li><p>ost_h: int</p></li>
+</ul>
+<p>Input. Original image height.</p>
+<ul class="simple">
+<li><p>ost_w: int</p></li>
+</ul>
+<p>Input. Original image width.</p>
+<ul class="simple">
+<li><p>dete_threshold: float</p></li>
+</ul>
+<p>Input. Detection threshold.</p>
+<ul class="simple">
+<li><p>nms_threshold: float</p></li>
+</ul>
+<p>Input. NMS threshold.</p>
+<ul class="simple">
+<li><p>input_keep_aspect_ratio: bool</p></li>
+</ul>
+<p>Input. Whether to keep aspect ratio in images.</p>
+<ul class="simple">
+<li><p>input_use_multiclass_nms: bool</p></li>
+</ul>
+<p>Input. Whether to use multiclass nms.</p>
+<dl>
+<dt><strong>Interface 2:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="n">detection_input</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">segmentation_input</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">ost_h</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">ost_w</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">dete_threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">nms_threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">input_keep_aspect_ratio</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">input_use_multiclass_nms</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span>
+        <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">contour</span><span class="p">,</span> <span class="n">mask</span><span class="p">]]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters 2:</strong></p>
+<ul class="simple">
+<li><p>detection_input: dict[str, Tensor]</p></li>
+</ul>
+<p>Input. The input data of detection head.</p>
+<ul class="simple">
+<li><p>segmentation_input: dict[str, Tensor]</p></li>
+</ul>
+<p>Input. The input data of segmentation head, that is Prototype Mask.</p>
+<ul class="simple">
+<li><p>ost_h: int</p></li>
+</ul>
+<p>Input. Original image height.</p>
+<ul class="simple">
+<li><p>ost_w: int</p></li>
+</ul>
+<p>Input. Original image width.</p>
+<ul class="simple">
+<li><p>dete_threshold: float</p></li>
+</ul>
+<p>Input. Detection threshold.</p>
+<ul class="simple">
+<li><p>nms_threshold: float</p></li>
+</ul>
+<p>Input. NMS threshold.</p>
+<ul class="simple">
+<li><p>input_keep_aspect_ratio: bool</p></li>
+</ul>
+<p>Input. Whether to keep aspect ratio in images.</p>
+<ul class="simple">
+<li><p>input_use_multiclass_nms: bool</p></li>
+</ul>
+<p>Input. Whether to use multiclass nms.</p>
+<p><strong>Returns:</strong></p>
+<p>list[tuple[left, top, right, bottom, score, class_id, contour, mask]]</p>
+<ul class="simple">
+<li><p>left: int</p></li>
+</ul>
+<p>The leftmost x-coordinate of the detection box.</p>
+<ul class="simple">
+<li><p>top: int</p></li>
+</ul>
+<p>The topmost y-coordinate of the detection box.</p>
+<ul class="simple">
+<li><p>right: int</p></li>
+</ul>
+<p>The rightmost x-coordinate of the detection box.</p>
+<ul class="simple">
+<li><p>bottom: int</p></li>
+</ul>
+<p>The bottommost y-coordinate of the detection box.</p>
+<ul class="simple">
+<li><p>class_id: int</p></li>
+</ul>
+<p>The class ID of the object within the detection box..</p>
+<ul class="simple">
+<li><p>score: float</p></li>
+</ul>
+<p>The score of the object within the detection box..</p>
+<ul class="simple">
+<li><p>contour: list[float]</p></li>
+</ul>
+<p>The contour of the object within the detection box..</p>
+<ul class="simple">
+<li><p>mask: numpy.ndarray</p></li>
+</ul>
+<p>The segmentation mask of the object within the detection box.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sail.nms_rotated.html" class="btn btn-neutral float-left" title="5.17.11.1. sail.nms_rotated" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../6_appendix.html" class="btn btn-neutral float-right" title="6. Appendix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SOPHGO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

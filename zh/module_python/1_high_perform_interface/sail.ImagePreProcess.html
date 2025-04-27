@@ -1,0 +1,412 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.18.2. sail.ImagePreProcess &mdash; SOPHON-SAIL 3.10.2
+ 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=9080cc91"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=beaddf03"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="5.18.3. sail.EngineImagePreProcess" href="sail.EngineImagePreProcess.html" />
+    <link rel="prev" title="5.18.1. sail.TensorPTRWithName" href="sail.TensorPTRWithName.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../1_disclaimer.html">1. 声明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../3_build.html">3. 编译安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../4_module_cpp.html">4. SAIL C++ API 参考</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../5_module_python.html">5. SAIL Python API 参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Basicfunction.html">5.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../0_enum_type/enum_index.html">5.2. SAIL 枚举类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Handle.html">5.3. sail.Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Tensor.html">5.4. sail.Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Engine.html">5.5. sail.Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.EngineLLM.html">5.6. sail.EngineLLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.BMImage.html">5.7. sail.BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Bmcv.html">5.8. sail.Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Decoder.html">5.9. sail.Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.MultiDecoder.html">5.10. sail.MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Encoder.html">5.11. sail.Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.PaddingAtrr.html">5.12. sail.PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Blend.html">5.13. sail.Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Decoder_RawStream.html">5.14. sail.Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.BMImageArray.html">5.15. sail.BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.bm_image.html">5.16. sail.bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.MultiEngine.html">5.17. sail.MultiEngine</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="high_perform_index.html">5.18. SAIL Python 高性能接口</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sail.TensorPTRWithName.html">5.18.1. sail.TensorPTRWithName</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">5.18.2. sail.ImagePreProcess</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#init">5.18.2.1. __init__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setresizeimageatrr">5.18.2.2. SetResizeImageAtrr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setpaddingatrr">5.18.2.3. SetPaddingAtrr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setconvertatrr">5.18.2.4. SetConvertAtrr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pushimage">5.18.2.5. PushImage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#getbatchdata">5.18.2.6. GetBatchData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#set-print-flag">5.18.2.7. set_print_flag</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sail.EngineImagePreProcess.html">5.18.3. sail.EngineImagePreProcess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#yolov5">5.18.4. Yolov5 后处理加速接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#yolox">5.18.5. Yolox后处理加速接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#yolov8">5.18.6. Yolov8后处理加速接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#sort">5.18.7. sort 算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#deepsort">5.18.8. deepsort 算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#bytetrack">5.18.9. bytetrack 算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#openpose">5.18.10. openpose 算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#nms-rotated">5.18.11. nms_rotated 接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#yolov8-seg-tpu">5.18.12. Yolov8_seg TPU后处理加速接口</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../6_appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../5_module_python.html"><span class="section-number">5. </span>SAIL Python API 参考</a></li>
+          <li class="breadcrumb-item"><a href="high_perform_index.html"><span class="section-number">5.18. </span>SAIL Python 高性能接口</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.18.2. </span>sail.ImagePreProcess</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_python/1_high_perform_interface/sail.ImagePreProcess.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sail-imagepreprocess">
+<h1><span class="section-number">5.18.2. </span>sail.ImagePreProcess<a class="headerlink" href="#sail-imagepreprocess" title="Link to this heading"></a></h1>
+<p>通用预处理接口，内部使用线程池的方式实现。</p>
+<section id="init">
+<h2><span class="section-number">5.18.2.1. </span>__init__<a class="headerlink" href="#init" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">resize_mode</span><span class="p">:</span><span class="n">sail_resize_type</span><span class="p">,</span>
+            <span class="n">tpu_id</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">queue_in_size</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+            <span class="n">queue_out_size</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+            <span class="n">use_mat_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>batch_size: int</p></li>
+</ul>
+<p>输入参数。输出结果的batch size。</p>
+<ul class="simple">
+<li><p>resize_mode: sail_resize_type</p></li>
+</ul>
+<p>输入参数。内部尺度变换的方法。</p>
+<ul class="simple">
+<li><p>tpu_id: int</p></li>
+</ul>
+<p>输入参数。使用的智能视觉深度学习处理器 id，默认为0。</p>
+<ul class="simple">
+<li><p>queue_in_size: int</p></li>
+</ul>
+<p>输入参数。输入图像队列缓存的最大长度，默认为20。</p>
+<ul class="simple">
+<li><p>queue_out_size: int</p></li>
+</ul>
+<p>输入参数。输出Tensor队列缓存的最大长度，默认为20。</p>
+<ul class="simple">
+<li><p>use_mat_output: bool</p></li>
+</ul>
+<p>输入参数。是否使用OpenCV的Mat作为图片的输出，默认为False，不使用。</p>
+</section>
+<section id="setresizeimageatrr">
+<h2><span class="section-number">5.18.2.2. </span>SetResizeImageAtrr<a class="headerlink" href="#setresizeimageatrr" title="Link to this heading"></a></h2>
+<p>设置图像尺度变换的属性。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">SetResizeImageAtrr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">output_width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">output_height</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">bgr2rgb</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="p">:</span> <span class="n">ImgDtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>output_width: int</p></li>
+</ul>
+<p>输入参数。尺度变换之后的图像宽度。</p>
+<ul class="simple">
+<li><p>output_height: int</p></li>
+</ul>
+<p>输入参数。尺度变换之后的图像高度。</p>
+<ul class="simple">
+<li><p>bgr2rgb: bool</p></li>
+</ul>
+<p>输入参数。是否将图像有BGR转换为GRB。</p>
+<ul class="simple">
+<li><p>dtype: ImgDtype</p></li>
+</ul>
+<p>输入参数。图像尺度变换之后的数据类型，当前版本只支持BM_FLOAT32,BM_INT8,BM_UINT8。可根据模型的输入数据类型设置。</p>
+</section>
+<section id="setpaddingatrr">
+<h2><span class="section-number">5.18.2.3. </span>SetPaddingAtrr<a class="headerlink" href="#setpaddingatrr" title="Link to this heading"></a></h2>
+<p>设置Padding的属性，只有在resize_mode为 BM_PADDING_VPP_NEAREST、BM_PADDING_TPU_NEAREST、BM_PADDING_TPU_LINEAR、BM_PADDING_TPU_BICUBIC时生效。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">SetPaddingAtrr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">padding_b</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">114</span><span class="p">,</span>
+            <span class="n">padding_g</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">114</span><span class="p">,</span>
+            <span class="n">padding_r</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">114</span><span class="p">,</span>
+            <span class="n">align</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong>
+* padding_b: int</p>
+<p>输入参数。要pdding的b通道像素值，默认为114。</p>
+<ul class="simple">
+<li><p>padding_g: int</p></li>
+</ul>
+<p>输入参数。要pdding的g通道像素值，默认为114。</p>
+<ul class="simple">
+<li><p>padding_r: int</p></li>
+</ul>
+<p>输入参数。要pdding的r通道像素值，默认为114。</p>
+<ul class="simple">
+<li><p>align: int</p></li>
+</ul>
+<p>输入参数。图像填充为位置，0表示从左上角开始填充，1表示居中填充，默认为0。</p>
+</section>
+<section id="setconvertatrr">
+<h2><span class="section-number">5.18.2.4. </span>SetConvertAtrr<a class="headerlink" href="#setconvertatrr" title="Link to this heading"></a></h2>
+<p>设置线性变换的属性。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">SetConvertAtrr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha_beta</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul>
+<li><p>alpha_beta: (a0, b0), (a1, b1), (a2, b2)。输入参数。</p>
+<blockquote>
+<div><p>a0 描述了第 0 个 channel 进行线性变换的系数；</p>
+<p>b0 描述了第 0 个 channel 进行线性变换的偏移；</p>
+<p>a1 描述了第 1 个 channel 进行线性变换的系数；</p>
+<p>b1 描述了第 1 个 channel 进行线性变换的偏移；</p>
+<p>a2 描述了第 2 个 channel 进行线性变换的系数；</p>
+<p>b2 描述了第 2 个 channel 进行线性变换的偏移；</p>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>返回值说明:</strong></p>
+<p>设置成功返回0，其他值时设置失败。</p>
+</section>
+<section id="pushimage">
+<h2><span class="section-number">5.18.2.5. </span>PushImage<a class="headerlink" href="#pushimage" title="Link to this heading"></a></h2>
+<p>送入数据。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">PushImage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="n">channel_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">image_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">BMImage</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>channel_idx: int</p></li>
+</ul>
+<p>输入参数。输入图像的通道号。</p>
+<ul class="simple">
+<li><p>image_idx: int</p></li>
+</ul>
+<p>输入参数。输入图像的编号。</p>
+<ul class="simple">
+<li><p>image: BMImage</p></li>
+</ul>
+<p>输入参数。输入图像。</p>
+<p><strong>返回值说明:</strong></p>
+<p>设置成功返回0，其他值时表示失败。</p>
+</section>
+<section id="getbatchdata">
+<h2><span class="section-number">5.18.2.6. </span>GetBatchData<a class="headerlink" href="#getbatchdata" title="Link to this heading"></a></h2>
+<p>获取处理的结果。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">GetBatchData</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">BMImage</span><span class="p">],</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span><span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span>
+<span class="s2">&quot;&quot;&quot; Get the Batch Data object</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong>
+tuple[data, images, channels, image_idxs, padding_attrs]</p>
+<ul>
+<li><p>data: Tensor</p>
+<blockquote>
+<div><p>处理后的结果Tensor。</p>
+</div></blockquote>
+</li>
+<li><p>images: list[BMImage]</p>
+<blockquote>
+<div><p>原始图像序列。</p>
+</div></blockquote>
+</li>
+<li><p>channels: list[int]</p>
+<blockquote>
+<div><p>原始图像的通道序列。</p>
+</div></blockquote>
+</li>
+<li><p>image_idxs: list[int]</p>
+<blockquote>
+<div><p>原始图像的编号序列。</p>
+</div></blockquote>
+</li>
+<li><p>padding_attrs: list[list[int]]</p>
+<blockquote>
+<div><p>填充图像的属性列表，填充的起始点坐标x、起始点坐标y、尺度变换之后的宽度、尺度变换之后的高度</p>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="set-print-flag">
+<h2><span class="section-number">5.18.2.7. </span>set_print_flag<a class="headerlink" href="#set-print-flag" title="Link to this heading"></a></h2>
+<p>设置打印日志的标志位，不调用此接口时不打印日志。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_print_flag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flag</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong></p>
+<ul class="simple">
+<li><p>flag: bool</p></li>
+</ul>
+<p>打印的标志位，False时表示不打印，True时表示打印。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">tpu_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">image_path</span> <span class="o">=</span> <span class="s2">&quot;./data/zidane.jpg&quot;</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">tpu_id</span><span class="p">)</span>
+
+    <span class="n">alpha_beta</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">tpu_id</span><span class="p">)</span>
+
+    <span class="n">sail_ipp</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">ImagePreProcess</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">sail</span><span class="o">.</span><span class="n">sail_resize_type</span><span class="o">.</span><span class="n">BM_RESIZE_VPP_NEAREST</span><span class="p">,</span> <span class="n">tpu_id</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">sail_ipp</span><span class="o">.</span><span class="n">SetResizeImageAtrr</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">sail</span><span class="o">.</span><span class="n">ImgDtype</span><span class="o">.</span><span class="n">DATA_TYPE_EXT_1N_BYTE</span><span class="p">)</span>
+    <span class="n">ret1</span> <span class="o">=</span> <span class="n">sail_ipp</span><span class="o">.</span><span class="n">SetConvertAtrr</span><span class="p">(</span><span class="n">alpha_beta</span><span class="p">)</span>
+    <span class="c1"># sail_ipp.set_print_flag(True)</span>
+    <span class="n">bm_i</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImage</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+        <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">bm_i</span><span class="p">)</span>
+        <span class="n">sail_ipp</span><span class="o">.</span><span class="n">PushImage</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">bm_i</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">sail_ipp</span><span class="o">.</span><span class="n">GetBatchData</span><span class="p">()</span>
+    <span class="n">decoder</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+    <span class="n">tensor</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">t_npy</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">()</span>
+    <span class="n">result_img</span> <span class="o">=</span> <span class="n">t_npy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">raw_img</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+    <span class="n">resize_img</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">raw_img</span><span class="p">,</span> <span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">640</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">cv</span><span class="o">.</span><span class="n">INTER_NEAREST</span><span class="p">)</span>
+    <span class="n">max_diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="n">resize_img</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">-</span> <span class="n">result_img</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="n">min_diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">((</span><span class="n">resize_img</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">-</span> <span class="n">result_img</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_diff</span><span class="p">,</span> <span class="n">min_diff</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">max_diff</span><span class="p">,</span><span class="n">min_diff</span><span class="p">,</span><span class="n">diff</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="sail.TensorPTRWithName.html" class="btn btn-neutral float-left" title="5.18.1. sail.TensorPTRWithName" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="sail.EngineImagePreProcess.html" class="btn btn-neutral float-right" title="5.18.3. sail.EngineImagePreProcess" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, SOPHGO。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

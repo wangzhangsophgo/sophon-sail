@@ -1,0 +1,378 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.18.4.5. sail.tpu_kernel_api_yolov5_detect_out &mdash; SOPHON-SAIL 3.10.2
+ 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=9080cc91"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=beaddf03"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="5.18.4.6. sail.tpu_kernel_api_yolov5_out_without_decode" href="sail.tpu_kernel_api_yolov5_out_without_decode.html" />
+    <link rel="prev" title="5.18.4.4. sail.algo_yolov5_post_cpu_opt_async" href="sail.algo_yolov5_post_cpu_opt_async.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../1_disclaimer.html">1. 声明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../3_build.html">3. 编译安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../4_module_cpp.html">4. SAIL C++ API 参考</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../5_module_python.html">5. SAIL Python API 参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Basicfunction.html">5.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../0_enum_type/enum_index.html">5.2. SAIL 枚举类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Handle.html">5.3. sail.Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Tensor.html">5.4. sail.Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Engine.html">5.5. sail.Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.EngineLLM.html">5.6. sail.EngineLLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.BMImage.html">5.7. sail.BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Bmcv.html">5.8. sail.Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Decoder.html">5.9. sail.Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.MultiDecoder.html">5.10. sail.MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Encoder.html">5.11. sail.Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.PaddingAtrr.html">5.12. sail.PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Blend.html">5.13. sail.Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Decoder_RawStream.html">5.14. sail.Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.BMImageArray.html">5.15. sail.BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.bm_image.html">5.16. sail.bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.MultiEngine.html">5.17. sail.MultiEngine</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="high_perform_index.html">5.18. SAIL Python 高性能接口</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sail.TensorPTRWithName.html">5.18.1. sail.TensorPTRWithName</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sail.ImagePreProcess.html">5.18.2. sail.ImagePreProcess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sail.EngineImagePreProcess.html">5.18.3. sail.EngineImagePreProcess</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="high_perform_index.html#yolov5">5.18.4. Yolov5 后处理加速接口</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="sail.algo_yolov5_post_1output.html">5.18.4.1. sail.algo_yolov5_post_1output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sail.algo_yolov5_post_3output.html">5.18.4.2. sail.algo_yolov5_post_3output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sail.algo_yolov5_post_cpu_opt.html">5.18.4.3. sail.algo_yolov5_post_cpu_opt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sail.algo_yolov5_post_cpu_opt_async.html">5.18.4.4. sail.algo_yolov5_post_cpu_opt_async</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">5.18.4.5. sail.tpu_kernel_api_yolov5_detect_out</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sail.tpu_kernel_api_yolov5_out_without_decode.html">5.18.4.6. sail.tpu_kernel_api_yolov5_out_without_decode</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#yolox">5.18.5. Yolox后处理加速接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#yolov8">5.18.6. Yolov8后处理加速接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#sort">5.18.7. sort 算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#deepsort">5.18.8. deepsort 算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#bytetrack">5.18.9. bytetrack 算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#openpose">5.18.10. openpose 算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#nms-rotated">5.18.11. nms_rotated 接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index.html#yolov8-seg-tpu">5.18.12. Yolov8_seg TPU后处理加速接口</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../6_appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../5_module_python.html"><span class="section-number">5. </span>SAIL Python API 参考</a></li>
+          <li class="breadcrumb-item"><a href="high_perform_index.html"><span class="section-number">5.18. </span>SAIL Python 高性能接口</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.18.4.5. </span>sail.tpu_kernel_api_yolov5_detect_out</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_python/1_high_perform_interface/sail.tpu_kernel_api_yolov5_detect_out.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sail-tpu-kernel-api-yolov5-detect-out">
+<h1><span class="section-number">5.18.4.5. </span>sail.tpu_kernel_api_yolov5_detect_out<a class="headerlink" href="#sail-tpu-kernel-api-yolov5-detect-out" title="Link to this heading"></a></h1>
+<p>针对3输出的yolov5模型，使用智能视觉深度学习处理器Kernel对后处理进行加速，目前只支持BM1684x，且libsophon的版本必须不低于0.4.6（v23.03.01）。</p>
+<section id="init">
+<h2><span class="section-number">5.18.4.5.1. </span>__init__<a class="headerlink" href="#init" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">device_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">shape</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
+            <span class="n">network_w</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">640</span><span class="p">,</span>
+            <span class="n">network_h</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">640</span><span class="p">,</span>
+            <span class="n">module_file</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="s2">&quot;/opt/sophon/libsophon-current/lib/tpu_module/libbm1684x_kernel_module.so&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>device_id: int</p></li>
+</ul>
+<p>输入参数。使用的设备编号。</p>
+<ul class="simple">
+<li><p>shape: list[list[int]]</p></li>
+</ul>
+<p>输入参数。输入数据的shape。</p>
+<ul class="simple">
+<li><p>network_w: int</p></li>
+</ul>
+<p>输入参数。模型的输入宽度，默认为640。</p>
+<ul class="simple">
+<li><p>network_h: int</p></li>
+</ul>
+<p>输入参数。模型的输入宽度，默认为640。</p>
+<ul class="simple">
+<li><p>module_file: str</p></li>
+</ul>
+<p>输入参数。Kernel module文件路径，默认为&quot;/opt/sophon/libsophon-current/lib/tpu_module/libbm1684x_kernel_module.so&quot;。</p>
+</section>
+<section id="process">
+<h2><span class="section-number">5.18.4.5.2. </span>process<a class="headerlink" href="#process" title="Link to this heading"></a></h2>
+<p>处理接口。</p>
+<dl>
+<dt><strong>接口形式1:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="n">input_data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">TensorPTRWithName</span><span class="p">],</span>
+    <span class="n">dete_threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">nms_threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">release_input</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明1:</strong></p>
+<ul class="simple">
+<li><p>input_data: list[TensorPTRWithName]</p></li>
+</ul>
+<p>输入参数。输入数据，包含三个输出。</p>
+<ul class="simple">
+<li><p>dete_threshold: float</p></li>
+</ul>
+<p>输入参数。检测阈值。</p>
+<ul class="simple">
+<li><p>nms_threshold: float</p></li>
+</ul>
+<p>输入参数。nms阈值序列。</p>
+<ul class="simple">
+<li><p>release_input: bool</p></li>
+</ul>
+<p>输入参数。释放输入的内存，默认为False。</p>
+<dl>
+<dt><strong>接口形式2:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="n">input_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">dete_threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">nms_threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">release_input</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明2:</strong></p>
+<ul class="simple">
+<li><p>input_data: dict[str, Tensor]</p></li>
+</ul>
+<p>输入参数。输入数据，包含三个输出。</p>
+<ul class="simple">
+<li><p>dete_threshold: float</p></li>
+</ul>
+<p>输入参数。检测阈值。</p>
+<ul class="simple">
+<li><p>nms_threshold: float</p></li>
+</ul>
+<p>输入参数。nms阈值序列。</p>
+<ul class="simple">
+<li><p>release_input: bool</p></li>
+</ul>
+<p>输入参数。释放输入的内存，默认为False。</p>
+<p><strong>返回值说明:</strong></p>
+<p>list[list[tuple[left, top, right, bottom, class_id, score]]]</p>
+<ul class="simple">
+<li><p>left: int</p></li>
+</ul>
+<p>检测结果最左x坐标。</p>
+<ul class="simple">
+<li><p>top: int</p></li>
+</ul>
+<p>检测结果最上y坐标。</p>
+<ul class="simple">
+<li><p>right: int</p></li>
+</ul>
+<p>检测结果最右x坐标。</p>
+<ul class="simple">
+<li><p>bottom: int</p></li>
+</ul>
+<p>检测结果最下y坐标。</p>
+<ul class="simple">
+<li><p>class_id: int</p></li>
+</ul>
+<p>检测结果的类别编号。</p>
+<ul class="simple">
+<li><p>score: float</p></li>
+</ul>
+<p>检测结果的分数。</p>
+</section>
+<section id="reset-anchors">
+<h2><span class="section-number">5.18.4.5.3. </span>reset_anchors<a class="headerlink" href="#reset-anchors" title="Link to this heading"></a></h2>
+<p>更新anchor尺寸.</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">reset_anchors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">anchors_new</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]])</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>anchors_new: list[list[list[int]]]</p></li>
+</ul>
+<p>要更新的anchor尺寸列表.</p>
+<p><strong>返回值说明:</strong></p>
+<p>成功返回0，其他值表示失败。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_ratio</span><span class="p">(</span><span class="n">bmimg</span><span class="p">):</span>
+    <span class="n">img_w</span> <span class="o">=</span> <span class="n">bmimg</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+    <span class="n">img_h</span> <span class="o">=</span> <span class="n">bmimg</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+    <span class="n">r_w</span> <span class="o">=</span> <span class="mi">640</span> <span class="o">/</span> <span class="n">img_w</span>
+    <span class="n">r_h</span> <span class="o">=</span> <span class="mi">640</span> <span class="o">/</span> <span class="n">img_h</span>
+    <span class="k">if</span> <span class="n">r_h</span> <span class="o">&gt;</span> <span class="n">r_w</span><span class="p">:</span>
+        <span class="n">tw</span> <span class="o">=</span> <span class="mi">640</span>
+        <span class="n">th</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r_w</span> <span class="o">*</span> <span class="n">img_h</span><span class="p">)</span>
+        <span class="n">tx1</span> <span class="o">=</span> <span class="n">tx2</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ty1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="mi">640</span> <span class="o">-</span> <span class="n">th</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ty2</span> <span class="o">=</span> <span class="mi">640</span> <span class="o">-</span> <span class="n">th</span> <span class="o">-</span> <span class="n">ty1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tw</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r_h</span> <span class="o">*</span> <span class="n">img_w</span><span class="p">)</span>
+        <span class="n">th</span> <span class="o">=</span> <span class="mi">640</span>
+        <span class="n">tx1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="mi">640</span> <span class="o">-</span> <span class="n">tw</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">tx2</span> <span class="o">=</span> <span class="mi">640</span> <span class="o">-</span> <span class="n">tw</span> <span class="o">-</span> <span class="n">tx1</span>
+        <span class="n">ty1</span> <span class="o">=</span> <span class="n">ty2</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">ratio</span> <span class="o">=</span> <span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">r_w</span><span class="p">,</span> <span class="n">r_h</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">r_w</span><span class="p">,</span> <span class="n">r_h</span><span class="p">))</span>
+    <span class="n">txy</span> <span class="o">=</span> <span class="p">(</span><span class="n">tx1</span><span class="p">,</span> <span class="n">ty1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">img_w</span><span class="p">,</span> <span class="n">img_h</span><span class="p">),</span> <span class="n">ratio</span><span class="p">,</span> <span class="n">txy</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">tpu_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">image_path</span> <span class="o">=</span> <span class="s1">&#39;../../../sophon-demo/sample/YOLOv5/datasets/test/3.jpg&#39;</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">tpu_id</span><span class="p">)</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s1">&#39;../../../sophon-demo/sample/YOLOv5/models/BM1684X/yolov5s_v6.1_3output_int8_1b.bmodel&#39;</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">tpu_id</span><span class="p">)</span>
+    <span class="n">alpha_beta</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">resize_type</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">sail_resize_type</span><span class="o">.</span><span class="n">BM_PADDING_TPU_LINEAR</span>
+    <span class="n">sail_engineipp</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">EngineImagePreProcess</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span> <span class="n">tpu_id</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">ret0</span> <span class="o">=</span> <span class="n">sail_engineipp</span><span class="o">.</span><span class="n">InitImagePreProcess</span><span class="p">(</span><span class="n">resize_type</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">sail_engineipp</span><span class="o">.</span><span class="n">SetPaddingAtrr</span><span class="p">(</span><span class="mi">114</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">114</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ret1</span> <span class="o">=</span> <span class="n">sail_engineipp</span><span class="o">.</span><span class="n">SetConvertAtrr</span><span class="p">(</span><span class="n">alpha_beta</span><span class="p">)</span>
+
+    <span class="n">bm_i</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImage</span><span class="p">()</span>
+
+    <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">bm_i</span><span class="p">)</span>
+    <span class="n">decoder</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+    <span class="n">hw</span><span class="p">,</span> <span class="n">ratio</span><span class="p">,</span> <span class="n">txy</span> <span class="o">=</span> <span class="n">get_ratio</span><span class="p">(</span><span class="n">bm_i</span><span class="p">)</span>
+    <span class="n">ret3</span> <span class="o">=</span> <span class="n">sail_engineipp</span><span class="o">.</span><span class="n">PushImage</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">bm_i</span><span class="p">)</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">sail_engineipp</span><span class="o">.</span><span class="n">GetBatchData</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">output_tensor_map</span><span class="p">,</span> <span class="n">ost_images</span><span class="p">,</span> <span class="n">channel_list</span> <span class="p">,</span><span class="n">imageidx_list</span><span class="p">,</span> <span class="n">padding_atrr</span> <span class="o">=</span> <span class="n">res</span>
+    <span class="n">tpu_kernel_3o</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">tpu_kernel_api_yolov5_detect_out</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">]],</span> <span class="mi">640</span><span class="p">,</span> <span class="mi">640</span><span class="p">,</span> <span class="s2">&quot;/opt/sophon/libsophon-current/lib/tpu_module/libbm1684x_kernel_module.so&quot;</span><span class="p">)</span>
+
+    <span class="n">res_list</span> <span class="o">=</span> <span class="n">tpu_kernel_3o</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">output_tensor_map</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">res_list</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">res_list</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">)))</span>
+
+    <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
+            <span class="n">coords</span> <span class="o">=</span> <span class="n">res</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+
+            <span class="n">coords</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span> <span class="o">-=</span> <span class="n">txy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">coords</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span> <span class="o">-=</span> <span class="n">txy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">coords</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span> <span class="o">/=</span> <span class="n">ratio</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">coords</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span> <span class="o">/=</span> <span class="n">ratio</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">coords</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">hw</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">coords</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">hw</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">res</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="sail.algo_yolov5_post_cpu_opt_async.html" class="btn btn-neutral float-left" title="5.18.4.4. sail.algo_yolov5_post_cpu_opt_async" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="sail.tpu_kernel_api_yolov5_out_without_decode.html" class="btn btn-neutral float-right" title="5.18.4.6. sail.tpu_kernel_api_yolov5_out_without_decode" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, SOPHGO。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

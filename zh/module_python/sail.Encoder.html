@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.11. sail.Encoder &mdash; SOPHON-SAIL 3.10.2
+ 文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9080cc91"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="5.12. sail.PaddingAtrr" href="sail.PaddingAtrr.html" />
+    <link rel="prev" title="5.10. sail.MultiDecoder" href="sail.MultiDecoder.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. 声明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. 编译安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API 参考</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API 参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Basicfunction.html">5.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_enum_type/enum_index.html">5.2. SAIL 枚举类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Handle.html">5.3. sail.Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Tensor.html">5.4. sail.Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Engine.html">5.5. sail.Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.EngineLLM.html">5.6. sail.EngineLLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImage.html">5.7. sail.BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Bmcv.html">5.8. sail.Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder.html">5.9. sail.Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiDecoder.html">5.10. sail.MultiDecoder</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.11. sail.Encoder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#init">5.11.1. __init__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#is-opened">5.11.2. is_opened</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pic-encode">5.11.3. pic_encode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#video-write">5.11.4. video_write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#release">5.11.5. release</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sail.PaddingAtrr.html">5.12. sail.PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Blend.html">5.13. sail.Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder_RawStream.html">5.14. sail.Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImageArray.html">5.15. sail.BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.bm_image.html">5.16. sail.bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiEngine.html">5.17. sail.MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_high_perform_interface/high_perform_index.html">5.18. SAIL Python 高性能接口</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../5_module_python.html"><span class="section-number">5. </span>SAIL Python API 参考</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.11. </span>sail.Encoder</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_python/sail.Encoder.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sail-encoder">
+<h1><span class="section-number">5.11. </span>sail.Encoder<a class="headerlink" href="#sail-encoder" title="Link to this heading"></a></h1>
+<p>编码器，可实现图像或视频的编码，以及保存视频文件、推rtsp/rtmp流。</p>
+<section id="init">
+<h2><span class="section-number">5.11.1. </span>__init__<a class="headerlink" href="#init" title="Link to this heading"></a></h2>
+<p>初始化Encoder。</p>
+<p>图片编码器初始化：</p>
+<dl>
+<dt><strong>图片编码器:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>视频编码器初始化：</p>
+<dl>
+<dt><strong>视频编码器接口形式1:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">handle</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">enc_fmt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pix_fmt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">enc_params</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cache_buffer_length</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">abort_policy</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>视频编码器接口形式2:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">device_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">enc_fmt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pix_fmt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">enc_params</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cache_buffer_length</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">abort_policy</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>output_path: str</p></li>
+</ul>
+<p>输入参数。编码视频输出路径，支持本地文件（MP4，ts等）和rtsp/rtmp流。</p>
+<ul class="simple">
+<li><p>handle: sail.Handle</p></li>
+</ul>
+<p>输入参数。编码器handle实例。（与device_id二选一）</p>
+<ul class="simple">
+<li><p>device_id: int</p></li>
+</ul>
+<p>输入参数。编码器device_id。（与handle二选一，指定device_id时，编码器内部将会创建Handle）</p>
+<ul class="simple">
+<li><p>enc_fmt: str</p></li>
+</ul>
+<p>输入参数。编码格式，支持h264_bm和h265_bm/hevc_bm。</p>
+<ul class="simple">
+<li><p>pix_fmt: str</p></li>
+</ul>
+<p>输入参数。编码输出的像素格式，支持NV12和I420。推荐使用I420。</p>
+<ul class="simple">
+<li><p>enc_params: str</p></li>
+</ul>
+<p>输入参数。编码参数，如 <code class="docutils literal notranslate"><span class="pre">&quot;width=1920:height=1080:gop=32:gop_preset=3:framerate=25:bitrate=2000&quot;</span></code> , 其中width和height是必须的，默认用bitrate控制质量，单位为kbps，参数中指定qp时bitrate失效。</p>
+<ul class="simple">
+<li><p>cache_buffer_length: int</p></li>
+</ul>
+<p>输入参数。内部缓存队列长度，默认为5。sail.Encoder内部会维护一个缓存队列，从而在推流时提升流控容错。</p>
+<ul class="simple">
+<li><p>abort_policy: int</p></li>
+</ul>
+<p>输入参数。缓存队列已满时，video_write接口的拒绝策略。设为0时，video_write接口立即返回-1。设为1时，pop队列头。设为2时，清空队列。设为3时，阻塞直到编码线程消耗一帧，队列产生空位。</p>
+</section>
+<section id="is-opened">
+<h2><span class="section-number">5.11.2. </span>is_opened<a class="headerlink" href="#is-opened" title="Link to this heading"></a></h2>
+<p>判断编码器是否打开。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">is_opened</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong></p>
+<ul class="simple">
+<li><p>judge_ret: bool</p></li>
+</ul>
+<p>编码器打开返回True，失败返回False。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">out_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/output/file&quot;</span>
+    <span class="n">enc_fmt</span> <span class="o">=</span> <span class="s2">&quot;h264_bm&quot;</span>
+    <span class="n">pix_fmt</span> <span class="o">=</span> <span class="s2">&quot;I420&quot;</span>
+    <span class="n">enc_params</span> <span class="o">=</span> <span class="s2">&quot;width=1920:height=1080:bitrate=2000:gop=32:gop_preset=2:framerate=25&quot;</span>
+    <span class="n">cache_buffer_length</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">abort_policy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Encoder</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">handle</span><span class="p">,</span> <span class="n">enc_fmt</span><span class="p">,</span> <span class="n">pix_fmt</span><span class="p">,</span> <span class="n">enc_params</span><span class="p">,</span> <span class="n">cache_buffer_length</span><span class="p">,</span> <span class="n">abort_policy</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">encoder</span><span class="o">.</span><span class="n">is_opened</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="pic-encode">
+<h2><span class="section-number">5.11.3. </span>pic_encode<a class="headerlink" href="#pic-encode" title="Link to this heading"></a></h2>
+<p>编码一张图片，并返回编码后的data。</p>
+<dl>
+<dt><strong>接口形式1:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">pic_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ext</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">BMImage</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>接口形式2:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">pic_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ext</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">bm_image</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>ext: str</p></li>
+</ul>
+<p>输入参数。图片编码格式。 <code class="docutils literal notranslate"><span class="pre">&quot;.jpg&quot;</span></code> , <code class="docutils literal notranslate"><span class="pre">&quot;.png&quot;</span></code> 等。</p>
+<ul class="simple">
+<li><p>image: BMImage/bm_image</p></li>
+</ul>
+<p>输入参数。输入图片，只支持FORMAT_BGR_PACKED，DATA_TYPE_EXT_1N_BYTE的图片。</p>
+<p><strong>返回值说明:</strong></p>
+<ul class="simple">
+<li><p>data: numpy.array</p></li>
+</ul>
+<p>编码后放在系统内存中的数据。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">img_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/output/file&quot;</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="c1"># img = decoder.read(handle).data()   //bm_image</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Encoder</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">pic_encode</span><span class="p">(</span><span class="s2">&quot;.jpg&quot;</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="video-write">
+<h2><span class="section-number">5.11.4. </span>video_write<a class="headerlink" href="#video-write" title="Link to this heading"></a></h2>
+<p>向视频编码器送入一帧图像。异步接口，做格式转换后，放入内部的缓存队列中。</p>
+<dl>
+<dt><strong>接口形式1:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">video_write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImage</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>接口形式2:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">video_write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">bm_image</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>image: sail.BMImage</p></li>
+</ul>
+<p>输入参数。输入图片。</p>
+<p>在BM1684上，
+当编码器像素格式（即pix_fmt）为I420时，待编码的image的shape可以与编码器的宽高不同；
+当像素格式为NV12时，要求image的shape与编码器的宽高一致，内部使用bmcv_image_storage_convert做格式转换，可能占用NPU资源。</p>
+<p>在BM1684X上，待编码的image的shape可以与编码器的宽高不同，内部使用bmcv_image_vpp_convert做resize和格式转换。</p>
+<p><strong>返回值说明:</strong></p>
+<ul class="simple">
+<li><p>judge_ret: int</p></li>
+</ul>
+<p>成功返回0，内部缓存队列已满返回-1。内部缓存队列中有一帧编码失败时返回-2。有一帧成功编码，但推流失败返回-3。未知的拒绝策略返回-4。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">img_path</span> <span class="o">=</span> <span class="s2">&quot;your_img_path&quot;</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">out_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/output/file&quot;</span>
+    <span class="n">enc_fmt</span> <span class="o">=</span> <span class="s2">&quot;h264_bm&quot;</span>
+    <span class="n">pix_fmt</span> <span class="o">=</span> <span class="s2">&quot;I420&quot;</span>
+    <span class="n">enc_params</span> <span class="o">=</span> <span class="s2">&quot;width=1920:height=1080:bitrate=2000:gop=32:gop_preset=2:framerate=25&quot;</span>
+    <span class="n">cache_buffer_length</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">abort_policy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Encoder</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">handle</span><span class="p">,</span> <span class="n">enc_fmt</span><span class="p">,</span> <span class="n">pix_fmt</span><span class="p">,</span> <span class="n">enc_params</span><span class="p">,</span> <span class="n">cache_buffer_length</span><span class="p">,</span> <span class="n">abort_policy</span><span class="p">)</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">video_write</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="c1"># ret = encoder.video_write(img.data())  #  sail.bm_image</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="release">
+<h2><span class="section-number">5.11.5. </span>release<a class="headerlink" href="#release" title="Link to this heading"></a></h2>
+<p>释放编码器。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">release</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">out_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/output/file&quot;</span>
+    <span class="n">enc_fmt</span> <span class="o">=</span> <span class="s2">&quot;h264_bm&quot;</span>
+    <span class="n">pix_fmt</span> <span class="o">=</span> <span class="s2">&quot;I420&quot;</span>
+    <span class="n">enc_params</span> <span class="o">=</span> <span class="s2">&quot;width=1920:height=1080:bitrate=2000:gop=32:gop_preset=2:framerate=25&quot;</span>
+    <span class="n">cache_buffer_length</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">abort_policy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Encoder</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">handle</span><span class="p">,</span> <span class="n">enc_fmt</span><span class="p">,</span> <span class="n">pix_fmt</span><span class="p">,</span> <span class="n">enc_params</span><span class="p">,</span> <span class="n">cache_buffer_length</span><span class="p">,</span> <span class="n">abort_policy</span><span class="p">)</span>
+    <span class="n">encoder</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="sail.MultiDecoder.html" class="btn btn-neutral float-left" title="5.10. sail.MultiDecoder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="sail.PaddingAtrr.html" class="btn btn-neutral float-right" title="5.12. sail.PaddingAtrr" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, SOPHGO。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1295 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-EN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3. Compilation and Installation Guide &mdash; SOPHON-SAIL 3.10.2
+ documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01d1187f"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="4. SAIL C++ API" href="4_module_cpp.html" />
+    <link rel="prev" title="2. SAIL" href="2_sail.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="1_disclaimer.html">1. Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Compilation and Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-directory-structure-of-the-source-code">3.1. The Directory Structure of the Source Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sail-compilation-and-installation">3.2. SAIL Compilation and Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#compilation-parameters">3.2.1. Compilation Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compile-dynamic-libraries-and-header-files-that-can-be-called-by-the-c-interface">3.2.2. Compile dynamic libraries and header files that can be called by the C++ interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pcie-mode">3.2.2.1. PCIE MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#soc-mode">3.2.2.2. SOC MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arm-pcie-mode">3.2.2.3. ARM PCIE MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#loongarch64-mode">3.2.2.4. LOONGARCH64 MODE</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#compile-dynamic-libraries-and-header-files-that-can-be-called-by-the-python-interface">3.2.3. Compile dynamic libraries and header files that can be called by the Python interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">3.2.3.1. PCIE MODE</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">3.2.4. SOC MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">3.2.5. ARM PCIE MODE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">3.2.5.1. LOONGARCH64 MODE</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#compile-user-manual">3.2.6. Compile User Manual</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#develop-programs-using-sail-s-python-interface">3.3. Develop Programs Using SAIL’s Python Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">3.3.1. PCIE MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">3.3.2. SOC MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">3.3.3. ARM PCIE MODE</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#develop-programs-using-sail-s-c-interface">3.4. Develop Programs Using SAIL’s C++ Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">3.4.1. PCIE MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">3.4.2. SOC MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">3.4.3. ARM PCIE MODE</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="4_module_cpp.html">4. SAIL C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_module_python.html">5. SAIL Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_appendix.html">6. Appendix</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3. </span>Compilation and Installation Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/3_build.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="compilation-and-installation-guide">
+<h1><span class="section-number">3. </span>Compilation and Installation Guide<a class="headerlink" href="#compilation-and-installation-guide" title="Link to this heading"></a></h1>
+<section id="the-directory-structure-of-the-source-code">
+<h2><span class="section-number">3.1. </span>The Directory Structure of the Source Code<a class="headerlink" href="#the-directory-structure-of-the-source-code" title="Link to this heading"></a></h2>
+<p>The directory structure of the source code is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>└── SOPHON-SAIL
+    ├── 3rdparty
+    │   ├── json
+    │   ├── prebuild
+    │   ├── pybind11
+    │   ├── pybind11_new
+    │   ├── spdlog
+    │   └── ...
+    ├── cmake                   # Cmake Files
+    │   ├── BM168x_ARM_PCIE
+    │   ├── BM168x_LoongArch64
+    │   ├── BM168x_RISCV
+    │   ├── BM168x_SOC
+    │   └── ...
+    ├── docs                    # Documentation codes
+    │   ├── common
+    │   ├── source_common
+    │   ├── source_en
+    │   └── source_zh
+    ├── include                 # Includes
+    ├── pyis                    # Stub files
+    ├── pysail-dev              # Files for secondary dev
+    │   └── ...
+    ├── python                  # Wheel codes
+    ├── python_wheels           # Python Wheels
+    │   ├── arm_pcie
+    │   ├── loongarch
+    │   ├── soc_BM1684_BM1684X
+    │   └── soc_BM1688
+    │   └── ...
+    ├── sample                  # Sample files
+    │   └── ...
+    ├── src                     # Source codes
+    │   └── ...
+    └── ...
+</pre></div>
+</div>
+<p>Among them, 3rdparty mainly contains some header files of the third party on which sail needs to be compiled;
+cmake contains some cmake files used for compilation;
+include contains some header files of sail;
+pyis contains some stub files for Python interfaces;
+pysail-dev contains headers and libs for secondary developing other Python module;
+python folder contains the packaging code and scripts of python whl for each platform;
+python_wheels contains come pre-compiled sail wheels;
+sample contains some code samples for developers;
+src folder contains the code of each interface.</p>
+</section>
+<section id="sail-compilation-and-installation">
+<h2><span class="section-number">3.2. </span>SAIL Compilation and Installation<a class="headerlink" href="#sail-compilation-and-installation" title="Link to this heading"></a></h2>
+<p><em>Note: BM1688 processor only supports soc related compilation options, BM1684 and BM1684X processors do not have this restriction.</em></p>
+<section id="compilation-parameters">
+<h3><span class="section-number">3.2.1. </span>Compilation Parameters<a class="headerlink" href="#compilation-parameters" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BUILD_TYPE</span></code> : It is used to specify the type of compilation, currently there are three modes: pcie, soc and arm_pcie. pcie means to compile the SAIL package available on the x86 host, soc means to use cross-compilation to compile the SAIL package available on the soc of the x86 host. arm_pcie means to use cross-compilation to compile the SAIL package available on the x86 host with a bm168x card plugged in. The default is pcie.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ONLY_RUNTIME</span></code> : It is used to specify whether the compilation result contains only runtime but not bmcv, sophon-ffmpeg, or sophon-opencv; if this compilation option is ON, this SAIL encoding and decoding and the Bmcv interface are not available, and only the inference interface is available. The default is OFF.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INSTALL_PREFIX</span></code> : It is used to specify the installation path when executing make install, default “/opt/sophon” in pcie mode, same as the installation path of libsophon, default “build_soc” in cross-compile mode.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PYTHON_EXECUTABLE</span></code> : It is used to specify the path name (path+name) of “python3” for compilation; by default, the default python3 of the current system is used.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CUSTOM_PY_LIBDIR</span></code> : It is used to specify the path of the python3 dynamic library to be used for compilation (path only); by default, the current system’s default python3 dynamic library directory is used.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LIBSOPHON_BASIC_PATH</span></code> : It is used to specify the path of libsophon in cross-compile mode; if the configuration is not correct, the compilation will fail. In pcie mode, this compilation option does not take effect.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FFMPEG_BASIC_PATH</span></code> : It is used to specify the path of sophon-ffmpeg in cross-compile mode; if the configuration is not correct and ONLY_RUNTIME is “OFF”, the compilation will fail. In pcie mode, this compilation option does not take effect.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OPENCV_BASIC_PATH</span></code> : It is used to specify the path of sophon-opencv in cross-compile mode; if the configuration is not correct and ONLY_RUNTIME is “OFF”, the compilation will fail. In pcie mode, this compilation option does not take effect.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TOOLCHAIN_BASIC_PATH</span></code> : It is used to specify the path of cross-compiler in cross-compile mode. Currently it only takes effect when BUILD_TYPE is loongarch.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BUILD_PYSAIL</span></code> : It is used to specify whether the compilation result contains the python version of SAIL. The default is “ON”, which includes the python version of SAIL.</p></li>
+</ul>
+</section>
+<section id="compile-dynamic-libraries-and-header-files-that-can-be-called-by-the-c-interface">
+<h3><span class="section-number">3.2.2. </span>Compile dynamic libraries and header files that can be called by the C++ interface<a class="headerlink" href="#compile-dynamic-libraries-and-header-files-that-can-be-called-by-the-c-interface" title="Link to this heading"></a></h3>
+<p><em>Note: BM1688 and CV186AH processors only support SOC MODE chapter, BM1684 and BM1684X processors do not have this limitation.Note that for BM1688 or CV186AH, sophon-mw needs to be changed to sophon-media.</em></p>
+<section id="pcie-mode">
+<h4><span class="section-number">3.2.2.1. </span>PCIE MODE<a class="headerlink" href="#pcie-mode" title="Link to this heading"></a></h4>
+<p><strong>Install libsophon, sophon-ffmpeg, sophon-opencv for SAIL</strong></p>
+<p>The installation of libsophon, sophon-ffmpeg, and sophon-opencv can be found in the sophon’s official documentation</p>
+<p><strong>.Compiling SAIL with Multimedia Modules</strong></p>
+<p>Compile SAIL with bmcv, sophon-ffmpeg, sophon-opencv using the default installation path</p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">-</span><span class="n">DBUILD_PYSAIL</span><span class="o">=</span><span class="n">OFF</span> <span class="o">..</span>
+<span class="n">make</span> <span class="n">sail</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Install SAIL dynamic library and header files; the compiled result will be installed under the “/opt/sophon” directory</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p><strong>.Compiling SAIL without Multimedia Modules</strong></p>
+<p>Compile SAIL without bmcv, sophon-ffmpeg, sophon-opencv using the default installation path</p>
+<p><em>The SAIL compiled in this way cannot use its Decoder, Bmcv, and other multimedia-related interfaces.</em></p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Install SAIL dynamic library and header files; the compiled result will be installed under the “/opt/sophon” directory</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+<section id="soc-mode">
+<h4><span class="section-number">3.2.2.2. </span>SOC MODE<a class="headerlink" href="#soc-mode" title="Link to this heading"></a></h4>
+<p><strong>.Get the libsophon, sophon-ffmpeg, and sophon-opencv needed for cross-compilation</strong></p>
+<p><em>All compilation operations in this section are performed on the x86 host using cross-compilation.
+The following examples choose to use libsophon version 0.4.1, sophon-ffmpeg version 0.4.1, and sophon-opencv version 0.4.1.</em></p>
+<ol class="arabic">
+<li><p>Get “libsophon_soc_0.4.1_aarch64.tar.gz” from sophon’s official website and unpack it</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">libsophon_soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>The directory of libsophon after unpacking is “libsophon_soc_0.4.1_aarch64/opt/sophon/libsophon-0.4.1”</p>
+<ol class="arabic" start="2">
+<li><p>Get “sophon-mw-soc_0.4.1_aarch64.tar.gz” from sophon’s official website and unpack it</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw</span><span class="o">-</span><span class="n">soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>The directory of sophon-ffmpeg after unpacking is “sophon-mw-soc_0.4.1_aarch64/opt/sophon/sophon-ffmpeg_0.4.1”.</p>
+<p>The directory of sophon-opencv after unpacking is “sophon-mw-soc_0.4.1_aarch64/opt/sophon/sophon-opencv_0.4.1”.</p>
+<p><strong>.Install the gcc-aarch64-linux-gnu toolchain</strong></p>
+<p><em>If already installed, you can ignore this step</em></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">g</span><span class="o">++-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.Compiling SAIL with Multimedia Modules</strong></p>
+<p>Compile SAIL containing bmcv, sophon-ffmpeg, sophon-opencv through cross-compilation.</p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>soc<span class="w"> </span>-DBUILD_PYSAIL<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_SOC/ToolChain_aarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_soc_0.4.1_aarch64/opt/sophon/libsophon-0.4.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DFFMPEG_BASIC_PATH<span class="o">=</span>sophon-mw-soc_0.4.1_aarch64/opt/sophon/sophon-ffmpeg_0.4.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DOPENCV_BASIC_PATH<span class="o">=</span>sophon-mw-soc_0.4.1_aarch64/opt/sophon/sophon-opencv_0.4.1<span class="w"> </span>..
+make<span class="w"> </span>sail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Install SAIL dynamic library and header files; The program will automatically create “build_soc” in the source code directory and the compiled result will be installed under “build_soc”</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Copy “sophon-sail” from the “build_soc” folder to the “/opt/sophon” directory on the target SOC, then can use SAIL on the target SOC host</p></li>
+</ol>
+<p><strong>.Compiling SAIL without Multimedia Modules</strong></p>
+<p>Compile SAIL that dose not include bmcv, sophon-ffmpeg, sophon-opencv through cross-compilation</p>
+<p><em>The SAIL compiled in this way cannot use its Decoder, Bmcv, and other multimedia-related interfaces.</em></p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>soc<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_PYSAIL<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DONLY_RUNTIME<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_SOC/ToolChain_aarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_soc_0.4.1_aarch64/opt/sophon/libsophon-0.4.1<span class="w"> </span>..
+make<span class="w"> </span>sail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Install SAIL dynamic library and header files; The program will automatically create “build_soc” in the source code directory and the compiled result will be installed under “build_soc”</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Copy “sophon-sail” from the “build_soc” folder to the “/opt/sophon” directory on the target SOC, then can use SAIL on the target SOC host</p></li>
+</ol>
+</section>
+<section id="arm-pcie-mode">
+<h4><span class="section-number">3.2.2.3. </span>ARM PCIE MODE<a class="headerlink" href="#arm-pcie-mode" title="Link to this heading"></a></h4>
+<p><strong>.Get the libsophon, sophon-ffmpeg, and sophon-opencv needed for cross-compilation</strong></p>
+<p><em>All compilation operations in this section are performed on the x86 host using cross-compilation. The following examples choose to use libsophon version 0.4.1, sophon-ffmpeg version 0.4.1, and sophon-opencv version 0.4.1.</em></p>
+<ol class="arabic">
+<li><p>Get “sophon-mw_0.4.1_aarch64.tar.gz” from sophon’s official website and unpack it</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">libsophon_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>The directory of libsophon after unpacking is “libsophon_0.4.1_aarch64/opt/sophon/libsophon-0.4.1”</p>
+<ol class="arabic" start="2">
+<li><p>Get “sophon-mw_0.4.1_aarch64.tar.gz” from sophon’s official website and unpack it</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>The directory of sophon-ffmpeg after unpacking is “sophon-mw_0.4.1_aarch64/opt/sophon/sophon-ffmpeg_0.4.1”.</p>
+<p>The directory of sophon-opencv after unpacking is “sophon-mw_0.4.1_aarch64/opt/sophon/sophon-opencv_0.4.1”.</p>
+<p><strong>.Install the gcc-aarch64-linux-gnu toolchain</strong></p>
+<p><em>If already installed, you can ignore this step</em></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">g</span><span class="o">++-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.Compiling SAIL with Multimedia Modules</strong></p>
+<p>Compile SAIL containing bmcv, sophon-ffmpeg, sophon-opencv through cross-compilation.</p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>arm_pcie<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_PYSAIL<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_ARM_PCIE/ToolChain_aarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_0.4.1_aarch64/opt/sophon/libsophon-0.4.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DFFMPEG_BASIC_PATH<span class="o">=</span>sophon-mw_0.4.1_aarch64/opt/sophon/sophon-ffmpeg_0.4.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DOPENCV_BASIC_PATH<span class="o">=</span>sophon-mw_0.4.1_aarch64/opt/sophon/sophon-opencv_0.4.1<span class="w"> </span>..
+make<span class="w"> </span>sail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Install SAIL dynamic library and header files; The program will automatically create “build_arm_pcie” in the source code directory and the compiled result will be installed under “build_arm_pcie”</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Copy “sophon-sail” from the “build_arm_pcie” folder to the “/opt/sophon” directory on the target ARM host, then can use SAIL on the target ARM host</p></li>
+</ol>
+<p><strong>.Compiling SAIL without Multimedia Modules</strong></p>
+<p>Compile SAIL that dose not include bmcv, sophon-ffmpeg, sophon-opencv through cross-compilation</p>
+<p><em>The SAIL compiled in this way cannot use its Decoder, Bmcv, and other multimedia-related interfaces.</em></p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>soc<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_PYSAIL<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DONLY_RUNTIME<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_SOC/ToolChain_aarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_soc_0.4.1_aarch64/opt/sophon/libsophon-0.4.1<span class="w"> </span>..
+make<span class="w"> </span>sail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Install SAIL dynamic library and header files; The program will automatically create “build_arm_pcie” in the source code directory and the compiled result will be installed under “build_arm_pcie”</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Copy “sophon-sail” from the “build_arm_pcie” folder to the “/opt/sophon” directory on the target ARM host, then can use SAIL on the target ARM host</p></li>
+</ol>
+</section>
+<section id="loongarch64-mode">
+<h4><span class="section-number">3.2.2.4. </span>LOONGARCH64 MODE<a class="headerlink" href="#loongarch64-mode" title="Link to this heading"></a></h4>
+<p><strong>.Install the loongarch64-linux-gnu toolchain</strong></p>
+<p>Get the [cross-compiled toolchain](<a class="reference external" href="http://ftp.loongnix.cn/toolchain/gcc/release/loongarch/gcc8/loongson-gnu-toolchain-8.3-x86_64-loongarch64-linux-gnu-rc1.1.tar.xz">http://ftp.loongnix.cn/toolchain/gcc/release/loongarch/gcc8/loongson-gnu-toolchain-8.3-x86_64-loongarch64-linux-gnu-rc1.1.tar.xz</a>) from the LoongArch64 official website,
+and unzip it locally. The directory structure after decompression is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>└── loongson-gnu-toolchain-8.3-x86_64-loongarch64-linux-gnu-rc1.1
+    ├── bin
+    ├── lib
+    ├── lib64
+    ├── libexec
+    ├── loongarch64-linux-gnu
+    ├── share
+    ├── sysroot
+    └── versions
+</pre></div>
+</div>
+<p><strong>.Get the libsophon, sophon-ffmpeg, and sophon-opencv needed for cross-compilation</strong></p>
+<p><em>All compilation operations in this section are performed on the x86 host using cross-compilation. The following examples choose to use libsophon version 0.4.7, sophon-ffmpeg version 0.6.0, and sophon-opencv version 0.6.0.</em></p>
+<p><strong>.Compiling SAIL with Multimedia Modules</strong></p>
+<p>Compile SAIL containing bmcv, sophon-ffmpeg, sophon-opencv through cross-compilation.</p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><pre class="literal-block">cmake -DBUILD_TYPE=loongarch      -DBUILD_PYSAIL=OFF     -DTOOLCHAIN_BASIC_PATH=toolchains/loongson-gnu-toolchain-8.3-x86_64-loongarch64-linux-gnu-rc1.1     -DCMAKE_TOOLCHAIN_FILE=../cmake/BM168x_LoongArch64/ToolChain_loongarch64_linux.cmake     -DLIBSOPHON_BASIC_PATH=libsophon_0.4.7_loongarch64/opt/sophon/libsophon-0.4.7     -DFFMPEG_BASIC_PATH=sophon-mw_0.6.0_loongarch64/opt/sophon/sophon-ffmpeg_0.6.0     -DOPENCV_BASIC_PATH=sophon-mw_0.6.0_loongarch64/opt/sophon/sophon-opencv_0.6.0      ..
+make sail</pre>
+</div></blockquote>
+</li>
+<li><p>Install SAIL dynamic library and header files; The program will automatically create “build_loongarch” in the source code directory and the compiled result will be installed under “build_loongarch”</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Copy “sophon-sail” from the “build_loongarch” folder to the “/opt/sophon” directory on the target LOONGARCH host, then can use SAIL on the target LOONGARCH host</p></li>
+</ol>
+<p><strong>.Compiling SAIL without Multimedia Modules</strong></p>
+<p>Compile SAIL that dose not include bmcv, sophon-ffmpeg, sophon-opencv through cross-compilation</p>
+<p><em>The SAIL compiled in this way cannot use its Decoder, Bmcv, and other multimedia-related interfaces.</em></p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>loongarch<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_PYSAIL<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DONLY_RUNTIME<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DTOOLCHAIN_BASIC_PATH<span class="o">=</span>toolchains/loongson-gnu-toolchain-8.3-x86_64-loongarch64-linux-gnu-rc1.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_LoongArch64/ToolChain_loongarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_0.4.7_loongarch64/opt/sophon/libsophon-0.4.7<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>..
+make<span class="w"> </span>sail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Install SAIL dynamic library and header files; The program will automatically create “build_loongarch” in the source code directory and the compiled result will be installed under “build_loongarch”</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Copy “sophon-sail” from the “build_loongarch” folder to the “/opt/sophon” directory on the target LOONGARCH host, then can use SAIL on the target LOONGARCH host</p></li>
+</ol>
+</section>
+</section>
+<section id="compile-dynamic-libraries-and-header-files-that-can-be-called-by-the-python-interface">
+<h3><span class="section-number">3.2.3. </span>Compile dynamic libraries and header files that can be called by the Python interface<a class="headerlink" href="#compile-dynamic-libraries-and-header-files-that-can-be-called-by-the-python-interface" title="Link to this heading"></a></h3>
+<p><em>Note: BM1688 and CV186AH processors only support SOC MODE chapter, BM1684 and BM1684X processors do not have this limitation.Note that for BM1688 or CV186AH, sophon-mw needs to be changed to sophon-media.</em></p>
+<section id="id1">
+<h4><span class="section-number">3.2.3.1. </span>PCIE MODE<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
+<p><strong>Install libsophon, sophon-ffmpeg, sophon-opencv for SAIL</strong></p>
+<p>The installation of libsophon, sophon-ffmpeg, and sophon-opencv can be found in the sophon’s official documentation</p>
+<p><strong>.Compiling SAIL with Multimedia Modules</strong></p>
+<p>Compile SAIL with bmcv, sophon-ffmpeg, sophon-opencv using the default installation path</p>
+<p><em>If you don’t need to use the python interface, you can ignore sections 5 and 6</em></p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">..</span>
+<span class="n">make</span> <span class="n">pysail</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Pack python wheel, the path of the generated wheel package is “python/dist” and the file name is “sophon-3.10.1-py3-none-any.whl”</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../</span><span class="n">python</span>
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+<span class="o">./</span><span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Install python wheel</p>
+<blockquote>
+<div><pre class="literal-block">pip3 install ./dist/sophon-3.10.1-py3-none-any.whl --force-reinstall</pre>
+</div></blockquote>
+</li>
+</ol>
+<p><strong>.Compiling SAIL without Multimedia Modules</strong></p>
+<p>Compile SAIL without bmcv, sophon-ffmpeg, sophon-opencv using the default installation path</p>
+<p><em>The SAIL compiled in this way cannot use its Decoder, Bmcv, and other multimedia-related interfaces.</em></p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">-</span><span class="n">DONLY_RUNTIME</span><span class="o">=</span><span class="n">ON</span> <span class="o">..</span>
+<span class="n">make</span> <span class="n">pysail</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Pack python wheel, the path of the generated wheel package is “python/dist” and the file name is “sophon-3.10.1-py3-none-any.whl”</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../</span><span class="n">python</span>
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+<span class="o">./</span><span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Install python wheel</p>
+<blockquote>
+<div><pre class="literal-block">pip3 install ./dist/sophon-3.10.1-py3-none-any.whl --force-reinstall</pre>
+</div></blockquote>
+</li>
+</ol>
+<p><strong>.Compiling SAIL with a Specific Python Version</strong></p>
+<p>If the python3 version in the production environment is not the same as the development environment, you can make it consistent by upgrading the python3 version.
+You can also get the corresponding python3 package through the official python3 website.
+Or you can download the already compiled python3 from [<a class="reference internal" href="appendix/get_pythons.html#get-python3-for-cross-compilation-on-the-x86-host"><span class="std std-ref">Get Python3 for cross-compilation on an X86 host</span></a>].
+That is, use the non-system default python3, compile SAIL containing bmcv, sophon-ffmpeg, and sophon-opencv, and package it in the “build_pcie” directory.
+The path of python3 used in this example is “python_3.8.2/bin/python3”, and the dynamic library directory of python3 is “python_3.8.2/lib”.</p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">-</span><span class="n">DPYTHON_EXECUTABLE</span><span class="o">=</span><span class="n">python_3</span><span class="mf">.8.2</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span> <span class="o">-</span><span class="n">DCUSTOM_PY_LIBDIR</span><span class="o">=</span><span class="n">python_3</span><span class="mf">.8.2</span><span class="o">/</span><span class="n">lib</span> <span class="o">..</span>
+<span class="n">make</span> <span class="n">pysail</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Pack python wheel, the path of the generated wheel package is “python/dist” and the file name is “sophon-3.10.1-py3-none-any.whl”</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../</span><span class="n">python</span>
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+<span class="o">./</span><span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<ol class="arabic simple" start="7">
+<li><p>Install python wheel</p></li>
+</ol>
+<p>Copy “sophon-3.10.1-py3-none-any.whl” to the target machine, then execute the following installation command</p>
+<blockquote>
+<div><pre class="literal-block">pip3 install ./dist/sophon-3.10.1-py3-none-any.whl --force-reinstall</pre>
+</div></blockquote>
+</section>
+</section>
+<section id="id2">
+<h3><span class="section-number">3.2.4. </span>SOC MODE<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p><strong>.Get the libsophon, sophon-ffmpeg, and sophon-opencv needed for cross-compilation</strong></p>
+<p><em>All compilation operations in this section are performed on the x86 host using cross-compilation.
+The following examples choose to use libsophon version 0.4.1, sophon-ffmpeg version 0.4.1, and sophon-opencv version 0.4.1.</em></p>
+<ol class="arabic">
+<li><p>Get “libsophon_soc_0.4.1_aarch64.tar.gz” from sophon’s official website and unpack it</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">libsophon_soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>The directory of libsophon after unpacking is “libsophon_soc_0.4.1_aarch64/opt/sophon/libsophon-0.4.1”</p>
+<ol class="arabic" start="2">
+<li><p>Get “sophon-mw-soc_0.4.1_aarch64.tar.gz” from sophon’s official website and unpack it</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw</span><span class="o">-</span><span class="n">soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>The directory of sophon-ffmpeg after unpacking is “sophon-mw-soc_0.4.1_aarch64/opt/sophon/sophon-ffmpeg_0.4.1”.</p>
+<p>The directory of sophon-opencv after unpacking is “sophon-mw-soc_0.4.1_aarch64/opt/sophon/sophon-opencv_0.4.1”.</p>
+<p><strong>.Install the gcc-aarch64-linux-gnu toolchain</strong></p>
+<p><em>If already installed, you can ignore this step</em></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">g</span><span class="o">++-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.Compiling SAIL with Multimedia Modules</strong></p>
+<p>Compile SAIL with bmcv, sophon-ffmpeg, and sophon-opencv by cross-compiling using the specified version of python3 (consistent with the version of python3 on the target SOC).
+You can also get the corresponding python3 package through the official python3 website.
+Or you can download the already compiled python3 from [<a class="reference internal" href="appendix/get_pythons.html#get-python3-for-cross-compilation-on-the-x86-host"><span class="std std-ref">Get Python3 for cross-compilation on an X86 host</span></a>].
+The path of python3 used in this example is “python_3.8.2/bin/python3”, and the dynamic library directory of python3 is “python_3.8.2/lib”.</p>
+<p><em>If you don’t need to use the python interface, you can ignore sections 6 and 7</em></p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>soc<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_SOC/ToolChain_aarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DPYTHON_EXECUTABLE<span class="o">=</span>python_3.8.2/bin/python3<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCUSTOM_PY_LIBDIR<span class="o">=</span>python_3.8.2/lib<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_soc_0.4.1_aarch64/opt/sophon/libsophon-0.4.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DFFMPEG_BASIC_PATH<span class="o">=</span>sophon-mw-soc_0.4.1_aarch64/opt/sophon/sophon-ffmpeg_0.4.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DOPENCV_BASIC_PATH<span class="o">=</span>sophon-mw-soc_0.4.1_aarch64/opt/sophon/sophon-opencv_0.4.1<span class="w"> </span>..
+make<span class="w"> </span>pysail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Pack python wheel, the path of the generated wheel package is “python/dist” and the file name is “sophon_arm-3.10.1-py3-none-any.whl”</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../</span><span class="n">python</span>
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+<span class="o">./</span><span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Install python wheel</p></li>
+</ol>
+<p>Copy “sophon_arm-3.10.1-py3-none-any.whl” to the target SOC, then execute the following installation command</p>
+<blockquote>
+<div><pre class="literal-block">pip3 install sophon_arm-3.10.1-py3-none-any.whl --force-reinstall</pre>
+</div></blockquote>
+<p><strong>.Compiling SAIL without Multimedia Modules</strong></p>
+<p>Compile SAIL without bmcv, sophon-ffmpeg, and sophon-opencv by cross-compiling using the specified version of python3 (consistent with python3 on the target SOC).
+You can also get the corresponding python3 package through the official python3 website.
+Or you can download the already compiled python3 from [<a class="reference internal" href="appendix/get_pythons.html#get-python3-for-cross-compilation-on-the-x86-host"><span class="std std-ref">Get Python3 for cross-compilation on an X86 host</span></a>].
+The path of python3 used in this example is “python_3.8.2/bin/python3”, and the dynamic library directory of python3 is “python_3.8.2/lib”.</p>
+<p><em>The SAIL compiled in this way cannot use its Decoder, Bmcv, and other multimedia-related interfaces.</em></p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>soc<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DONLY_RUNTIME<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_SOC/ToolChain_aarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DPYTHON_EXECUTABLE<span class="o">=</span>python_3.8.2/bin/python3<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCUSTOM_PY_LIBDIR<span class="o">=</span>python_3.8.2/lib<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_soc_0.4.1_aarch64/opt/sophon/libsophon-0.4.1<span class="w"> </span>..
+make<span class="w"> </span>pysail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Pack python wheel, the path of the generated wheel package is “python/dist” and the file name is “sophon_arm-3.10.1-py3-none-any.whl”</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../</span><span class="n">python</span>
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+<span class="o">./</span><span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Install python wheel</p></li>
+</ol>
+<p>Copy “sophon_arm-3.10.1-py3-none-any.whl” to the target SOC, then execute the following installation command</p>
+<blockquote>
+<div><pre class="literal-block">pip3 install sophon_arm-3.10.1-py3-none-any.whl --force-reinstall</pre>
+</div></blockquote>
+</section>
+<section id="id3">
+<h3><span class="section-number">3.2.5. </span>ARM PCIE MODE<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p><strong>.Get the libsophon, sophon-ffmpeg, and sophon-opencv needed for cross-compilation</strong></p>
+<p><em>All compilation operations in this section are performed on the x86 host using cross-compilation. The following examples choose to use libsophon version 0.4.1, sophon-ffmpeg version 0.4.1, and sophon-opencv version 0.4.1.</em></p>
+<ol class="arabic">
+<li><p>Get “libsophon_0.4.1_aarch64.tar.gz” from sophon’s official website and unpack it</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">libsophon_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>The directory of libsophon after unpacking is “libsophon_0.4.1_aarch64/opt/sophon/libsophon-0.4.1”</p>
+<ol class="arabic" start="2">
+<li><p>Get “sophon-mw_0.4.1_aarch64.tar.gz” from sophon’s official website and unpack it</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>The directory of sophon-ffmpeg after unpacking is “sophon-mw_0.4.1_aarch64/opt/sophon/sophon-ffmpeg_0.4.1”.</p>
+<p>The directory of sophon-opencv after unpacking is “sophon-mw_0.4.1_aarch64/opt/sophon/sophon-opencv_0.4.1”.</p>
+<p><strong>.Install the gcc-aarch64-linux-gnu toolchain</strong></p>
+<p><em>If already installed, you can ignore this step</em></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">g</span><span class="o">++-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.Compiling SAIL with Multimedia Modules</strong></p>
+<p>Compile SAIL with bmcv, sophon-ffmpeg, and sophon-opencv by cross-compiling using the specified version of python3 (consistent with the version of python3 on the target ARM host).
+You can also get the corresponding python3 package through the official python3 website.
+Or you can download the already compiled python3 from [<a class="reference internal" href="appendix/get_pythons.html#get-python3-for-cross-compilation-on-the-x86-host"><span class="std std-ref">Get Python3 for cross-compilation on an X86 host</span></a>].
+The path of python3 used in this example is “python_3.8.2/bin/python3”, and the dynamic library directory of python3 is “python_3.8.2/lib”.</p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>arm_pcie<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_ARM_PCIE/ToolChain_aarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DPYTHON_EXECUTABLE<span class="o">=</span>python_3.8.2/bin/python3<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCUSTOM_PY_LIBDIR<span class="o">=</span>python_3.8.2/lib<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_0.4.1_aarch64/opt/sophon/libsophon-0.4.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DFFMPEG_BASIC_PATH<span class="o">=</span>sophon-mw_0.4.1_aarch64/opt/sophon/sophon-ffmpeg_0.4.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DOPENCV_BASIC_PATH<span class="o">=</span>sophon-mw_0.4.1_aarch64/opt/sophon/sophon-opencv_0.4.1<span class="w"> </span>..
+make<span class="w"> </span>pysail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Pack python wheel, the path of the generated wheel package is “python/dist” and the file name is “sophon_arm_pcie-3.10.1-py3-none-any.whl”</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../</span><span class="n">python</span>
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+<span class="o">./</span><span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Install python wheel</p></li>
+</ol>
+<p>Copy “sophon_arm_pcie-3.10.1-py3-none-any.whl” to the target ARM host, then execute the following installation command</p>
+<blockquote>
+<div><pre class="literal-block">pip3 install sophon_arm_pcie-3.10.1-py3-none-any.whl --force-reinstall</pre>
+</div></blockquote>
+<p><strong>.Compiling SAIL without Multimedia Modules</strong></p>
+<p>Compile SAIL without bmcv, sophon-ffmpeg, and sophon-opencv by cross-compiling using the specified version of python3 (consistent with python3 on the target ARM host).
+You can also get the corresponding python3 package through the official python3 website.
+Or you can download the already compiled python3 from [<a class="reference internal" href="appendix/get_pythons.html#get-python3-for-cross-compilation-on-the-x86-host"><span class="std std-ref">Get Python3 for cross-compilation on an X86 host</span></a>]..
+The path of python3 used in this example is “python_3.8.2/bin/python3”, and the dynamic library directory of python3 is “python_3.8.2/lib”.</p>
+<p><em>The SAIL compiled in this way cannot use its Decoder, Bmcv, and other multimedia-related interfaces.</em></p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>arm_pcie<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DONLY_RUNTIME<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_ARM_PCIE/ToolChain_aarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DPYTHON_EXECUTABLE<span class="o">=</span>python_3.8.2/bin/python3<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCUSTOM_PY_LIBDIR<span class="o">=</span>python_3.8.2/lib<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_0.4.1_aarch64/opt/sophon/libsophon-0.4.1<span class="w"> </span>..
+make
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Pack python wheel, the path of the generated wheel package is “python/dist” and the file name is “sophon_arm_pcie-3.10.1-py3-none-any.whl”</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../</span><span class="n">python</span>
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+<span class="o">./</span><span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Install python wheel</p></li>
+</ol>
+<p>Copy “sophon_arm_pcie-3.10.1-py3-none-any.whl” to the target ARM host, then execute the following installation command</p>
+<blockquote>
+<div><pre class="literal-block">pip3 install sophon_arm_pcie-3.10.1-py3-none-any.whl --force-reinstall</pre>
+</div></blockquote>
+<section id="id4">
+<h4><span class="section-number">3.2.5.1. </span>LOONGARCH64 MODE<a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
+<p><strong>.Install the loongarch64-linux-gnu toolchain</strong></p>
+<p>Get the [cross-compiled toolchain](<a class="reference external" href="http://ftp.loongnix.cn/toolchain/gcc/release/loongarch/gcc8/loongson-gnu-toolchain-8.3-x86_64-loongarch64-linux-gnu-rc1.1.tar.xz">http://ftp.loongnix.cn/toolchain/gcc/release/loongarch/gcc8/loongson-gnu-toolchain-8.3-x86_64-loongarch64-linux-gnu-rc1.1.tar.xz</a>) from the LoongArch64 official website,
+and unzip it locally. The directory structure after decompression is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>└── loongson-gnu-toolchain-8.3-x86_64-loongarch64-linux-gnu-rc1.1
+    ├── bin
+    ├── lib
+    ├── lib64
+    ├── libexec
+    ├── loongarch64-linux-gnu
+    ├── share
+    ├── sysroot
+    └── versions
+</pre></div>
+</div>
+<p><strong>.Get the libsophon, sophon-ffmpeg, and sophon-opencv needed for cross-compilation</strong></p>
+<p><em>All compilation operations in this section are performed on the x86 host using cross-compilation. The following examples choose to use libsophon version 0.4.7.</em></p>
+<p><strong>.Compiling SAIL with Multimedia Modules</strong></p>
+<p>Compile SAIL without bmcv, sophon-ffmpeg, and sophon-opencv by cross-compiling using the specified version of python3 (consistent with python3 on the target ARM host).
+You can also get the corresponding python3 package through the official python3 website.
+Or you can download the already compiled python3 from [<a class="reference internal" href="appendix/get_pythons.html#get-python3-for-cross-compilation-on-the-x86-host"><span class="std std-ref">Get Python3 for cross-compilation on an X86 host</span></a>]..
+The path of python3 used in this example is “python_3.8.2/bin/python3”, and the dynamic library directory of python3 is “python_3.8.2/lib”.</p>
+<p><em>The SAIL compiled in this way cannot use its Decoder, Bmcv, and other multimedia-related interfaces.</em></p>
+<ol class="arabic">
+<li><p>Download the SOPHON-SAIL source code, unpack it and go to its source code directory</p></li>
+<li><p>Create the build folder “build” and go to the “build” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Execute the compilation command</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>loongarch<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DONLY_RUNTIME<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DTOOLCHAIN_BASIC_PATH<span class="o">=</span>toolchains/loongson-gnu-toolchain-8.3-x86_64-loongarch64-linux-gnu-rc1.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_LoongArch64/ToolChain_loongarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DPYTHON_EXECUTABLE<span class="o">=</span>python_3.7.3/bin/python3<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCUSTOM_PY_LIBDIR<span class="o">=</span>python_3.7.3/lib<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_0.4.7_loongarch64/opt/sophon/libsophon-0.4.7<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>..
+make<span class="w"> </span>pysail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p><em>The path in the cmake option needs to be adjusted according to the configuration of your environment</em></p>
+<ul class="simple">
+<li><p>DLIBSOPHON_BASIC_PATH: The directory corresponding to the decompression of libsophon_&lt;x.y.z&gt;_loongarch64.tar.gz under libsophon in SOPHONSDK。</p></li>
+</ul>
+<ol class="arabic" start="4">
+<li><p>Pack python wheel, the path of the generated wheel package is “python/dist” and the file name is “sophon_loongarch64-3.10.1-py3-none-any.whl”</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">../</span><span class="n">python</span>
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+<span class="o">./</span><span class="n">sophon_whl</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Install python wheel</p></li>
+</ol>
+<p>Copy “sophon_loongarch64-3.10.1-py3-none-any.whl” to the target ARM host, then execute the following installation command</p>
+<blockquote>
+<div><pre class="literal-block">pip3 install sophon_loongarch64-3.10.1-py3-none-any.whl --force-reinstall</pre>
+</div></blockquote>
+</section>
+</section>
+<section id="compile-user-manual">
+<h3><span class="section-number">3.2.6. </span>Compile User Manual<a class="headerlink" href="#compile-user-manual" title="Link to this heading"></a></h3>
+<p><strong>.Install software packages</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update apt</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span>
+<span class="c1"># Install latex</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">texlive</span><span class="o">-</span><span class="n">xetex</span> <span class="n">texlive</span><span class="o">-</span><span class="n">latex</span><span class="o">-</span><span class="n">recommended</span>
+<span class="c1"># Install Sphinx</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">sphinx</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">autobuild</span> <span class="n">sphinx_rtd_theme</span> <span class="n">rst2pdf</span>
+<span class="c1"># Install the jieba Chinese text segmentation library to support Chinese search</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">jieba3k</span>
+</pre></div>
+</div>
+<p><strong>.Install fonts</strong></p>
+<blockquote>
+<div><p>[Fandol](<a class="reference external" href="https://ctan.org/pkg/fandol">https://ctan.org/pkg/fandol</a>) - Four basic fonts for Chinese typesetting</p>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download the font</span>
+<span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">ctan</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">fonts</span><span class="o">/</span><span class="n">fandol</span><span class="o">.</span><span class="n">zip</span>
+<span class="c1"># Unpack the font package</span>
+<span class="n">unzip</span> <span class="n">fandol</span><span class="o">.</span><span class="n">zip</span>
+<span class="c1"># Copy and install the font package</span>
+<span class="n">sudo</span> <span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">fandol</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">fonts</span><span class="o">/</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">fandol</span> <span class="o">~/.</span><span class="n">fonts</span>
+</pre></div>
+</div>
+<p><strong>.Execute compilation</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">docs</span>
+<span class="n">make</span> <span class="n">pdf</span> <span class="n">LANG</span><span class="o">=</span><span class="n">en</span>
+</pre></div>
+</div>
+<p>The compiled user manual path is “docs/build/SOPHON-SAIL_en.pdf”</p>
+<p><em>If the compilation still reports errors, you can run “sudo apt-get install texlive-lang-chinese”, and then re-run the above command.</em></p>
+</section>
+</section>
+<section id="develop-programs-using-sail-s-python-interface">
+<h2><span class="section-number">3.3. </span>Develop Programs Using SAIL’s Python Interface<a class="headerlink" href="#develop-programs-using-sail-s-python-interface" title="Link to this heading"></a></h2>
+<p><em>Note: BM1688 and CV186AH processors only support SOC MODE chapter, BM1684 and BM1684X processors do not have this limitation.Note that for BM1688 or CV186AH, sophon-mw needs to be changed to sophon-media.</em></p>
+<section id="id5">
+<h3><span class="section-number">3.3.1. </span>PCIE MODE<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>After compiling SAIL with PCIE MODE and installing python wheel, you can call SAIL in python, the interface documentation can be found in the API chapter.</p>
+</section>
+<section id="id6">
+<h3><span class="section-number">3.3.2. </span>SOC MODE<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p><strong>.Use your own compiled Python wheel package</strong></p>
+<p>After compiling SAIL by cross-compiling with SOC MODE, copy the python wheel to SOC and install it, then you can call SAIL in python, the interface document can be found in the API chapter.</p>
+<p><strong>.Use the pre-compiled Python wheel package</strong></p>
+<ol class="arabic">
+<li><p>Check libsophon version and sophon-mw(sophon-ffmpeg,sophon-opencv) version on SOC</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ls</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Check Python3 version on SOC</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>You can find the corresponding version of the wheel package from the pre-compiled Python wheel package, copy it to the SOC, and install it; then, you can use python to call SAIL. Its interface documentation can be found in the API chapter.</p></li>
+</ol>
+</section>
+<section id="id7">
+<h3><span class="section-number">3.3.3. </span>ARM PCIE MODE<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p>After compiling SAIL by cross-compiling with ARM PCIE MODE, copy the python wheel to ARM host and install it, then you can call SAIL in python, the interface document can be found in the API chapter.</p>
+<ol class="arabic">
+<li><p>Check libsophon version and sophon-mw(sophon-ffmpeg,sophon-opencv) version on the ARM host</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ls</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Check Python3 version on the ARM host</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>You can find the corresponding version of the wheel package from the pre-compiled Python wheel package, copy it to the ARM host, and install it; then, you can use python to call SAIL. Its interface documentation can be found in the API chapter.</p></li>
+</ol>
+</section>
+</section>
+<section id="develop-programs-using-sail-s-c-interface">
+<h2><span class="section-number">3.4. </span>Develop Programs Using SAIL’s C++ Interface<a class="headerlink" href="#develop-programs-using-sail-s-c-interface" title="Link to this heading"></a></h2>
+<p><em>Note: BM1688 and CV186AH processors only support SOC MODE chapter, BM1684 and BM1684X processors do not have this limitation.Note that for BM1688 or CV186AH, sophon-mw needs to be changed to sophon-media.</em></p>
+<section id="id8">
+<h3><span class="section-number">3.4.1. </span>PCIE MODE<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>After compiling SAIL with PCIE MODE and installing SAIL’s c++ libraries by running “sudo make install” or by copying them.
+It is recommended to use cmake to link the SAIL libraries to your application.
+If you need to use SAIL multimedia-related functions, you also need to add libsophon, sophon-ffmpeg, sophon-opencv header file directory, and dynamic library directory to your program.
+You can add the following paragraph to your program’s CMakeLists.txt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>find_package(libsophon REQUIRED)
+include_directories(${LIBSOPHON_INCLUDE_DIRS})
+# Add libsophon&#39;s header file directories
+
+set(SAIL_DIR  /opt/sophon/sophon-sail/lib/cmake)
+find_package(SAIL REQUIRED)
+include_directories(${SAIL_INCLUDE_DIRS})
+link_directories(${SAIL_LIB_DIRS})
+# Add SAIL header files and dynamic library directories
+
+set(OpenCV_DIR  /opt/sophon/sophon-opencv-latest/lib/cmake/opencv4)
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+# Add the header file directories of sophon-opencv
+
+set(FFMPEG_DIR  /opt/sophon/sophon-ffmpeg-latest/lib/cmake)
+find_package(FFMPEG REQUIRED)
+include_directories(${FFMPEG_INCLUDE_DIRS})
+link_directories(${FFMPEG_LIB_DIRS})
+# Add the header file directories and dynamic library directories of sophon-ffmpeg
+
+add_executable(${YOUR_TARGET_NAME} ${YOUR_SOURCE_FILES})
+target_link_libraries(${YOUR_TARGET_NAME} sail)
+</pre></div>
+</div>
+<p>The functions in sail can be called from within your code:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define USE_FFMPEG  1</span>
+<span class="cp">#define USE_OPENCV  1</span>
+<span class="cp">#define USE_BMCV    1</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">device_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">video_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;test.avi&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Decoder</span><span class="w"> </span><span class="n">decoder</span><span class="p">(</span><span class="n">video_path</span><span class="p">,</span><span class="nb">true</span><span class="p">,</span><span class="n">device_id</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">decoder</span><span class="p">.</span><span class="n">is_opened</span><span class="p">()){</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Video[%s] read failed!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">video_path</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">device_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Bmcv</span><span class="w"> </span><span class="n">bmcv</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
+<span class="w">        </span><span class="n">sail</span><span class="o">::</span><span class="n">BMImage</span><span class="w"> </span><span class="n">ost_image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">decoder</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+<span class="w">        </span><span class="n">bmcv</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">&quot;test.jpg&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ost_image</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3><span class="section-number">3.4.2. </span>SOC MODE<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p><strong>.Compile the program on the SOC device</strong></p>
+<p>After installing libsophon, sophon-ffmpeg, sophon-opencv, and SAIL on the SOC device, you can use cmake to link the libraries in SAIL to your application by referring to the PCIE MODE development method.
+If you need to use SAIL multimedia-related functions, you also need to add libsophon, sophon-ffmpeg, and sophon-opencv header file directories and dynamic library directories to your application.</p>
+<p><strong>.Cross-compile programs on x86 hosts</strong></p>
+<p>If you want to build a cross-compilation environment using SAIL, you will need libsophon, sophon-ffmpeg, sophon-opencv, and the gcc-aarch64-linux-gnu toolchain.</p>
+<p><strong>.Create the “soc-sdk” folder</strong></p>
+<p>Create the “soc-sdk” folder, the header files and dynamic libraries needed for subsequent cross-compilation will be stored in this directory.</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.Get the libsophon,sophon-ffmpeg,sophon-opencv libraries needed for cross-compilation</strong></p>
+<p><em>The following examples choose to use libsophon version 0.4.1, sophon-ffmpeg version 0.4.1, and sophon-opencv version 0.4.1.</em></p>
+<ol class="arabic">
+<li><p>Get “libsophon_soc_0.4.1_aarch64.tar.gz” from sophon’s official website and unpack and copy it to the “soc-sdk” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">libsophon_soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">libsophon_soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">libsophon</span><span class="o">-</span><span class="mf">0.4.1</span><span class="o">/</span><span class="n">include</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">libsophon_soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">libsophon</span><span class="o">-</span><span class="mf">0.4.1</span><span class="o">/</span><span class="n">lib</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>The directory of libsophon after unpacking is “libsophon_soc_0.4.1_aarch64/opt/sophon/libsophon-0.4.1”</p>
+<ol class="arabic" start="2">
+<li><p>Get “sophon-mw-soc_0.4.1_aarch64.tar.gz” from sophon’s official website and unpack and copy it to the “soc-sdk” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw</span><span class="o">-</span><span class="n">soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw</span><span class="o">-</span><span class="n">soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">ffmpeg_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">include</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw</span><span class="o">-</span><span class="n">soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">ffmpeg_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">lib</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw</span><span class="o">-</span><span class="n">soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">opencv_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">opencv4</span><span class="o">/</span><span class="n">opencv2</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span><span class="o">/</span><span class="n">include</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw</span><span class="o">-</span><span class="n">soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">opencv_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">lib</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p><strong>.Copy the cross-compiled SAIL, i.e. “build_soc”, to the “soc-sdk” folder</strong></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="n">build_soc</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">sail</span><span class="o">/</span><span class="n">include</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="n">build_soc</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">sail</span><span class="o">/</span><span class="n">lib</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.Install the gcc-aarch64-linux-gnu toolchain</strong></p>
+<p><em>If already installed, you can ignore this step</em></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">g</span><span class="o">++-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>After the above steps are configured, you can finish cross-compiling by configuring cmake. Add the following paragraph to your program’s CMakeLists.txt:</p>
+<p><em>CMakeLists.txt needs to use “/opt/sophon/soc-sdk” as the absolute path to “soc-sdk”, which needs to be configured according to the actual location of the file when it is applied.</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set(CMAKE_C_COMPILER aarch64-linux-gnu-gcc)
+set(CMAKE_ASM_COMPILER aarch64-linux-gnu-gcc)
+set(CMAKE_CXX_COMPILER aarch64-linux-gnu-g++)
+
+include_directories(&quot;/opt/sophon/soc-sdk/include&quot;)
+include_directories(&quot;/opt/sophon/soc-sdk/include/sail&quot;)
+# Add the header file directories to be used for cross-compilation
+
+link_directories(&quot;/opt/sophon/soc-sdk/lib&quot;)
+# Add dynamic library directories to be used for cross-compilation
+
+add_executable(${YOUR_TARGET_NAME} ${YOUR_SOURCE_FILES})
+target_link_libraries(${YOUR_TARGET_NAME} sail)
+# sail is the library that needs to be linked
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3><span class="section-number">3.4.3. </span>ARM PCIE MODE<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<p><strong>.Compile the program on the ARM host</strong></p>
+<p>After installing libsophon, sophon-ffmpeg, sophon-opencv, and SAIL on the ARM host, you can use cmake to link the libraries in SAIL to your application by referring to the PCIE MODE development method.
+If you need to use SAIL multimedia-related functions, you also need to add libsophon, sophon-ffmpeg, and sophon-opencv header file directories and dynamic library directories to your application.</p>
+<p><strong>.Cross-compile programs on x86 hosts</strong></p>
+<p>If you want to build a cross-compilation environment using SAIL, you will need libsophon, sophon-ffmpeg, sophon-opencv, and the gcc-aarch64-linux-gnu toolchain.</p>
+<p><strong>.Create the “arm_pcie-sdk” folder</strong></p>
+<p>Create the “arm_pcie-sdk” folder, the header files and dynamic libraries needed for subsequent cross-compilation will be stored in this directory.</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.Get the libsophon,sophon-ffmpeg,sophon-opencv libraries needed for cross-compilation</strong></p>
+<p><em>The following examples choose to use libsophon version 0.4.1, sophon-ffmpeg version 0.4.1, and sophon-opencv version 0.4.1.</em></p>
+<ol class="arabic">
+<li><p>Get “libsophon_0.4.1_aarch64.tar.gz” from sophon’s official website and unpack and copy it to the “arm_pcie-sdk” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">libsophon_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">libsophon_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">libsophon</span><span class="o">-</span><span class="mf">0.4.1</span><span class="o">/</span><span class="n">include</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">libsophon_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">libsophon</span><span class="o">-</span><span class="mf">0.4.1</span><span class="o">/</span><span class="n">lib</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>The directory of libsophon after unpacking is “libsophon_0.4.1_aarch64/opt/sophon/libsophon-0.4.1”</p>
+<ol class="arabic" start="2">
+<li><p>Get “sophon-mw_0.4.1_aarch64.tar.gz” from sophon’s official website and unpack and copy it to the “arm_pcie-sdk” folder</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">ffmpeg_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">include</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">ffmpeg_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">lib</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">opencv_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">opencv4</span><span class="o">/</span><span class="n">opencv2</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span><span class="o">/</span><span class="n">include</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">opencv_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">lib</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p><strong>.Copy the cross-compiled SAIL, i.e. “build_arm_pcie”, to the “arm_pcie-sdk” folder</strong></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="n">build_arm_pcie</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">sail</span><span class="o">/</span><span class="n">include</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="n">build_arm_pcie</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">sail</span><span class="o">/</span><span class="n">lib</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.Install the gcc-aarch64-linux-gnu toolchain</strong></p>
+<p><em>If already installed, you can ignore this step</em></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">g</span><span class="o">++-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>After the above steps are configured, you can finish cross-compiling by configuring cmake. Add the following paragraph to your program’s CMakeLists.txt:</p>
+<p><em>CMakeLists.txt needs to use “/opt/sophon/arm_pcie-sdk as the absolute path to “arm_pcie-sdk”, which needs to be configured according to the actual location of the file when it is applied.</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set(CMAKE_C_COMPILER aarch64-linux-gnu-gcc)
+set(CMAKE_ASM_COMPILER aarch64-linux-gnu-gcc)
+set(CMAKE_CXX_COMPILER aarch64-linux-gnu-g++)
+
+include_directories(&quot;/opt/sophon/arm_pcie-sdk/include&quot;)
+include_directories(&quot;/opt/sophon/arm_pcie-sdk/include/sail&quot;)
+# Add the header file directories to be used for cross-compilation
+
+link_directories(&quot;/opt/sophon/arm_pcie-sdk/lib&quot;)
+# Add dynamic library directories to be used for cross-compilation
+
+add_executable(${YOUR_TARGET_NAME} ${YOUR_SOURCE_FILES})
+target_link_libraries(${YOUR_TARGET_NAME} sail)
+# sail is the library that needs to be linked
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="2_sail.html" class="btn btn-neutral float-left" title="2. SAIL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="4_module_cpp.html" class="btn btn-neutral float-right" title="4. SAIL C++ API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SOPHGO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

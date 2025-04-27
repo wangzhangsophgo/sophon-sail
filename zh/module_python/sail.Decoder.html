@@ -1,0 +1,571 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.9. sail.Decoder &mdash; SOPHON-SAIL 3.10.2
+ 文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9080cc91"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="5.10. sail.MultiDecoder" href="sail.MultiDecoder.html" />
+    <link rel="prev" title="5.8. sail.Bmcv" href="sail.Bmcv.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. 声明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. 编译安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API 参考</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API 参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Basicfunction.html">5.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_enum_type/enum_index.html">5.2. SAIL 枚举类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Handle.html">5.3. sail.Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Tensor.html">5.4. sail.Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Engine.html">5.5. sail.Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.EngineLLM.html">5.6. sail.EngineLLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImage.html">5.7. sail.BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Bmcv.html">5.8. sail.Bmcv</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.9. sail.Decoder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#init">5.9.1. __init__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#is-opened">5.9.2. is_opened</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read">5.9.3. read</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">5.9.4. read_</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-frame-shape">5.9.5. get_frame_shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#release">5.9.6. release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reconnect">5.9.7. reconnect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enable-dump">5.9.8. enable_dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#disable-dump">5.9.9. disable_dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dump">5.9.10. dump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-pts-dts">5.9.11. get_pts_dts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#is-eof">5.9.12. is_eof</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiDecoder.html">5.10. sail.MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Encoder.html">5.11. sail.Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.PaddingAtrr.html">5.12. sail.PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Blend.html">5.13. sail.Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder_RawStream.html">5.14. sail.Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImageArray.html">5.15. sail.BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.bm_image.html">5.16. sail.bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiEngine.html">5.17. sail.MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_high_perform_interface/high_perform_index.html">5.18. SAIL Python 高性能接口</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../5_module_python.html"><span class="section-number">5. </span>SAIL Python API 参考</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.9. </span>sail.Decoder</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_python/sail.Decoder.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sail-decoder">
+<h1><span class="section-number">5.9. </span>sail.Decoder<a class="headerlink" href="#sail-decoder" title="Link to this heading"></a></h1>
+<p>解码器，可实现图像或视频的解码。</p>
+<p><strong>图像解码像素格式支持说明:</strong></p>
+<ul class="simple">
+<li><p>硬解支持jpeg baseline，不是所有的jpeg</p></li>
+<li><p>视频支持硬解h264,h265。输出的像素格式为YUV-nv12、YUVJ420P或者YUV420P；</p></li>
+</ul>
+<section id="init">
+<h2><span class="section-number">5.9.1. </span>__init__<a class="headerlink" href="#init" title="Link to this heading"></a></h2>
+<p>初始化Decoder。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">compressed</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tpu_id</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>file_path: str</p></li>
+</ul>
+<p>图像或视频文件的Path或RTSP的URL。</p>
+<ul class="simple">
+<li><p>compressed: bool</p></li>
+</ul>
+<p>是否将解码的输出压缩为NV12，default：True。
+开启之后可以节省内存、节省带宽，但是输入视频必须要满足宽能被16整除才行，且输入必须为视频时才能生效。</p>
+<ul class="simple">
+<li><p>tpu_id: int</p></li>
+</ul>
+<p>设置使用的智能视觉深度学习处理器 id号。</p>
+</section>
+<section id="is-opened">
+<h2><span class="section-number">5.9.2. </span>is_opened<a class="headerlink" href="#is-opened" title="Link to this heading"></a></h2>
+<p>判断源文件是否打开。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">is_opened</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong></p>
+<ul class="simple">
+<li><p>judge_ret: bool</p></li>
+</ul>
+<p>打开成功返回True，失败返回False。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;your_video_file_path.mp4&#39;</span>  <span class="c1"># 请替换为您的文件路径</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">is_opened</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Decoder opened:&quot;</span><span class="p">,</span> <span class="n">ret</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="read">
+<h2><span class="section-number">5.9.3. </span>read<a class="headerlink" href="#read" title="Link to this heading"></a></h2>
+<p>从Decoder中读取一帧图像。</p>
+<dl>
+<dt><strong>接口形式1:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handle</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImage</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明1:</strong></p>
+<ul class="simple">
+<li><p>handle: sail.Handle</p></li>
+</ul>
+<p>输入参数。Decoder使用的智能视觉深度学习处理器的Handle。</p>
+<ul class="simple">
+<li><p>image: sail.BMImage</p></li>
+</ul>
+<p>输出参数。将数据读取到image中。</p>
+<p><strong>返回值说明1:</strong></p>
+<ul class="simple">
+<li><p>judge_ret: int</p></li>
+</ul>
+<p>读取成功返回0，失败返回其他值。</p>
+<dl>
+<dt><strong>接口形式2:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handle</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">sail</span><span class="o">.</span><span class="n">BMImage</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明2:</strong></p>
+<ul class="simple">
+<li><p>handle: sail.Handle</p></li>
+</ul>
+<p>输入参数。Decoder使用的智能视觉深度学习处理器的Handle。</p>
+<p><strong>返回值说明2:</strong></p>
+<ul class="simple">
+<li><p>image: sail.BMImage</p></li>
+</ul>
+<p>将数据读取到image中。</p>
+<dl>
+<dt><strong>示例代码1:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;your_video_file_path.mp4&#39;</span>  <span class="c1"># 请替换为您的文件路径</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImage</span><span class="p">()</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Frame read successfully&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to read frame&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>示例代码2:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;your_video_file_path.mp4&#39;</span>  <span class="c1"># 请替换为您的文件路径</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">BMimg</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="id1">
+<h2><span class="section-number">5.9.4. </span>read_<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>从Decoder中读取一帧图像。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">read_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handle</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">bm_image</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>handle: sail.Handle</p></li>
+</ul>
+<p>输入参数。Decoder使用的智能视觉深度学习处理器的Handle。</p>
+<ul class="simple">
+<li><p>image: sail.bm_image</p></li>
+</ul>
+<p>输出参数。将数据读取到image中。</p>
+<p><strong>返回值说明:</strong></p>
+<ul class="simple">
+<li><p>judge_ret: int</p></li>
+</ul>
+<p>读取成功返回0，失败返回其他值。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;your_video_file_path.mp4&#39;</span>  <span class="c1"># 请替换为您的文件路径</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImage</span><span class="p">()</span>
+    <span class="n">bm_img</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read_</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">bm_img</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Frame read successfully into bm_image&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to read frame into bm_image&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-frame-shape">
+<h2><span class="section-number">5.9.5. </span>get_frame_shape<a class="headerlink" href="#get-frame-shape" title="Link to this heading"></a></h2>
+<p>获取Decoder中frame中的shape。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_frame_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">list</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong></p>
+<ul class="simple">
+<li><p>frame_shape: list</p></li>
+</ul>
+<p>返回当前frame的shape。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;your_video_file_path.mp4&#39;</span>  <span class="c1"># 请替换为您的文件路径</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">decoder</span><span class="o">.</span><span class="n">get_frame_shape</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="release">
+<h2><span class="section-number">5.9.6. </span>release<a class="headerlink" href="#release" title="Link to this heading"></a></h2>
+<p>释放Decoder资源。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">release</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;your_video_file_path.mp4&#39;</span>  <span class="c1"># 请替换为您的文件路径</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">decoder</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="reconnect">
+<h2><span class="section-number">5.9.7. </span>reconnect<a class="headerlink" href="#reconnect" title="Link to this heading"></a></h2>
+<p>Decoder再次连接。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">reconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;your_video_file_path.mp4&quot;</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dev_id</span><span class="p">)</span>
+    <span class="c1"># 重新连接解码器</span>
+    <span class="n">decoder</span><span class="o">.</span><span class="n">reconnect</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="enable-dump">
+<h2><span class="section-number">5.9.8. </span>enable_dump<a class="headerlink" href="#enable-dump" title="Link to this heading"></a></h2>
+<p>开启解码器的dump输入视频功能（不经编码），并缓存最多1000帧未解码的视频。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">enable_dump</span><span class="p">(</span><span class="n">dump_max_seconds</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>dump_max_seconds: int</p></li>
+</ul>
+<p>输入参数。dump视频的最大时长，也是内部AVpacket缓存队列的最大长度。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;your_video_file_path.mp4&quot;</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">dump_max_seconds</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">decoder</span><span class="o">.</span><span class="n">enable_dump</span><span class="p">(</span><span class="n">dump_max_seconds</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="disable-dump">
+<h2><span class="section-number">5.9.9. </span>disable_dump<a class="headerlink" href="#disable-dump" title="Link to this heading"></a></h2>
+<p>关闭解码器的dump输入视频功能，并清空开启此功能时缓存的视频帧</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">disable_dump</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Disable  input video dump without encode.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;your_video_file_path.mp4&quot;</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">decoder</span><span class="o">.</span><span class="n">enable_dump</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">decoder</span><span class="o">.</span><span class="n">disable_dump</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="dump">
+<h2><span class="section-number">5.9.10. </span>dump<a class="headerlink" href="#dump" title="Link to this heading"></a></h2>
+<p>在调用此函数的时刻，dump下前后数秒的输入视频。由于未经编码，必须dump下前后数秒内所有帧所依赖的关键帧。因而接口的dump实现以gop为单位，实际dump下的视频时长将高于输入参数时长。误差取决于输入视频的gop_size，gop越大，误差越大。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dump</span><span class="p">(</span><span class="n">dump_pre_seconds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dump_post_seconds</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>dump_pre_seconds: int</p></li>
+</ul>
+<p>输入参数。保存调用此接口时刻之前的数秒视频。</p>
+<ul class="simple">
+<li><p>dump_post_seconds: int</p></li>
+</ul>
+<p>输入参数。保存调用此接口时刻之后的数秒视频。</p>
+<ul class="simple">
+<li><p>file_path: str</p></li>
+</ul>
+<p>输入参数。视频路径。</p>
+<p><strong>返回值说明:</strong></p>
+<ul class="simple">
+<li><p>judge_ret: int</p></li>
+</ul>
+<p>成功返回0,失败返回其他值。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">input_file_path</span> <span class="o">=</span> <span class="s2">&quot;your_rtsp_url&quot;</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">input_file_path</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">decoder</span><span class="o">.</span><span class="n">enable_dump</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">dump_pre_seconds</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">dump_post_seconds</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">output_file_path</span> <span class="o">=</span> <span class="s2">&quot;output_video_path.mp4&quot;</span>
+
+    <span class="c1"># start decode</span>
+    <span class="n">t_decode</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">while</span><span class="p">(</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_decode</span> <span class="o">&gt;</span> <span class="n">dump_pre_seconds</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+
+    <span class="c1"># start dump</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">dump_pre_seconds</span><span class="p">,</span> <span class="n">dump_post_seconds</span><span class="p">,</span> <span class="n">output_file_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Decoder dump start!&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Decoder dump fail!&quot;</span><span class="p">)</span>
+        <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># continue decode</span>
+    <span class="n">t_dump</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="k">while</span><span class="p">(</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_dump</span> <span class="o">&gt;</span> <span class="n">dump_post_seconds</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Decoder dump finish!&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;exit&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-pts-dts">
+<h2><span class="section-number">5.9.11. </span>get_pts_dts<a class="headerlink" href="#get-pts-dts" title="Link to this heading"></a></h2>
+<p>获取pts和dts</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_pts_dts</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong></p>
+<ul class="simple">
+<li><p>result: list</p></li>
+</ul>
+<p>输出结果。输出具体的pts和dts值。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">input_file_path</span> <span class="o">=</span> <span class="s1">&#39;your_rtsp_url&#39;</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">input_file_path</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImage</span><span class="p">()</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Frame read successfully into bm_image&quot;</span><span class="p">)</span>
+        <span class="n">pts</span><span class="p">,</span><span class="n">dts</span><span class="o">=</span><span class="n">decoder</span><span class="o">.</span><span class="n">get_pts_dts</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pts:&quot;</span><span class="p">,</span><span class="n">pts</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dts:&quot;</span><span class="p">,</span><span class="n">dts</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to read frame into bm_image&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="is-eof">
+<h2><span class="section-number">5.9.12. </span>is_eof<a class="headerlink" href="#is-eof" title="Link to this heading"></a></h2>
+<p>查询解码器是否到达文件结尾。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">is_eof</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong></p>
+<blockquote>
+<div><p>如果已经到达文件结尾（EOF, end of file），则返回True，否则返回False。</p>
+</div></blockquote>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;your_video_file_path.mp4&#39;</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dev_id</span><span class="p">)</span>
+    <span class="c1"># read and do something</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">is_eof</span><span class="p">()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ret</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Decoder reached end of file, and decoding is finished&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="sail.Bmcv.html" class="btn btn-neutral float-left" title="5.8. sail.Bmcv" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="sail.MultiDecoder.html" class="btn btn-neutral float-right" title="5.10. sail.MultiDecoder" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, SOPHGO。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

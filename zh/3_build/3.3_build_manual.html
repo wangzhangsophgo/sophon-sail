@@ -1,0 +1,144 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>编译用户手册 &mdash; SOPHON-SAIL 3.10.2
+ 文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9080cc91"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. 声明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. 编译安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">编译用户手册</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/3_build/3.3_build_manual.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>编译用户手册<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p><strong>.安装软件包</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 更新apt</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span>
+<span class="c1"># 安装latex</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">texlive</span><span class="o">-</span><span class="n">xetex</span> <span class="n">texlive</span><span class="o">-</span><span class="n">latex</span><span class="o">-</span><span class="n">recommended</span>
+<span class="c1"># 安装Sphinx</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">sphinx</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">autobuild</span> <span class="n">sphinx_rtd_theme</span> <span class="n">rst2pdf</span>
+<span class="c1"># 安装结巴中文分词库，以支持中文搜索</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">jieba3k</span>
+</pre></div>
+</div>
+<p><strong>.安装字体</strong></p>
+<blockquote>
+<div><p>[Fandol](<a class="reference external" href="https://ctan.org/pkg/fandol">https://ctan.org/pkg/fandol</a>) - Four basic fonts for Chinese typesetting</p>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 下载Fandol字体</span>
+<span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">ctan</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">fonts</span><span class="o">/</span><span class="n">fandol</span><span class="o">.</span><span class="n">zip</span>
+<span class="c1"># 解压缩字体包</span>
+<span class="n">unzip</span> <span class="n">fandol</span><span class="o">.</span><span class="n">zip</span>
+<span class="c1"># 拷贝安装字体包</span>
+<span class="n">sudo</span> <span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">fandol</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">fonts</span><span class="o">/</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">fandol</span> <span class="o">~/.</span><span class="n">fonts</span>
+</pre></div>
+</div>
+<p><strong>.执行编译</strong></p>
+<p>下载SOPHON-SAIL源码,解压后进入其源码的docs目录</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">LC_ALL</span><span class="o">=</span><span class="s2">&quot;zh_CN.UTF-8&quot;</span>
+<span class="n">cd</span> <span class="n">docs</span>
+<span class="n">make</span> <span class="n">pdf</span>
+</pre></div>
+</div>
+<p>编译好的用户手册路径为‘docs/build/SOPHON-SAIL_zh.pdf’</p>
+<p><em>如果编译仍然报错,可以安装以下 ‘sudo apt-get install texlive-lang-chinese’,然后重新执行上述命令。</em></p>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, SOPHGO。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

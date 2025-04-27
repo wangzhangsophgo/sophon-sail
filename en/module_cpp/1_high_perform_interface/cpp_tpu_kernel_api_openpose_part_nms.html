@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-EN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.17.10.1. tpu_kernel_api_openpose_part_nms &mdash; SOPHON-SAIL 3.10.2
+ documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01d1187f"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5. SAIL Python API" href="../../5_module_python.html" />
+    <link rel="prev" title="4.17.9.1. bytetrack_tracker_controller" href="cpp_bytetrack_tracker_controller.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../1_disclaimer.html">1. Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../3_build.html">3. Compilation and Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../4_module_cpp.html">4. SAIL C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cpp_basicfunction.html">4.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../0_enum-type/enum-index.html">4.2. SAIL enum type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_PaddingAtrr.html">4.3. PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Handle.html">4.4. Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Tensor.html">4.5. Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Engine.html">4.6. Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_MultiEngine.html">4.7. MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_bm_image.html">4.8. bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_BMImage.html">4.9. BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_BMImageArray.html">4.10. BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Decoder.html">4.11. Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Encoder.html">4.12. Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Decoder_RawStream.html">4.13. Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Bmcv.html">4.14. Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Blend.html">4.15. Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_MultiDecoder.html">4.16. MultiDecoder</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="high_perform_index_cpp.html">4.17. SAIL C++ high performance interface</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cpp_ImagePreProcess.html">4.17.1. ImagePreProcess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpp_TensorPTRWithName.html">4.17.2. TensorPTRWithName</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpp_EngineImagePreProcess.html">4.17.3. EngineImagePreProcess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#yolov5-post-processing-acceleration-interfaces">4.17.4. Yolov5 post-processing acceleration interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#yolox-post-processing-acceleration-interfaces">4.17.5. Yolox post-processing acceleration interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#yolov8-post-processing-acceleration-interfaces">4.17.6. Yolov8 post-processing acceleration interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#sort">4.17.7. sort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#deepsort">4.17.8. deepsort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#bytetrack">4.17.9. bytetrack</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="high_perform_index_cpp.html#openpose">4.17.10. openpose</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">4.17.10.1. tpu_kernel_api_openpose_part_nms</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../5_module_python.html">5. SAIL Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../6_appendix.html">6. Appendix</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../4_module_cpp.html"><span class="section-number">4. </span>SAIL C++ API</a></li>
+          <li class="breadcrumb-item"><a href="high_perform_index_cpp.html"><span class="section-number">4.17. </span>SAIL C++ high performance interface</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.17.10.1. </span>tpu_kernel_api_openpose_part_nms</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_cpp/1_high_perform_interface/cpp_tpu_kernel_api_openpose_part_nms.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tpu-kernel-api-openpose-part-nms">
+<h1><span class="section-number">4.17.10.1. </span>tpu_kernel_api_openpose_part_nms<a class="headerlink" href="#tpu-kernel-api-openpose-part-nms" title="Link to this heading"></a></h1>
+<p>For the OpenPose model, Tensor Computing Processor Kernel is used to accelerate part nms post-processing. Currently, only BM1684x is supported, and the version of libsophon must be no less than 0.4.6 (v23.03.01).</p>
+<section id="constructor">
+<h2><span class="section-number">4.17.10.1.1. </span>Constructor<a class="headerlink" href="#constructor" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">tpu_kernel_api_openpose_part_nms</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">device_id</span><span class="p">,</span>
+<span class="w">                                    </span><span class="kt">int</span><span class="w"> </span><span class="n">network_c</span><span class="p">,</span>
+<span class="w">                                    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">module_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/opt/sophon/libsophon-current/lib/tpu_module/libbm1684x_kernel_module.so&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Paramters:</strong></p>
+<ul class="simple">
+<li><p>device_id: int</p></li>
+</ul>
+<p>Input parameter. The used device ID.</p>
+<ul class="simple">
+<li><p>network_c: int</p></li>
+</ul>
+<p>Input parameter. The input channel of the model, corresponding to the number of keypoint channels.</p>
+<ul class="simple">
+<li><p>module_file: string</p></li>
+</ul>
+<p>Input parameter. Kernel module file path, the default is “/opt/sophon/libsophon-current/lib/tpu_module/libbm1684x_kernel_module.so”.</p>
+</section>
+<section id="process">
+<h2><span class="section-number">4.17.10.1.2. </span>process<a class="headerlink" href="#process" title="Link to this heading"></a></h2>
+<p>Processing interface</p>
+<dl>
+<dt><strong>Interface 1:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">process</span><span class="p">(</span>
+<span class="w">                            </span><span class="n">TensorPTRWithName</span><span class="o">&amp;</span><span class="w"> </span><span class="n">input_data</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">shape</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">threshold</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">max_peak_num</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Paramters1:</strong></p>
+<ul class="simple">
+<li><p>input_data: TensorPTRWithName</p></li>
+</ul>
+<p>Input parameter. Input data.</p>
+<ul class="simple">
+<li><p>shape: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>Input. Input data width and height.</p>
+<ul class="simple">
+<li><p>threshold: std::vector&lt;float&gt;</p></li>
+</ul>
+<p>Input. Detection threshold.</p>
+<ul class="simple">
+<li><p>max_peak_num: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>Input. The max number of detected peaks.</p>
+<dl>
+<dt><strong>Interface 2:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">process</span><span class="p">(</span>
+<span class="w">                                </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">Tensor</span><span class="o">&amp;&gt;&amp;</span><span class="w"> </span><span class="n">input_data</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">shape</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">threshold</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">max_peak_num</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Paramters 2:</strong></p>
+<ul class="simple">
+<li><p>input_data: std::map&lt;std::string, Tensor&amp;&gt;</p></li>
+</ul>
+<p>Input parameter. Input data.</p>
+<ul class="simple">
+<li><p>shape: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>Input. Input data width and height.</p>
+<ul class="simple">
+<li><p>threshold: std::vector&lt;float&gt;</p></li>
+</ul>
+<p>Input. Detection threshold.</p>
+<ul class="simple">
+<li><p>max_peak_num: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>Input. The max number of detected peaks.</p>
+<p><strong>Returns:</strong></p>
+<p>std::tuple&lt;std::vector&lt;std::vector&lt;int&gt;&gt;, std::vector&lt;std::vector&lt;float&gt;&gt;, std::vector&lt;std::vector&lt;int&gt;&gt;&gt;</p>
+<ul class="simple">
+<li><p>1st output: std::vector&lt;std::vector&lt;int&gt;&gt;</p></li>
+</ul>
+<p>The number of the detected peaks in each channel.</p>
+<ul class="simple">
+<li><p>2nd: std::vector&lt;std::vector&lt;float&gt;&gt;</p></li>
+</ul>
+<p>The scores of all detected peaks.</p>
+<ul class="simple">
+<li><p>3rd: std::vector&lt;std::vector&lt;int&gt;&gt;</p></li>
+</ul>
+<p>The flatten coordinates of all detected peaks.</p>
+</section>
+<section id="reset-network-c">
+<h2><span class="section-number">4.17.10.1.3. </span>reset_network_c<a class="headerlink" href="#reset-network-c" title="Link to this heading"></a></h2>
+<p>Update the channel number of the input.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">reset_network_c</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">network_c_new</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Paramters:</strong></p>
+<ul class="simple">
+<li><p>network_c_new: int</p></li>
+</ul>
+<p>The number of channels to be updated.</p>
+<p><strong>Returns:</strong></p>
+<p>Returns 0 on success, other values indicate failure.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cpp_bytetrack_tracker_controller.html" class="btn btn-neutral float-left" title="4.17.9.1. bytetrack_tracker_controller" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../5_module_python.html" class="btn btn-neutral float-right" title="5. SAIL Python API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SOPHGO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

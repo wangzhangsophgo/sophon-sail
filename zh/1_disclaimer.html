@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. 声明 &mdash; SOPHON-SAIL 3.10.2
+ 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=9080cc91"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="2. SAIL" href="2_sail.html" />
+    <link rel="prev" title="SOPHON-SAIL 用户手册" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. 声明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_build.html">3. 编译安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4_module_cpp.html">4. SAIL C++ API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_module_python.html">5. SAIL Python API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">1. </span>声明</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/1_disclaimer.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">1. </span>声明<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/logo.png"><img alt="SOPHGO LOGO" src="_images/logo.png" style="width: 200.0px; height: 200.0px;" />
+</a>
+</figure>
+<div class="line-block">
+<div class="line"><strong>法律声明</strong></div>
+<div class="line">版权所有 © 算能 2022. 保留一切权利。</div>
+<div class="line">非经本公司书面许可，任何单位和个人不得擅自摘抄、复制本文档内容的部分或全部，并不得以任何形式传播。</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>注意</strong></div>
+<div class="line">您购买的产品、服务或特性等应受 算能 商业合同和条款的约束，
+本文档中描述的全部或部分产品、服务或特性可能不在您的购买或使用范围之内。
+除非合同另有约定， 算能 对本文档内容不做任何明示或默示的声明或保证。
+由于产品版本升级或其他原因，本文档内容会不定期进行更新。
+除非另有约定，本文档仅作为使用指导，本文档中的所有陈述、信息和建议不构成任何明示或暗示的担保。</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>技术支持</strong></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">地址<span class="colon">:</span></dt>
+<dd class="field-odd"><p>北京市海淀区丰豪东路9号院中关村集成电路设计园（ICPARK）1号楼</p>
+</dd>
+<dt class="field-even">邮编<span class="colon">:</span></dt>
+<dd class="field-even"><p>100094</p>
+</dd>
+<dt class="field-odd">网址<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://www.sophgo.com/">https://www.sophgo.com/</a></p>
+</dd>
+<dt class="field-even">邮箱<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="mailto:sales&#37;&#52;&#48;sophgo&#46;com">sales<span>&#64;</span>sophgo<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-odd">电话<span class="colon">:</span></dt>
+<dd class="field-odd"><p>+86-10-57590723
++86-10-57590724</p>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line"><strong>SAIL发布记录</strong></div>
+</div>
+<table class="docutils align-default" style="width: 600">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 30.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>版本</p></th>
+<th class="head"><p>发布日期</p></th>
+<th class="head"><p>说明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>V2.0.0</p></td>
+<td><p>2019.09.20</p></td>
+<td><p>第一次发布。</p></td>
+</tr>
+<tr class="row-odd"><td><p>V2.0.1</p></td>
+<td><p>2019.11.16</p></td>
+<td><p>V2.0.1版本发布。</p></td>
+</tr>
+<tr class="row-even"><td><p>V2.0.3</p></td>
+<td><p>2020.05.07</p></td>
+<td><p>V2.0.3版本发布。</p></td>
+</tr>
+<tr class="row-odd"><td><p>V2.2.0</p></td>
+<td><p>2020.10.12</p></td>
+<td><p>V2.2.0版本发布。</p></td>
+</tr>
+<tr class="row-even"><td><p>V2.3.0</p></td>
+<td><p>2021.01.11</p></td>
+<td><p>V2.3.0版本发布。</p></td>
+</tr>
+<tr class="row-odd"><td><p>V2.3.1</p></td>
+<td><p>2021.03.09</p></td>
+<td><p>V2.3.1版本发布。</p></td>
+</tr>
+<tr class="row-even"><td><p>V2.3.2</p></td>
+<td><p>2021.04.01</p></td>
+<td><p>V2.3.2版本发布。</p></td>
+</tr>
+<tr class="row-odd"><td><p>V2.4.0</p></td>
+<td><p>2021.05.23</p></td>
+<td><p>V2.4.0版本发布。</p></td>
+</tr>
+<tr class="row-even"><td><p>V2.5.0</p></td>
+<td><p>2021.09.02</p></td>
+<td><p>V2.5.0版本发布。</p></td>
+</tr>
+<tr class="row-odd"><td><p>V2.6.0</p></td>
+<td><p>2022.01.30</p></td>
+<td><p>V2.6.0版本修正后发布。</p></td>
+</tr>
+<tr class="row-even"><td><p>V2.7.0</p></td>
+<td><p>2022.03.16</p></td>
+<td><p>V2.7.0版本发布, 20220531发布补丁版本。</p></td>
+</tr>
+<tr class="row-odd"><td><p>V3.0.0</p></td>
+<td><p>2022.07.16</p></td>
+<td><p>V3.0.0版本发布。</p></td>
+</tr>
+<tr class="row-even"><td><p>V3.1.0</p></td>
+<td><p>2022.11.01</p></td>
+<td><p>V3.1.0版本发布。</p></td>
+</tr>
+<tr class="row-odd"><td><p>V3.2.0</p></td>
+<td><p>2022.12.01</p></td>
+<td><p>V3.2.0版本发布。</p></td>
+</tr>
+<tr class="row-even"><td><p>V3.3.0</p></td>
+<td><p>2023.01.01</p></td>
+<td><p>V3.3.0版本发布。</p></td>
+</tr>
+<tr class="row-odd"><td><p>V3.4.0</p></td>
+<td><p>2023.03.01</p></td>
+<td><p>V3.4.0版本发布。</p></td>
+</tr>
+<tr class="row-even"><td><p>V3.5.0</p></td>
+<td><p>2023.05.01</p></td>
+<td><p>V3.5.0版本发布。</p></td>
+</tr>
+<tr class="row-odd"><td><p>V3.6.0</p></td>
+<td><p>2023.07.01</p></td>
+<td><p>V3.6.0版本发布。</p></td>
+</tr>
+<tr class="row-even"><td><p>V3.7.0</p></td>
+<td><p>2023.10.01</p></td>
+<td><p>V3.7.0版本发布。</p></td>
+</tr>
+<tr class="row-odd"><td><p>V3.8.0</p></td>
+<td><p>2024.04.10</p></td>
+<td><p>V3.8.0版本发布。</p></td>
+</tr>
+<tr class="row-even"><td><p>V3.9.0</p></td>
+<td><p>2024.09.14</p></td>
+<td><p>V3.9.0版本发布。</p></td>
+</tr>
+<tr class="row-odd"><td><p>V3.10.0</p></td>
+<td><p>2024.03.11</p></td>
+<td><p>V3.10.0版本发布。</p></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><strong>V3.10.0 更新内容</strong></div>
+</div>
+<ul class="simple">
+<li><p>Tensor添加查询单个元素占用的字节数接口element_size</p></li>
+<li><p>Tensor添加查询所有元素占用的总字节数接口nbytes</p></li>
+<li><p>BMImag添加获取裸数据接口asnumpy</p></li>
+<li><p>BMImage添加获取解码时间戳接口get_pts_dts</p></li>
+<li><p>Bmcv添加向量查询接口：faiss_indexflatL2 faiss_indexflatIP faiss_indexPQ_encode faiss_indexPQ_ADC faiss_indexPQ_SDC</p></li>
+<li><p>Bmcv添加傅里叶变换接口：stft istft</p></li>
+<li><p>Bmcv添加水印图片叠加接口bmcv_overlay</p></li>
+<li><p>yolov5后处理接口push_data添加对多类别置信度的支持</p></li>
+<li><p>添加yolov8 seg后处理接口algo_yolov8_seg_post_tpu_opt</p></li>
+<li><p>EngineLLM添加支持bmrt flag的构造函数</p></li>
+<li><p>优化Encoder推流兼容性</p></li>
+<li><p>添加对Python 3.12版本的适配</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><strong>V3.9.0 更新内容</strong></div>
+</div>
+<ul class="simple">
+<li><p>BMImage添加基于bytes、numpy.ndarray等裸数据的构造接口</p></li>
+<li><p>添加支持大模型推理的EngineLLM</p></li>
+<li><p>添加图片拼接Blend模块</p></li>
+<li><p>Bmcv添加图片解码imread接口</p></li>
+<li><p>MultiDecoder添加查询状态接口get_channel_status</p></li>
+<li><p>Tensor添加获取设备号的接口device_id</p></li>
+<li><p>Tensor添加支持设置stride的d2d接口sync_d2d_stride</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><strong>V3.8.0 更新内容</strong></div>
+</div>
+<ul class="simple">
+<li><p>添加获取底板温度接口get_board_temp</p></li>
+<li><p>添加获取处理器温度接口get_chip_temp</p></li>
+<li><p>添加获取tpu利用率接口get_tpu_util</p></li>
+<li><p>添加获取vpu利用率接口get_vpu_util</p></li>
+<li><p>添加获取vpp利用率接口get_vpp_util</p></li>
+<li><p>添加获取处理器内存使用率接口get_dev_stat</p></li>
+<li><p>添加获取日志等级接口set_loglevel</p></li>
+<li><p>Tensor添加d2d接口</p></li>
+<li><p>Tensor添加支持偏移量的d2s、s2接口</p></li>
+<li><p>Tensor添加对FLOAT16的支持</p></li>
+<li><p>Bmcv添加fillRectangle、putText、imencode、open_water、mosaic、gaussian_blur、transpose、Sobel等接口的支持</p></li>
+<li><p>添加yolov8后处理异步接口algo_yolov8_post_1output_async</p></li>
+<li><p>添加yolov8后处理CPU加速异步接口algo_yolov8_post_cpu_opt_1output_async</p></li>
+<li><p>添加yolov5后处理CPU加速异步接口algo_yolov5_post_cpu_opt_async</p></li>
+<li><p>添加deepsort同步处理接口deepsort_tracker_controller</p></li>
+<li><p>添加deepsort异步处理接口deepsort_tracker_controller_async</p></li>
+<li><p>添加bytetrack同步处理接口bytetrack_tracker_controller</p></li>
+<li><p>添加sort同步处理接口sort_tracker_controller</p></li>
+<li><p>添加sort异步处理接口sort_tracker_controller_async</p></li>
+<li><p>添加使用tpu加速openpose后处理接口tpu_kernel_api_openpose_part_nms</p></li>
+<li><p>添加对Windows的支持</p></li>
+<li><p>添加对RISCV的支持</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><strong>V3.7.0 更新内容</strong></div>
+</div>
+<ul class="simple">
+<li><p>添加yolox后处理异步接口algo_yolox_post</p></li>
+<li><p>添加使用h264和h265解码裸流接口</p></li>
+<li><p>Tensor添加dump数据接口</p></li>
+<li><p>添加使用yolov5后处理优化接口algo_yolov5_post_cpu_opt</p></li>
+<li><p>添加绘制多边形框功能接口</p></li>
+<li><p>添加cv::Mat转换到BMImage的接口</p></li>
+<li><p>添加对Python3.9，Python3.10，Python3.11版本的适配</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><strong>V3.6.0 更新内容</strong></div>
+</div>
+<ul class="simple">
+<li><p>Decoder添加保存视频接口dump。</p></li>
+<li><p>基于BM1684X添加对单输出的yolov5模型后处理使用智能视觉深度学习处理器进行加速的接口tpu_kernel_api_yolov5_out_without_decode。</p></li>
+<li><p>添加deepsort跟踪接口: deepsort_tracker_controller。</p></li>
+<li><p>添加bytetrack跟踪接口: bytetrack_tracker_controller。</p></li>
+<li><p>convert_format接口添加可以指定图像格式。</p></li>
+<li><p>Bmcv添加convert_yuv420p_to_gray接口。</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><strong>V3.5.0 更新内容</strong></div>
+</div>
+<ul class="simple">
+<li><p>添加视频及图片编码接口Encoder。</p></li>
+<li><p>Handle添加获取设备型号的接口get_target。</p></li>
+<li><p>基于BM1684X添加对三输出的yolov5模型后处理使用智能视觉深度学习处理器进行加速的接口tpu_kernel_api_yolov5_detect_out。</p></li>
+<li><p>添加了调用多线程推理框架的Python测试例程。</p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="index.html" class="btn btn-neutral float-left" title="SOPHON-SAIL 用户手册" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="2_sail.html" class="btn btn-neutral float-right" title="2. SAIL" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, SOPHGO。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

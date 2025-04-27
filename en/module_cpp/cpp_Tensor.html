@@ -1,0 +1,1097 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-EN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.5. Tensor &mdash; SOPHON-SAIL 3.10.2
+ documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01d1187f"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.6. Engine" href="cpp_Engine.html" />
+    <link rel="prev" title="4.4. Handle" href="cpp_Handle.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. Compilation and Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cpp_basicfunction.html">4.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_enum-type/enum-index.html">4.2. SAIL enum type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_PaddingAtrr.html">4.3. PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Handle.html">4.4. Handle</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.5. Tensor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#constructor">4.5.1. Constructor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shape">4.5.2. shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dtype">4.5.3. dtype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scale-from">4.5.4. scale_from</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scale-to">4.5.5. scale_to</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reshape">4.5.6. reshape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#own-sys-data">4.5.7. own_sys_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#own-dev-data">4.5.8. own_dev_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sync-s2d">4.5.9. sync_s2d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sync-d2s">4.5.10. sync_d2s</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sync-d2d">4.5.11. sync_d2d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sync-d2d-stride">4.5.12. sync_d2d_stride</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dump-data">4.5.13. dump_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#memory-set">4.5.14. memory_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">4.5.15. memory_set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zeros">4.5.16. zeros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ones">4.5.17. ones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#size">4.5.18. size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#element-size">4.5.19. element_size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nbytes">4.5.20. nbytes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Engine.html">4.6. Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_MultiEngine.html">4.7. MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_bm_image.html">4.8. bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_BMImage.html">4.9. BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_BMImageArray.html">4.10. BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Decoder.html">4.11. Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Encoder.html">4.12. Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Decoder_RawStream.html">4.13. Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Bmcv.html">4.14. Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Blend.html">4.15. Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_MultiDecoder.html">4.16. MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_high_perform_interface/high_perform_index_cpp.html">4.17. SAIL C++ high performance interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. Appendix</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../4_module_cpp.html"><span class="section-number">4. </span>SAIL C++ API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.5. </span>Tensor</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_cpp/cpp_Tensor.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tensor">
+<h1><span class="section-number">4.5. </span>Tensor<a class="headerlink" href="#tensor" title="Link to this heading"></a></h1>
+<p>Tensor is the input and output type of model inference, which contains data information and implements memory management.</p>
+<section id="constructor">
+<h2><span class="section-number">4.5.1. </span>Constructor<a class="headerlink" href="#constructor" title="Link to this heading"></a></h2>
+<p>Initialize Tensor and allocate memory for Tensor. If synchronization between system memory and device memory is required, sync_d2s or sync_s2d needs to be executed.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">shape</span><span class="o">=</span><span class="p">{},</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w">          </span><span class="n">dtype</span><span class="o">=</span><span class="n">BM_FLOAT32</span><span class="p">);</span>
+
+<span class="n">Tensor</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Handle</span><span class="w">                  </span><span class="n">handle</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">shape</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w">          </span><span class="n">dtype</span><span class="o">=</span><span class="n">BM_FLOAT32</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w">                    </span><span class="n">own_sys_data</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w">                    </span><span class="n">own_dev_data</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>handle: Handle</p></li>
+</ul>
+<p>The device identification Handle.</p>
+<ul class="simple">
+<li><p>shape: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>Set the shape of Tensor.</p>
+<ul class="simple">
+<li><p>dtype: Dtype</p></li>
+</ul>
+<p>The data type of Tensor.</p>
+<ul class="simple">
+<li><p>own_sys_data: bool</p></li>
+</ul>
+<p>Indicates whether the Tensor has system memory.</p>
+<ul class="simple">
+<li><p>own_dev_data: bool</p></li>
+</ul>
+<p>Indicates whether the Tensor has device memory</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;tensor.h&quot;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor1</span><span class="p">,</span><span class="n">input_tensor2</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span><span class="w"> </span><span class="c1">// dtype can choose  BM_FLOAT32, BM_INT8, BM_UINT8, BM_INT32, BM_UINT32</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">);</span>
+<span class="w">    </span><span class="n">input_tensor2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Interface:</strong></p>
+<p>This initialization method creates a new Tensor based on an existing source Tensor and reuses a portion of the source Tensor’s device memory without copying device memory.
+It is suitable for scenarios such as LLM inference where memory reuse is required.</p>
+<p>During the use of this Tensor, it is necessary to ensure that the source Tensor is not released.</p>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Tensor</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Tensor</span><span class="o">&amp;</span><span class="w"> </span><span class="n">src</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">shape</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">offset</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>src: sail::Tensor</p></li>
+</ul>
+<p>The source Tensor used to create the Tensor</p>
+<ul class="simple">
+<li><p>shape: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>The shape of the created Tensor, which is a sequence of integers.
+The number of elements corresponding to the new shape must not exceed the number of elements in the source Tensor.</p>
+<ul class="simple">
+<li><p>offset: unsigned int</p></li>
+</ul>
+<p>The offset of the Tensor’s device memory relative to the source Tensor’s device memory, in bytes of the dtype.</p>
+<dl>
+<dt><strong>Example Code:</strong></dt><dd><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/tensor.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1080</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1920</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">src_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">};</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="w"> </span><span class="n">src_tensor</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">src_shape</span><span class="p">,</span><span class="w"> </span><span class="n">BM_INT32</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dst_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="p">};</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">width</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="w"> </span><span class="n">dst_tensor</span><span class="p">(</span><span class="n">src_tensor</span><span class="p">,</span><span class="w"> </span><span class="n">dst_shape</span><span class="p">,</span><span class="w"> </span><span class="n">offset</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="shape">
+<h2><span class="section-number">4.5.2. </span>shape<a class="headerlink" href="#shape" title="Link to this heading"></a></h2>
+<p>Get the shape of Tensor</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">shape</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>tensor_shape : std::vector&lt;int&gt;</p></li>
+</ul>
+<p>Returns a vector containing the shape of the Tensor.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// get shape</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">tensor_shape</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tensor_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input_tensor1</span><span class="o">-&gt;</span><span class="n">shape</span><span class="p">();</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;tensor shape: &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tensor_shape</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">tensor_shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="dtype">
+<h2><span class="section-number">4.5.3. </span>dtype<a class="headerlink" href="#dtype" title="Link to this heading"></a></h2>
+<p>Get the dtype of Tensor</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="nf">dtype</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Return:</strong></p>
+<ul class="simple">
+<li><p>data_type : bm_data_type_t</p></li>
+</ul>
+<p>dtype of Tensor</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// get dtype</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">input_dtype_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input_tensor1</span><span class="o">-&gt;</span><span class="n">dtype</span><span class="p">();</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="scale-from">
+<h2><span class="section-number">4.5.4. </span>scale_from<a class="headerlink" href="#scale-from" title="Link to this heading"></a></h2>
+<p>First scale the data proportionally, and then update the data to the system memory of Tensor.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">scale_from</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">src</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>src: float*</p></li>
+</ul>
+<p>The starting address of the data.</p>
+<ul class="simple">
+<li><p>scale: float32</p></li>
+</ul>
+<p>The scale when scaling proportionally.</p>
+<ul class="simple">
+<li><p>size: int</p></li>
+</ul>
+<p>The length of the data.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor1</span><span class="p">,</span><span class="n">input_tensor2</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// prepare data</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">src_ptr</span><span class="p">(</span>
+<span class="w">            </span><span class="n">new</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">10</span><span class="p">],</span>
+<span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">default_delete</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">());</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">src_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">src_ptr</span><span class="p">.</span><span class="n">get</span><span class="p">();</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">src_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">255</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// scale data len is 99</span>
+<span class="w">    </span><span class="n">input_tensor1</span><span class="o">-&gt;</span><span class="n">scale_from</span><span class="p">(</span><span class="n">src_data</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mi">99</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="scale-to">
+<h2><span class="section-number">4.5.5. </span>scale_to<a class="headerlink" href="#scale-to" title="Link to this heading"></a></h2>
+<p>First scale the Tensor proportionally and then return the data to the system memory.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">scale_to</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">dst</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">scale</span><span class="p">);</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">scale_to</span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">dst</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>dst: float*</p></li>
+</ul>
+<p>The starting address of the data.</p>
+<ul class="simple">
+<li><p>scale: float32</p></li>
+</ul>
+<p>The scale when scaling proportionally.</p>
+<ul class="simple">
+<li><p>size: int</p></li>
+</ul>
+<p>The length of the data.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// prepare dst</span>
+<span class="w">    </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">dst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+
+<span class="w">    </span><span class="c1">// scale data len is 99</span>
+<span class="w">    </span><span class="n">input_tensor1</span><span class="o">-&gt;</span><span class="n">scale_to</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mi">99</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// print scaled data</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">dst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">dst</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="reshape">
+<h2><span class="section-number">4.5.6. </span>reshape<a class="headerlink" href="#reshape" title="Link to this heading"></a></h2>
+<p>Reshape Tensor</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">reshape</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">shape</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>shape: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>Set the desired new shape.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// reshape from 10x10 to 2x50</span>
+<span class="w">    </span><span class="n">input_tensor1</span><span class="o">-&gt;</span><span class="n">reshape</span><span class="p">({</span><span class="mi">2</span><span class="p">,</span><span class="mi">50</span><span class="p">});</span>
+
+<span class="w">    </span><span class="c1">// get shape</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">tensor_shape</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tensor_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input_tensor1</span><span class="o">-&gt;</span><span class="n">shape</span><span class="p">();</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;tensor new shape: &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">tensor_shape</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">tensor_shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="own-sys-data">
+<h2><span class="section-number">4.5.7. </span>own_sys_data<a class="headerlink" href="#own-sys-data" title="Link to this heading"></a></h2>
+<p>Query whether the Tensor has a data pointer in system memory.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">own_sys_data</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>judge_ret: bool</p></li>
+</ul>
+<p>Returns True if it owns the data pointer of system memory, otherwise False.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"> </span><span class="c1">// own sys mem:true, own dev mem:true</span>
+<span class="w">    </span><span class="c1">// input_tensor = std::make_shared&lt;sail::Tensor&gt;(handle, input_shape, input_dtype, false, true); // own sys mem:true, own dev mem:false</span>
+
+<span class="w">    </span><span class="c1">// input_tensor: own sys or dev data</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">_own_sys_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input_tensor</span><span class="o">-&gt;</span><span class="n">own_sys_data</span><span class="p">();</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;input_tensor own_sys_data:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">_own_sys_data</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="own-dev-data">
+<h2><span class="section-number">4.5.8. </span>own_dev_data<a class="headerlink" href="#own-dev-data" title="Link to this heading"></a></h2>
+<p>Query whether the Tensor has data in the device memory.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">own_dev_data</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>judge_ret : bool</p></li>
+</ul>
+<p>Returns True if the Tensor owns the data in device memory, False otherwise.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"> </span><span class="c1">// own sys mem:true, own dev mem:true</span>
+<span class="w">    </span><span class="c1">// input_tensor = std::make_shared&lt;sail::Tensor&gt;(handle, input_shape, input_dtype, true, false); // own sys mem:true, own dev mem:false</span>
+
+<span class="w">    </span><span class="c1">// input_tensor: own sys or dev data</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">_own_dev_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input_tensor</span><span class="o">-&gt;</span><span class="n">own_dev_data</span><span class="p">();</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;input_tensor own_dev_data:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">_own_dev_data</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="sync-s2d">
+<h2><span class="section-number">4.5.9. </span>sync_s2d<a class="headerlink" href="#sync-s2d" title="Link to this heading"></a></h2>
+<p>Copy the data in Tensor from system memory to device memory.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">sync_s2d</span><span class="p">();</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">sync_s2d</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>size: int</p></li>
+</ul>
+<p>Copy data of a specific size bytes from system memory to device memory.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">sync_s2d</span><span class="p">(</span><span class="n">Tensor</span><span class="o">*</span><span class="w"> </span><span class="n">src</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">offset_src</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">offset_dst</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>Tensor*: src</p></li>
+</ul>
+<p>Specifies the Tensor to be copied from.</p>
+<ul class="simple">
+<li><p>offset_src: int</p></li>
+</ul>
+<p>Specifies the number of elements to offset in the source Tensor from where to start copying.</p>
+<ul class="simple">
+<li><p>offset_dst: int</p></li>
+</ul>
+<p>Specifies the number of elements to offset in the destination Tensor from where to start copying.</p>
+<ul class="simple">
+<li><p>len: int</p></li>
+</ul>
+<p>Specifies the length of the copy, i.e., the number of elements to copy.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"> </span><span class="c1">// own sys mem:true, own dev mem:true</span>
+<span class="w">    </span><span class="c1">// prepare data</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="o">-&gt;</span><span class="n">ones</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// input_tensor -&gt; sync_s2d(); // copy all data</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sync_s2d</span><span class="p">(</span><span class="mi">99</span><span class="p">);</span><span class="w"> </span><span class="c1">// copy part data</span>
+
+<span class="w">    </span><span class="c1">// prepare another data: output_tensor, which is on sys mem, and don&#39;t have data</span>
+<span class="w">    </span><span class="c1">// copy input_tensor to output_tensor</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">output_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">output_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&amp;</span><span class="w"> </span><span class="n">input_ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">output_tensor</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sync_s2d</span><span class="p">(</span><span class="n">input_ref</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// test if copy success</span>
+<span class="w">    </span><span class="c1">// must copy to system memory and save to dst</span>
+<span class="w">    </span><span class="n">output_tensor</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sync_d2s</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">dst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>
+<span class="w">    </span><span class="n">output_tensor</span><span class="o">-&gt;</span><span class="n">scale_to</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">dst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">dst</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="sync-d2s">
+<h2><span class="section-number">4.5.10. </span>sync_d2s<a class="headerlink" href="#sync-d2s" title="Link to this heading"></a></h2>
+<p>Copy the data in Tensor from device memory to system memory.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">sync_d2s</span><span class="p">();</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">sync_d2s</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>size: int</p></li>
+</ul>
+<p>Copies data of a specific size bytes from device memory to system memory.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">sync_d2s</span><span class="p">(</span><span class="n">Tensor</span><span class="o">*</span><span class="w"> </span><span class="n">src</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">offset_src</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">offset_dst</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>Tensor*: src</p></li>
+</ul>
+<p>Specifies the Tensor to be copied from.</p>
+<ul class="simple">
+<li><p>offset_src: int</p></li>
+</ul>
+<p>Specifies the number of elements to offset in the source Tensor from where to start copying.</p>
+<ul class="simple">
+<li><p>offset_dst: int</p></li>
+</ul>
+<p>Specifies the number of elements to offset in the destination Tensor from where to start copying.</p>
+<ul class="simple">
+<li><p>len: int</p></li>
+</ul>
+<p>Specifies the length of the copy, i.e., the number of elements to copy.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"> </span><span class="c1">// own sys mem:false, own dev mem:true</span>
+
+<span class="w">    </span><span class="c1">// prepare data</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="o">-&gt;</span><span class="n">ones</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sync_d2s</span><span class="p">();</span><span class="w"> </span><span class="c1">// copy all data</span>
+<span class="w">    </span><span class="c1">// input_tensor -&gt; sync_d2s(99); // copy part data</span>
+
+<span class="w">    </span><span class="c1">// prepare another data: output_tensor, which is on sys mem, and don&#39;t have data</span>
+<span class="w">    </span><span class="c1">// copy input_tensor to output_tensor</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">output_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">output_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&amp;</span><span class="w"> </span><span class="n">input_ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">output_tensor</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sync_d2s</span><span class="p">(</span><span class="n">input_ref</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// test if copy success</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">dst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>
+<span class="w">    </span><span class="n">output_tensor</span><span class="o">-&gt;</span><span class="n">scale_to</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">dst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">dst</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="sync-d2d">
+<h2><span class="section-number">4.5.11. </span>sync_d2d<a class="headerlink" href="#sync-d2d" title="Link to this heading"></a></h2>
+<p>Copies the data from another Tensor’s device memory to this Tensor’s device memory.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">sync_d2d</span><span class="p">(</span><span class="n">Tensor</span><span class="o">*</span><span class="w"> </span><span class="n">src</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">offset_src</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">offset_dst</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>Tensor*: src</p></li>
+</ul>
+<p>Specifies the Tensor to be copied from.</p>
+<ul class="simple">
+<li><p>offset_src: int</p></li>
+</ul>
+<p>Specifies the number of elements to offset in the source Tensor from where to start copying.</p>
+<ul class="simple">
+<li><p>offset_dst: int</p></li>
+</ul>
+<p>Specifies the number of elements to offset in the destination Tensor from where to start copying.</p>
+<ul class="simple">
+<li><p>len: int</p></li>
+</ul>
+<p>Specifies the length of the copy, i.e., the number of elements to copy.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle_</span><span class="p">(</span><span class="n">dev_id</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="p">,</span><span class="n">output_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"> </span><span class="c1">// on dev0</span>
+<span class="w">    </span><span class="n">output_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle_</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"> </span><span class="c1">// on dev1</span>
+<span class="w">    </span><span class="c1">// prepare data</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ones</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// d2d</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&amp;</span><span class="w"> </span><span class="n">input_ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">output_tensor</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sync_d2d</span><span class="p">(</span><span class="n">input_ref</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="sync-d2d-stride">
+<h2><span class="section-number">4.5.12. </span>sync_d2d_stride<a class="headerlink" href="#sync-d2d-stride" title="Link to this heading"></a></h2>
+<p>Copies the data from another Tensor’s device memory to this Tensor’s device memory in stride.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">sync_d2d_stride</span><span class="p">(</span><span class="n">Tensor</span><span class="o">*</span><span class="w"> </span><span class="n">src</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stride_src</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stride_dst</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>Tensor*: src</p></li>
+</ul>
+<p>Specifies the Tensor to be copied from.</p>
+<ul class="simple">
+<li><p>stride_src: int</p></li>
+</ul>
+<p>Specifies the stride of the the source Tensor.</p>
+<ul class="simple">
+<li><p>stride_dst: int</p></li>
+</ul>
+<p>Specifies the stride of the destination Tensor.stride_dst must be 1, EXCEPT: stride_dst == 4 &amp;&amp; stride_src == 1 &amp;&amp; Tensor_type_size == 1</p>
+<ul class="simple">
+<li><p>count: int</p></li>
+</ul>
+<p>Specifies the count of elements to copy.Ensure count * stride_src &lt;= tensor_src_size, count * stride_dst &lt;= tensor_dst_size.</p>
+</section>
+<section id="dump-data">
+<h2><span class="section-number">4.5.13. </span>dump_data<a class="headerlink" href="#dump-data" title="Link to this heading"></a></h2>
+<p>Write the data in Tensor to the specified file. If synchronization between system memory and device memory is required, sync_d2s needs to be executed.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">dump_data</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">file_name</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">bin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>file_name: string</p></li>
+</ul>
+<p>The path to the file to write to.</p>
+<ul class="simple">
+<li><p>bin: bool</p></li>
+</ul>
+<p>Whether to store Tensor in binary form, default false.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"> </span><span class="c1">// own sys mem:true, own dev mem:true</span>
+<span class="w">    </span><span class="c1">// prepare data</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="o">-&gt;</span><span class="n">ones</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">input_tensor</span><span class="o">-&gt;</span><span class="n">dump_data</span><span class="p">(</span><span class="s">&quot;dumped_tensor.txt&quot;</span><span class="p">,</span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="o">-&gt;</span><span class="n">dump_data</span><span class="p">(</span><span class="s">&quot;dumped_tensor_bin.bin&quot;</span><span class="p">,</span><span class="nb">true</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="memory-set">
+<h2><span class="section-number">4.5.14. </span>memory_set<a class="headerlink" href="#memory-set" title="Link to this heading"></a></h2>
+<p>Fill the memory of the Tensor with the first N bytes of value,
+N can be 1, 2, 4, depending on the dtype of the Tensor.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">memory_set</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>value: void*</p></li>
+</ul>
+<p>the value to fill.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">test_if_success</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">output_tensor</span><span class="p">){</span>
+<span class="w">    </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">dst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>
+<span class="w">    </span><span class="n">output_tensor</span><span class="o">-&gt;</span><span class="n">scale_to</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">dst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">dst</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1920</span><span class="p">,</span><span class="w"> </span><span class="mi">1080</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="nb">true</span><span class="p">,</span><span class="nb">true</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// set data</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">src_ptr</span><span class="p">(</span>
+<span class="w">            </span><span class="n">new</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1920</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1080</span><span class="p">],</span>
+<span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">default_delete</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">());</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">src_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">src_ptr</span><span class="p">.</span><span class="n">get</span><span class="p">();</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1920</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1080</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">src_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">255</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// print src_data</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">src_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// memory set to tensor</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="o">-&gt;</span><span class="n">memory_set</span><span class="p">(</span><span class="n">src_data</span><span class="p">);</span>
+<span class="w">    </span><span class="n">test_if_success</span><span class="p">(</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1920</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1080</span><span class="p">,</span><span class="n">input_tensor</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="id1">
+<h2><span class="section-number">4.5.15. </span>memory_set<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>Fill memory with a scalar, it will be automatically converted to tensor’s dtype. This interface may has precision loss due to data type conversion, It is recommended to use the interface above.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">memory_set</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">c</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>c: float</p></li>
+</ul>
+<p>the value to fill.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">test_if_success</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">output_tensor</span><span class="p">){</span>
+<span class="w">    </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">dst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="kt">float</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>
+<span class="w">    </span><span class="n">output_tensor</span><span class="o">-&gt;</span><span class="n">scale_to</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">dst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">dst</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="nb">true</span><span class="p">,</span><span class="nb">true</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">value_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="o">-&gt;</span><span class="n">memory_set</span><span class="p">(</span><span class="n">value_</span><span class="p">);</span>
+<span class="w">    </span><span class="n">test_if_success</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">input_tensor</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="zeros">
+<h2><span class="section-number">4.5.16. </span>zeros<a class="headerlink" href="#zeros" title="Link to this heading"></a></h2>
+<p>fill memory with zeros.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">zeros</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// prepare data</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="o">-&gt;</span><span class="n">zeros</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="ones">
+<h2><span class="section-number">4.5.17. </span>ones<a class="headerlink" href="#ones" title="Link to this heading"></a></h2>
+<p>fill memory with ones.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">ones</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// prepare data</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="o">-&gt;</span><span class="n">ones</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="size">
+<h2><span class="section-number">4.5.18. </span>size<a class="headerlink" href="#size" title="Link to this heading"></a></h2>
+<p>Return the number of elements contained in the Tensor.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">size</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// Output result</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="element-size">
+<h2><span class="section-number">4.5.19. </span>element_size<a class="headerlink" href="#element-size" title="Link to this heading"></a></h2>
+<p>Returns the size in bytes of an individual element.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">element_size</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// Output result</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="o">-&gt;</span><span class="n">element_size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="nbytes">
+<h2><span class="section-number">4.5.20. </span>nbytes<a class="headerlink" href="#nbytes" title="Link to this heading"></a></h2>
+<p>Return the total number of bytes occupied by all elements of Tensor.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">nbytes</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+<span class="w">    </span><span class="n">bm_data_type_t</span><span class="w"> </span><span class="n">input_dtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BM_FLOAT32</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// init tensor</span>
+<span class="w">    </span><span class="n">input_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">input_shape</span><span class="p">,</span><span class="w"> </span><span class="n">input_dtype</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// Output result</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">input_tensor</span><span class="o">-&gt;</span><span class="n">nbytes</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cpp_Handle.html" class="btn btn-neutral float-left" title="4.4. Handle" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cpp_Engine.html" class="btn btn-neutral float-right" title="4.6. Engine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SOPHGO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

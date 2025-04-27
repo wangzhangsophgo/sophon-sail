@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-EN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.12. Encoder &mdash; SOPHON-SAIL 3.10.2
+ documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01d1187f"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.13. Decoder_RawStream" href="cpp_Decoder_RawStream.html" />
+    <link rel="prev" title="4.11. Decoder" href="cpp_Decoder.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. Compilation and Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cpp_basicfunction.html">4.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_enum-type/enum-index.html">4.2. SAIL enum type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_PaddingAtrr.html">4.3. PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Handle.html">4.4. Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Tensor.html">4.5. Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Engine.html">4.6. Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_MultiEngine.html">4.7. MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_bm_image.html">4.8. bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_BMImage.html">4.9. BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_BMImageArray.html">4.10. BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Decoder.html">4.11. Decoder</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.12. Encoder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#constructor">4.12.1. Constructor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#is-opened">4.12.2. is_opened</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pic-encode">4.12.3. pic_encode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#video-write">4.12.4. video_write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#release">4.12.5. release</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Decoder_RawStream.html">4.13. Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Bmcv.html">4.14. Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Blend.html">4.15. Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_MultiDecoder.html">4.16. MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_high_perform_interface/high_perform_index_cpp.html">4.17. SAIL C++ high performance interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. Appendix</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../4_module_cpp.html"><span class="section-number">4. </span>SAIL C++ API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.12. </span>Encoder</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_cpp/cpp_Encoder.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="encoder">
+<h1><span class="section-number">4.12. </span>Encoder<a class="headerlink" href="#encoder" title="Link to this heading"></a></h1>
+<p>Encoder can encode images or videos, save video files, and push rtsp/rtmp streams.</p>
+<section id="constructor">
+<h2><span class="section-number">4.12.1. </span>Constructor<a class="headerlink" href="#constructor" title="Link to this heading"></a></h2>
+<p>Initialize Encoder</p>
+<p>Image encoder initialization</p>
+<dl>
+<dt><strong>Image Encoder Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">Encoder</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Vedio encoder initialization</p>
+<dl>
+<dt><strong>Vedio Encoder Interface 1:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">Encoder</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">output_path</span><span class="p">,</span>
+<span class="w">            </span><span class="n">Handle</span><span class="w"> </span><span class="o">&amp;</span><span class="n">handle</span><span class="p">,</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">enc_fmt</span><span class="p">,</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pix_fmt</span><span class="p">,</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">enc_params</span><span class="p">,</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">cache_buffer_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">abort_policy</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Vedio Encoder Interface 2:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">Encoder</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">output_path</span><span class="p">,</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">device_id</span><span class="p">,</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">enc_fmt</span><span class="p">,</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">pix_fmt</span><span class="p">,</span>
+<span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">enc_params</span><span class="p">,</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">cache_buffer_length</span><span class="o">=</span><span class="mi">5</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">abort_policy</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>output_path: string</p></li>
+</ul>
+<p>Input parameter. Encoded video output path, supports local files (MP4, ts, etc.) and rtsp/rtmp streams.
+* handle: sail.Handle</p>
+<p>Input parameter. Encoder handle instance. (Choose one between handle and device_id)</p>
+<ul class="simple">
+<li><p>device_id: int</p></li>
+</ul>
+<p>Input parameter. Encoder device_id. (Choose one of device_id and handle. When device_id is specified, Handle will be created inside the encoder)</p>
+<ul class="simple">
+<li><p>enc_fmt: string</p></li>
+</ul>
+<p>Input parameter. Encoding format, supports h264_bm and h265_bm/hevc_bm.</p>
+<ul class="simple">
+<li><p>pix_fmt: string</p></li>
+</ul>
+<p>Input parameters. The pixel format of the encoding output supports NV12 and I420. I420 is recommed.</p>
+<ul class="simple">
+<li><p>enc_params: string</p></li>
+</ul>
+<p>Input parameter. Encoding parameters, <code class="docutils literal notranslate"><span class="pre">&quot;width=1902:height=1080:gop=32:gop_preset=3:framerate=25:bitrate=2000&quot;</span></code>, where width and height are required. By default, bitrate is used to control quality. Bitrate is invalid when qp is specified in the parameter. .</p>
+<ul class="simple">
+<li><p>cache_buffer_length: int</p></li>
+</ul>
+<p>Input parameter. Internal cache queue length, default is 5. sail.Encoder internally maintains a cache queue to improve flow control fault tolerance when pushing streams.</p>
+<ul class="simple">
+<li><p>abort_policy: int</p></li>
+</ul>
+<p>Input parameter. The rejection policy of the video_write interface when the cache queue is full. When set to 0, the video_write interface returns -1 immediately. When set to 1, pop the queue head. When set to 2, the queue is cleared. When set to 3, it blocks until the encoding thread consumes one frame and the queue becomes empty.</p>
+</section>
+<section id="is-opened">
+<h2><span class="section-number">4.12.2. </span>is_opened<a class="headerlink" href="#is-opened" title="Link to this heading"></a></h2>
+<p>Determine whether the encoder is turned on.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">is_opened</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>judge_ret: bool</p></li>
+</ul>
+<p>Returns True if the encoder is turned on and False if it fails.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/encoder.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">out_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;path/to/your/output/file&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">enc_fmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;h264_bm&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">pix_fmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;I420&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">enc_params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;width=1920:height=1080:bitrate=2000:gop=32:gop_preset=2:framerate=25&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">cache_buffer_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">abort_policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Encoder</span><span class="w"> </span><span class="n">encoder</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">enc_fmt</span><span class="p">,</span><span class="w"> </span><span class="n">pix_fmt</span><span class="p">,</span><span class="w"> </span><span class="n">enc_params</span><span class="p">,</span><span class="w"> </span><span class="n">cache_buffer_length</span><span class="p">,</span><span class="w"> </span><span class="n">abort_policy</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">encoder</span><span class="p">.</span><span class="n">is_opened</span><span class="p">())</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;succeed!&quot;</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="pic-encode">
+<h2><span class="section-number">4.12.3. </span>pic_encode<a class="headerlink" href="#pic-encode" title="Link to this heading"></a></h2>
+<p>Encode an image and return the encoded data.</p>
+<dl>
+<dt><strong>Interface 1:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">pic_encode</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ext</span><span class="p">,</span><span class="w"> </span><span class="n">bm_image</span><span class="w"> </span><span class="o">&amp;</span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">u_char</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">data</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Interface 2:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">pic_encode</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ext</span><span class="p">,</span><span class="w"> </span><span class="n">BMImage</span><span class="w"> </span><span class="o">&amp;</span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">u_char</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">data</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>ext: string</p></li>
+</ul>
+<p>Input parameter. Image encoding format. <code class="docutils literal notranslate"><span class="pre">&quot;.jpg&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;.png&quot;</span></code> etc.</p>
+<ul class="simple">
+<li><p>image: bm_image/BMImage</p></li>
+</ul>
+<p>Input parameter. Input pictures, only FORMAT_BGR_PACKED, DATA_TYPE_EXT_1N_BYTE pictures are supported.</p>
+<ul class="simple">
+<li><p>data: vector&lt;u_char&gt;</p></li>
+</ul>
+<p>Input parameter. Byte vector,a container for holding the data encoded into system memory.</p>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>size: int</p></li>
+</ul>
+<p>The size of the encoded data held in system memory.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/encoder.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">image_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;your_img_path&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Decoder</span><span class="w"> </span><span class="n">decoder</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span><span class="nb">false</span><span class="p">,</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">BMImage</span><span class="w"> </span><span class="n">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">decoder</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">out_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;path/to/your/output/file&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">enc_fmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;h264_bm&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">pix_fmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;I420&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">enc_params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;width=1920:height=1080:bitrate=2000:gop=32:gop_preset=2:framerate=25&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">cache_buffer_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">abort_policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Encoder</span><span class="w"> </span><span class="n">encoder</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">enc_fmt</span><span class="p">,</span><span class="w"> </span><span class="n">pix_fmt</span><span class="p">,</span><span class="w"> </span><span class="n">enc_params</span><span class="p">,</span><span class="w"> </span><span class="n">cache_buffer_length</span><span class="p">,</span><span class="w"> </span><span class="n">abort_policy</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">u_char</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">extension</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;.jpg&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encoder</span><span class="p">.</span><span class="n">pic_encode</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span><span class="n">img</span><span class="p">,</span><span class="n">data</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">//int size = encoder.pic_encode(extension,img.data(),data); //bm_image</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="video-write">
+<h2><span class="section-number">4.12.4. </span>video_write<a class="headerlink" href="#video-write" title="Link to this heading"></a></h2>
+<p>Send a frame of image to the video encoder. Asynchronous interface, after format conversion, is put into the internal cache queue.</p>
+<dl>
+<dt><strong>Interface 1:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">video_write</span><span class="p">(</span><span class="n">bm_image</span><span class="w"> </span><span class="o">&amp;</span><span class="n">image</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Interface 2:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">video_write</span><span class="p">(</span><span class="n">BMImage</span><span class="w"> </span><span class="o">&amp;</span><span class="n">image</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>image: bm_image/BMImage</p></li>
+</ul>
+<p>On the BM1684,
+when the pixel format (pix_fmt) of the encoder is set to I420, the shape of the image to be encoded can differ from the encoder’s width and height.
+However, when the pixel format is NV12, the image shape must match the encoder’s dimensions. In this case, a format conversion is performed internally using <code class="docutils literal notranslate"><span class="pre">bmcv_image_storage_convert</span></code>, which may utilize NPU resources.</p>
+<p>On the BM1684X,
+the shape of the image to be encoded can differ from the encoder’s width and height. The internal resizing and format conversion are handled by <code class="docutils literal notranslate"><span class="pre">bmcv_image_vpp_convert</span></code>.</p>
+<p><strong>Returns:</strong></p>
+<ul class="simple">
+<li><p>judge_ret: int</p></li>
+</ul>
+<p>Returns 0 on success, -1 when the internal cache queue is full. -2 is returned when there is a frame in the internal buffer queue that fails to encode. One frame was successfully encoded, but failed to push and returned -3. Unknown deny policy returns -4.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/encoder.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">image_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;your_img_path&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Decoder</span><span class="w"> </span><span class="n">decoder</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span><span class="nb">false</span><span class="p">,</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">BMImage</span><span class="w"> </span><span class="n">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">decoder</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">out_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;out_put_path&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">enc_fmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;h264_bm&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">pix_fmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;I420&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">enc_params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;width=1920:height=1080:bitrate=2000:gop=32:gop_preset=2:framerate=25&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">cache_buffer_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">abort_policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Encoder</span><span class="w"> </span><span class="n">encoder</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">enc_fmt</span><span class="p">,</span><span class="w"> </span><span class="n">pix_fmt</span><span class="p">,</span><span class="w"> </span><span class="n">enc_params</span><span class="p">,</span><span class="w"> </span><span class="n">cache_buffer_length</span><span class="p">,</span><span class="w"> </span><span class="n">abort_policy</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encoder</span><span class="p">.</span><span class="n">video_write</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// int ret = encoder.video_write(img.data());  //bm_image</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="release">
+<h2><span class="section-number">4.12.5. </span>release<a class="headerlink" href="#release" title="Link to this heading"></a></h2>
+<p>Release the encoder.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">release</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/encoder.h&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">out_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;path/to/your/output/file&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">enc_fmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;h264_bm&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">pix_fmt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;I420&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">enc_params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;width=1920:height=1080:bitrate=2000:gop=32:gop_preset=2:framerate=25&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">cache_buffer_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">abort_policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Encoder</span><span class="w"> </span><span class="n">encoder</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">enc_fmt</span><span class="p">,</span><span class="w"> </span><span class="n">pix_fmt</span><span class="p">,</span><span class="w"> </span><span class="n">enc_params</span><span class="p">,</span><span class="w"> </span><span class="n">cache_buffer_length</span><span class="p">,</span><span class="w"> </span><span class="n">abort_policy</span><span class="p">);</span>
+<span class="w">    </span><span class="n">encoder</span><span class="p">.</span><span class="n">release</span><span class="p">();</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cpp_Decoder.html" class="btn btn-neutral float-left" title="4.11. Decoder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cpp_Decoder_RawStream.html" class="btn btn-neutral float-right" title="4.13. Decoder_RawStream" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SOPHGO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

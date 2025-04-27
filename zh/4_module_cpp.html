@@ -1,0 +1,509 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4. SAIL C++ API 参考 &mdash; SOPHON-SAIL 3.10.2
+ 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=9080cc91"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="4.1. Basic function" href="module_cpp/cpp_basicfunction.html" />
+    <link rel="prev" title="3. 编译安装指南" href="3_build.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="1_disclaimer.html">1. 声明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_build.html">3. 编译安装指南</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. SAIL C++ API 参考</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_basicfunction.html">4.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/0_enum-type/enum-index.html">4.2. SAIL 枚举类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Handle.html">4.3. Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html">4.4. Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html">4.5. Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html">4.6. BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html">4.7. Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder.html">4.8. Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html">4.9. MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Encoder.html">4.10. Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_PaddingAtrr.html">4.11. PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Blend.html">4.12. Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder_RawStream.html">4.13. Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImageArray.html">4.14. BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_bm_image.html">4.15. bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiEngine.html">4.16. MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/1_high_perform_interface/high_perform_index_cpp.html">4.17. SAIL C++ 高性能接口</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="5_module_python.html">5. SAIL Python API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4. </span>SAIL C++ API 参考</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/4_module_cpp.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sail-c-api">
+<h1><span class="section-number">4. </span>SAIL C++ API 参考<a class="headerlink" href="#sail-c-api" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_basicfunction.html">4.1. Basic function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_basicfunction.html#get-available-tpu-num">4.1.1. get_available_tpu_num</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_basicfunction.html#set-print-flag">4.1.2. set_print_flag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_basicfunction.html#set-dump-io-flag">4.1.3. set_dump_io_flag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_basicfunction.html#set-loglevel">4.1.4. set_loglevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_basicfunction.html#set-decoder-env">4.1.5. set_decoder_env</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_basicfunction.html#base64-enc">4.1.6. base64_enc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_basicfunction.html#base64-dec">4.1.7. base64_dec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_basicfunction.html#get-tpu-util">4.1.8. get_tpu_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_basicfunction.html#get-vpu-util">4.1.9. get_vpu_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_basicfunction.html#get-vpp-util">4.1.10. get_vpp_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_basicfunction.html#get-board-temp">4.1.11. get_board_temp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_basicfunction.html#get-chip-temp">4.1.12. get_chip_temp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_basicfunction.html#get-dev-stat">4.1.13. get_dev_stat</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/0_enum-type/enum-index.html">4.2. SAIL 枚举类型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/0_enum-type/cpp_LogLevel.html">4.2.1. LogLevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/0_enum-type/cpp_Dtype.html">4.2.2. Data type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/0_enum-type/cpp_Format.html">4.2.3. Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/0_enum-type/cpp_ImgDtype.html">4.2.4. ImgDtype</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/0_enum-type/cpp_IOMode.html">4.2.5. IOMode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/0_enum-type/cpp_bmcv_resize_algorithm.html">4.2.6. bmcv_resize_algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/0_enum-type/cpp_sail_resize_type.html">4.2.7. sail_resize_type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/0_enum-type/cpp_DecoderStatus.html">4.2.8. DecoderStatus</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_Handle.html">4.3. Handle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Handle.html#id1">4.3.1. 构造函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Handle.html#get-device-id">4.3.2. get_device_id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Handle.html#get-sn">4.3.3. get_sn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Handle.html#get-target">4.3.4. get_target</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_Tensor.html">4.4. Tensor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#id1">4.4.1. 构造函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#shape">4.4.2. shape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#dtype">4.4.3. dtype</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#scale-from">4.4.4. scale_from</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#scale-to">4.4.5. scale_to</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#reshape">4.4.6. reshape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#own-sys-data">4.4.7. own_sys_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#own-dev-data">4.4.8. own_dev_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#sync-s2d">4.4.9. sync_s2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#sync-d2s">4.4.10. sync_d2s</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#sync-d2d">4.4.11. sync_d2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#sync-d2d-stride">4.4.12. sync_d2d_stride</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#dump-data">4.4.13. dump_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#memory-set">4.4.14. memory_set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#id2">4.4.15. memory_set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#zeros">4.4.16. zeros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#ones">4.4.17. ones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#size">4.4.18. size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#element-size">4.4.19. element_size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Tensor.html#nbytes">4.4.20. nbytes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_Engine.html">4.5. Engine</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#id1">4.5.1. 构造函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#get-handle">4.5.2. get_handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#load">4.5.3. load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#get-graph-names">4.5.4. get_graph_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#set-io-mode">4.5.5. set_io_mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#graph-is-dynamic">4.5.6. graph_is_dynamic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#get-input-names">4.5.7. get_input_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#get-output-names">4.5.8. get_output_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#get-max-input-shapes">4.5.9. get_max_input_shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#get-input-shape">4.5.10. get_input_shape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#get-max-output-shapes">4.5.11. get_max_output_shapes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#get-output-shape">4.5.12. get_output_shape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#get-input-dtype">4.5.13. get_input_dtype</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#get-output-dtype">4.5.14. get_output_dtype</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#get-input-scale">4.5.15. get_input_scale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#get-output-scale">4.5.16. get_output_scale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#process">4.5.17. process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#get-device-id">4.5.18. get_device_id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#create-input-tensors-map">4.5.19. create_input_tensors_map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Engine.html#create-output-tensors-map">4.5.20. create_output_tensors_map</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_BMImage.html">4.6. BMImage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html#id1">4.6.1. 构造函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html#width">4.6.2. width</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html#height">4.6.3. height</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html#format">4.6.4. format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html#dtype">4.6.5. dtype</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html#data">4.6.6. data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html#get-device-id">4.6.7. get_device_id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html#get-handle">4.6.8. get_handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html#get-plane-num">4.6.9. get_plane_num</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html#align">4.6.10. align</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html#check-align">4.6.11. check_align</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html#unalign">4.6.12. unalign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html#check-contiguous-memory">4.6.13. check_contiguous_memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImage.html#get-pts-dts">4.6.14. get_pts_dts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_Bmcv.html">4.7. Bmcv</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#id1">4.7.1. 构造函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#bm-image-to-tensor">4.7.2. bm_image_to_tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#tensor-to-bm-image">4.7.3. tensor_to_bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#crop-and-resize">4.7.4. crop_and_resize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#crop">4.7.5. crop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#resize">4.7.6. resize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#vpp-crop-and-resize">4.7.7. vpp_crop_and_resize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#vpp-crop-and-resize-padding">4.7.8. vpp_crop_and_resize_padding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#vpp-crop">4.7.9. vpp_crop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#vpp-resize">4.7.10. vpp_resize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#vpp-resize-padding">4.7.11. vpp_resize_padding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#warp">4.7.12. warp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#convert-to">4.7.13. convert_to</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#yuv2bgr">4.7.14. yuv2bgr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#rectangle">4.7.15. rectangle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#fillrectangle">4.7.16. fillRectangle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#imwrite">4.7.17. imwrite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#id2">4.7.18. imwrite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#get-handle">4.7.19. get_handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#crop-and-resize-padding">4.7.20. crop_and_resize_padding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#convert-format">4.7.21. convert_format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#vpp-convert-format">4.7.22. vpp_convert_format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#puttext">4.7.23. putText</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#image-add-weighted">4.7.24. image_add_weighted</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#image-copy-to">4.7.25. image_copy_to</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#image-copy-to-padding">4.7.26. image_copy_to_padding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#nms">4.7.27. nms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#drawpoint">4.7.28. drawPoint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#warp-perspective">4.7.29. warp_perspective</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#get-bm-data-type">4.7.30. get_bm_data_type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#get-bm-image-data-format">4.7.31. get_bm_image_data_format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#imdecode">4.7.32. imdecode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#imencode">4.7.33. imencode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#fft">4.7.34. fft</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#convert-yuv420p-to-gray">4.7.35. convert_yuv420p_to_gray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#watermark-superpose">4.7.36. watermark_superpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#polylines">4.7.37. polylines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#mosaic">4.7.38. mosaic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#gaussian-blur">4.7.39. gaussian_blur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#transpose">4.7.40. transpose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#sobel">4.7.41. Sobel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#drawlines">4.7.42. drawLines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#stft">4.7.43. stft</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#istft">4.7.44. istft</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#faiss-indexflatl2">4.7.45. faiss_indexflatL2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#faiss-indexflatip">4.7.46. faiss_indexflatIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#faiss-indexpq-encode">4.7.47. faiss_indexPQ_encode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#faiss-indexpq-adc">4.7.48. faiss_indexPQ_ADC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Bmcv.html#faiss-indexpq-sdc">4.7.49. faiss_indexPQ_SDC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_Decoder.html">4.8. Decoder</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder.html#id1">4.8.1. 构造函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder.html#is-opened">4.8.2. is_opened</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder.html#read">4.8.3. read</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder.html#id2">4.8.4. read_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder.html#get-frame-shape">4.8.5. get_frame_shape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder.html#release">4.8.6. release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder.html#reconnect">4.8.7. reconnect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder.html#enable-dump">4.8.8. enable_dump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder.html#disable-dump">4.8.9. disable_dump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder.html#dump">4.8.10. dump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder.html#get-pts-dts">4.8.11. get_pts_dts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html">4.9. MultiDecoder</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html#id1">4.9.1. 构造函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html#set-read-timeout">4.9.2. set_read_timeout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html#add-channel">4.9.3. add_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html#del-channel">4.9.4. del_channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html#clear-queue">4.9.5. clear_queue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html#read">4.9.6. read</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html#id2">4.9.7. read_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html#reconnect">4.9.8. reconnect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html#get-frame-shape">4.9.9. get_frame_shape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html#set-local-flag">4.9.10. set_local_flag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html#get-channel-fps">4.9.11. get_channel_fps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html#reset-drop-num">4.9.12. reset_drop_num</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html#get-channel-status">4.9.13. get_channel_status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiDecoder.html#is-channel-eof">4.9.14. is_channel_eof</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_Encoder.html">4.10. Encoder</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Encoder.html#id1">4.10.1. 构造函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Encoder.html#is-opened">4.10.2. is_opened</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Encoder.html#pic-encode">4.10.3. pic_encode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Encoder.html#video-write">4.10.4. video_write</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Encoder.html#release">4.10.5. release</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_PaddingAtrr.html">4.11. PaddingAtrr</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_PaddingAtrr.html#id1">4.11.1. 构造函数PaddingAtrr()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_PaddingAtrr.html#set-stx">4.11.2. set_stx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_PaddingAtrr.html#set-sty">4.11.3. set_sty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_PaddingAtrr.html#set-w">4.11.4. set_w</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_PaddingAtrr.html#set-h">4.11.5. set_h</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_PaddingAtrr.html#set-r">4.11.6. set_r</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_PaddingAtrr.html#set-g">4.11.7. set_g</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_PaddingAtrr.html#set-b">4.11.8. set_b</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_Blend.html">4.12. Blend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Blend.html#id1">4.12.1. 构造函数Blend()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Blend.html#process">4.12.2. process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_Decoder_RawStream.html">4.13. Decoder_RawStream</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder_RawStream.html#id1">4.13.1. 构造函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder_RawStream.html#read">4.13.2. read</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder_RawStream.html#id2">4.13.3. read_</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_Decoder_RawStream.html#release">4.13.4. release</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_BMImageArray.html">4.14. BMImageArray</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImageArray.html#id1">4.14.1. 构造函数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImageArray.html#copy-from">4.14.2. copy_from</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImageArray.html#attach-from">4.14.3. attach_from</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_BMImageArray.html#get-device-id">4.14.4. get_device_id</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_bm_image.html">4.15. bm_image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/cpp_MultiEngine.html">4.16. MultiEngine</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiEngine.html#id1">4.16.1. MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiEngine.html#set-print-flag">4.16.2. set_print_flag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiEngine.html#set-print-time">4.16.3. set_print_time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiEngine.html#get-device-ids">4.16.4. get_device_ids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiEngine.html#get-graph-names">4.16.5. get_graph_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiEngine.html#get-input-names">4.16.6. get_input_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiEngine.html#get-output-names">4.16.7. get_output_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiEngine.html#get-input-shape">4.16.8. get_input_shape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiEngine.html#get-output-shape">4.16.9. get_output_shape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/cpp_MultiEngine.html#process">4.16.10. process</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_cpp/1_high_perform_interface/high_perform_index_cpp.html">4.17. SAIL C++ 高性能接口</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_ImagePreProcess.html">4.17.1. ImagePreProcess</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_ImagePreProcess.html#id1">4.17.1.1. 构造函数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_ImagePreProcess.html#setresizeimageatrr">4.17.1.2. SetResizeImageAtrr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_ImagePreProcess.html#setpaddingatrr">4.17.1.3. SetPaddingAtrr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_ImagePreProcess.html#setconvertatrr">4.17.1.4. SetConvertAtrr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_ImagePreProcess.html#pushimage">4.17.1.5. PushImage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_ImagePreProcess.html#getbatchdata">4.17.1.6. GetBatchData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_ImagePreProcess.html#set-print-flag">4.17.1.7. set_print_flag</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_TensorPTRWithName.html">4.17.2. TensorPTRWithName</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_EngineImagePreProcess.html">4.17.3. EngineImagePreProcess</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_EngineImagePreProcess.html#id1">4.17.3.1. 构造函数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_EngineImagePreProcess.html#initimagepreprocess">4.17.3.2. InitImagePreProcess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_EngineImagePreProcess.html#setpaddingatrr">4.17.3.3. SetPaddingAtrr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_EngineImagePreProcess.html#setconvertatrr">4.17.3.4. SetConvertAtrr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_EngineImagePreProcess.html#pushimage">4.17.3.5. PushImage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_EngineImagePreProcess.html#getbatchdata">4.17.3.6. GetBatchData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_EngineImagePreProcess.html#getbatchdata-cv">4.17.3.7. GetBatchData_CV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_EngineImagePreProcess.html#get-graph-name">4.17.3.8. get_graph_name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_EngineImagePreProcess.html#get-input-width">4.17.3.9. get_input_width</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_EngineImagePreProcess.html#get-input-height">4.17.3.10. get_input_height</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_EngineImagePreProcess.html#get-output-names">4.17.3.11. get_output_names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_EngineImagePreProcess.html#get-output-shape">4.17.3.12. get_output_shape</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/1_high_perform_interface/high_perform_index_cpp.html#yolov5">4.17.4. Yolov5 后处理加速接口</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_1output.html">4.17.4.1. algo_yolov5_post_1output</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_1output.html#id1">4.17.4.1.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_1output.html#push-data">4.17.4.1.2. push_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_1output.html#get-result-npy">4.17.4.1.3. get_result_npy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_3output.html">4.17.4.2. algo_yolov5_post_3output</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_3output.html#id1">4.17.4.2.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_3output.html#push-data">4.17.4.2.2. push_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_3output.html#get-result-npy">4.17.4.2.3. get_result_npy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_3output.html#reset-anchors">4.17.4.2.4. reset_anchors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_cpu_opt.html">4.17.4.3. algo_yolov5_post_cpu_opt</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_cpu_opt.html#id1">4.17.4.3.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_cpu_opt.html#process">4.17.4.3.2. process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_cpu_opt.html#reset-anchors">4.17.4.3.3. reset_anchors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_cpu_opt_async.html">4.17.4.4. algo_yolov5_post_cpu_opt_async</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_cpu_opt_async.html#id1">4.17.4.4.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_cpu_opt_async.html#push-data">4.17.4.4.2. push_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_cpu_opt_async.html#get-result-npy">4.17.4.4.3. get_result_npy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov5_post_cpu_opt_async.html#reset-anchors">4.17.4.4.4. reset_anchors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_tpu_kernel_api_yolov5_detect_out.html">4.17.4.5. tpu_kernel_api_yolov5_detect_out</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_tpu_kernel_api_yolov5_detect_out.html#id1">4.17.4.5.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_tpu_kernel_api_yolov5_detect_out.html#process">4.17.4.5.2. process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_tpu_kernel_api_yolov5_detect_out.html#reset-anchors">4.17.4.5.3. reset_anchors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_tpu_kernel_api_yolov5_out_without_decode.html">4.17.4.6. tpu_kernel_api_yolov5_out_without_decode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_tpu_kernel_api_yolov5_out_without_decode.html#id1">4.17.4.6.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_tpu_kernel_api_yolov5_out_without_decode.html#process">4.17.4.6.2. process</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/1_high_perform_interface/high_perform_index_cpp.html#yolox">4.17.5. Yolox后处理加速接口</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolox_post.html">4.17.5.1. algo_yolox_post</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolox_post.html#id1">4.17.5.1.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolox_post.html#push-data">4.17.5.1.2. push_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolox_post.html#get-result-npy">4.17.5.1.3. get_result_npy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/1_high_perform_interface/high_perform_index_cpp.html#yolov8">4.17.6. Yolov8后处理加速接口</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov8_post_1output_async.html">4.17.6.1. algo_yolov8_post_1output_async</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov8_post_1output_async.html#id1">4.17.6.1.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov8_post_1output_async.html#push-data">4.17.6.1.2. push_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov8_post_1output_async.html#get-result-npy">4.17.6.1.3. get_result_npy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov8_post_cpu_opt_1output_async.html">4.17.6.2. algo_yolov8_post_cpu_opt_1output_async</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov8_post_cpu_opt_1output_async.html#id1">4.17.6.2.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov8_post_cpu_opt_1output_async.html#push-data">4.17.6.2.2. push_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_yolov8_post_cpu_opt_1output_async.html#get-result-npy">4.17.6.2.3. get_result_npy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/1_high_perform_interface/high_perform_index_cpp.html#sort">4.17.7. sort 算法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_sort_tracker_controller.html">4.17.7.1. sort_tracker_controller</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_sort_tracker_controller.html#id1">4.17.7.1.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_sort_tracker_controller.html#process">4.17.7.1.2. process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_sort_tracker_controller_async.html">4.17.7.2. deepsort_tracker_controller_async</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_sort_tracker_controller_async.html#id1">4.17.7.2.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_sort_tracker_controller_async.html#push-data">4.17.7.2.2. push_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_algo_sort_tracker_controller_async.html#get-result">4.17.7.2.3. get_result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/1_high_perform_interface/high_perform_index_cpp.html#deepsort">4.17.8. deepsort 算法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_deepsort_tracker_controller.html">4.17.8.1. deepsort_tracker_controller</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_deepsort_tracker_controller.html#id1">4.17.8.1.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_deepsort_tracker_controller.html#process">4.17.8.1.2. process</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_deepsort_tracker_controller_async.html">4.17.8.2. deepsort_tracker_controller_async</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_deepsort_tracker_controller_async.html#id1">4.17.8.2.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_deepsort_tracker_controller_async.html#push-data">4.17.8.2.2. push_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_deepsort_tracker_controller_async.html#get-result">4.17.8.2.3. get_result</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/1_high_perform_interface/high_perform_index_cpp.html#bytetrack">4.17.9. bytetrack 算法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_bytetrack_tracker_controller.html">4.17.9.1. bytetrack_tracker_controller</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_bytetrack_tracker_controller.html#init">4.17.9.1.1. __init__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_bytetrack_tracker_controller.html#process">4.17.9.1.2. process</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="module_cpp/1_high_perform_interface/high_perform_index_cpp.html#openpose">4.17.10. openpose 算法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_tpu_kernel_api_openpose_part_nms.html">4.17.10.1. tpu_kernel_api_openpose_part_nms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_tpu_kernel_api_openpose_part_nms.html#id1">4.17.10.1.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_tpu_kernel_api_openpose_part_nms.html#process">4.17.10.1.2. process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="module_cpp/1_high_perform_interface/cpp_tpu_kernel_api_openpose_part_nms.html#reset-network-c">4.17.10.1.3. reset_network_c</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="3_build.html" class="btn btn-neutral float-left" title="3. 编译安装指南" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="module_cpp/cpp_basicfunction.html" class="btn btn-neutral float-right" title="4.1. Basic function" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, SOPHGO。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

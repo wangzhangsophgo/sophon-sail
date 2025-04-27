@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-EN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.17. SAIL Python high performance interface &mdash; SOPHON-SAIL 3.10.2
+ documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01d1187f"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5.17.1. sail.TensorPTRWithName" href="sail.TensorPTRWithName.html" />
+    <link rel="prev" title="5.16. sail.MultiDecoder" href="../sail.MultiDecoder.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../1_disclaimer.html">1. Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../3_build.html">3. Compilation and Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../4_module_cpp.html">4. SAIL C++ API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../5_module_python.html">5. SAIL Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Basicfunction.html">5.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../0_enum_type/enum_index.html">5.2. SAIL enum type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Handle.html">5.3. sail.Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Tensor.html">5.4. sail.Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.PaddingAtrr.html">5.5. sail.PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Engine.html">5.6. sail.Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.MultiEngine.html">5.7. sail.MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.bm_image.html">5.8. sail.bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.BMImage.html">5.9. sail.BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.BMImageArray.html">5.10. sail.BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Decoder.html">5.11. sail.Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Encoder.html">5.12. sail.Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Decoder_RawStream.html">5.13. sail.Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Bmcv.html">5.14. sail.Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.Blend.html">5.15. sail.Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sail.MultiDecoder.html">5.16. sail.MultiDecoder</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.17. SAIL Python high performance interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sail.TensorPTRWithName.html">5.17.1. sail.TensorPTRWithName</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sail.ImagePreProcess.html">5.17.2. sail.ImagePreProcess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sail.EngineImagePreProcess.html">5.17.3. sail.EngineImagePreProcess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yolov5-post-processing-acceleration-interfaces">5.17.4. Yolov5 post-processing acceleration interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sail.algo_yolov5_post_1output.html">5.17.4.1. sail.algo_yolov5_post_1output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sail.algo_yolov5_post_3output.html">5.17.4.2. sail.algo_yolov5_post_3output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sail.algo_yolov5_post_cpu_opt.html">5.17.4.3. sail.algo_yolov5_post_cpu_opt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sail.algo_yolov5_post_cpu_opt_async.html">5.17.4.4. sail.algo_yolov5_post_cpu_opt_async</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sail.tpu_kernel_api_yolov5_detect_out.html">5.17.4.5. sail.tpu_kernel_api_yolov5_detect_out</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sail.tpu_kernel_api_yolov5_out_without_decode.html">5.17.4.6. sail.tpu_kernel_api_yolov5_out_without_decode</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yolox-post-processing-acceleration-interfaces">5.17.5. Yolox post-processing acceleration interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sail.algo_yolox_post.html">5.17.5.1. sail.algo_yolox_post</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yolov8-post-processing-acceleration-interfaces">5.17.6. Yolov8 post-processing acceleration interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sail.algo_yolov8_post_1output_async.html">5.17.6.1. sail.algo_yolov8_post_1output_async</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sail.algo_yolov8_post_cpu_opt_1output_async.html">5.17.6.2. sail.algo_yolov8_post_cpu_opt_1output_async</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#sort">5.17.7. sort</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sail.algo_sort_tracker_controller.html">5.17.7.1. sort_tracker_controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sail.algo_sort_tracker_controller_async.html">5.17.7.2. sort_tracker_controller_async</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#deepsort">5.17.8. deepsort</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sail.deepsort_tracker_controller.html">5.17.8.1. deepsort_tracker_controller</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sail.deepsort_tracker_controller_async.html">5.17.8.2. deepsort_tracker_controller</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bytetrack">5.17.9. bytetrack</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sail.bytetrack_tracker_controller.html">5.17.9.1. bytetrack_tracker_controller</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#openpose">5.17.10. openpose</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sail.tpu_kernel_api_openpose_part_nms.html">5.17.10.1. sail.tpu_kernel_api_openpose_part_nms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nms-rotated">5.17.11. nms_rotated</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sail.nms_rotated.html">5.17.11.1. sail.nms_rotated</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yolov8-seg-tpu-post-processing-acceleration-interfaces">5.17.12. Yolov8_seg TPU post-processing acceleration interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sail.algo_yolov8_seg_post_tpu_opt.html">5.17.12.1. sail.algo_yolov8_seg_post_tpu_opt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../6_appendix.html">6. Appendix</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../5_module_python.html"><span class="section-number">5. </span>SAIL Python API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.17. </span>SAIL Python high performance interface</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_python/1_high_perform_interface/high_perform_index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sail-python-high-performance-interface">
+<h1><span class="section-number">5.17. </span>SAIL Python high performance interface<a class="headerlink" href="#sail-python-high-performance-interface" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sail.TensorPTRWithName.html">5.17.1. sail.TensorPTRWithName</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sail.ImagePreProcess.html">5.17.2. sail.ImagePreProcess</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sail.EngineImagePreProcess.html">5.17.3. sail.EngineImagePreProcess</a></li>
+</ul>
+</div>
+<section id="yolov5-post-processing-acceleration-interfaces">
+<h2><span class="section-number">5.17.4. </span>Yolov5 post-processing acceleration interfaces<a class="headerlink" href="#yolov5-post-processing-acceleration-interfaces" title="Link to this heading"></a></h2>
+<p>Post-processing acceleration interfaces for single-output and three-output YOLOv5 models.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sail.algo_yolov5_post_1output.html">5.17.4.1. sail.algo_yolov5_post_1output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sail.algo_yolov5_post_3output.html">5.17.4.2. sail.algo_yolov5_post_3output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sail.algo_yolov5_post_cpu_opt.html">5.17.4.3. sail.algo_yolov5_post_cpu_opt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sail.algo_yolov5_post_cpu_opt_async.html">5.17.4.4. sail.algo_yolov5_post_cpu_opt_async</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sail.tpu_kernel_api_yolov5_detect_out.html">5.17.4.5. sail.tpu_kernel_api_yolov5_detect_out</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sail.tpu_kernel_api_yolov5_out_without_decode.html">5.17.4.6. sail.tpu_kernel_api_yolov5_out_without_decode</a></li>
+</ul>
+</div>
+</section>
+<section id="yolox-post-processing-acceleration-interfaces">
+<h2><span class="section-number">5.17.5. </span>Yolox post-processing acceleration interfaces<a class="headerlink" href="#yolox-post-processing-acceleration-interfaces" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sail.algo_yolox_post.html">5.17.5.1. sail.algo_yolox_post</a></li>
+</ul>
+</div>
+</section>
+<section id="yolov8-post-processing-acceleration-interfaces">
+<h2><span class="section-number">5.17.6. </span>Yolov8 post-processing acceleration interfaces<a class="headerlink" href="#yolov8-post-processing-acceleration-interfaces" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sail.algo_yolov8_post_1output_async.html">5.17.6.1. sail.algo_yolov8_post_1output_async</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sail.algo_yolov8_post_cpu_opt_1output_async.html">5.17.6.2. sail.algo_yolov8_post_cpu_opt_1output_async</a></li>
+</ul>
+</div>
+</section>
+<section id="sort">
+<h2><span class="section-number">5.17.7. </span>sort<a class="headerlink" href="#sort" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sail.algo_sort_tracker_controller.html">5.17.7.1. sort_tracker_controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sail.algo_sort_tracker_controller_async.html">5.17.7.2. sort_tracker_controller_async</a></li>
+</ul>
+</div>
+</section>
+<section id="deepsort">
+<h2><span class="section-number">5.17.8. </span>deepsort<a class="headerlink" href="#deepsort" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sail.deepsort_tracker_controller.html">5.17.8.1. deepsort_tracker_controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sail.deepsort_tracker_controller_async.html">5.17.8.2. deepsort_tracker_controller</a></li>
+</ul>
+</div>
+</section>
+<section id="bytetrack">
+<h2><span class="section-number">5.17.9. </span>bytetrack<a class="headerlink" href="#bytetrack" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sail.bytetrack_tracker_controller.html">5.17.9.1. bytetrack_tracker_controller</a></li>
+</ul>
+</div>
+</section>
+<section id="openpose">
+<h2><span class="section-number">5.17.10. </span>openpose<a class="headerlink" href="#openpose" title="Link to this heading"></a></h2>
+<p>Use tpukernel to speed up openpose post-processing of part nms.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sail.tpu_kernel_api_openpose_part_nms.html">5.17.10.1. sail.tpu_kernel_api_openpose_part_nms</a></li>
+</ul>
+</div>
+</section>
+<section id="nms-rotated">
+<h2><span class="section-number">5.17.11. </span>nms_rotated<a class="headerlink" href="#nms-rotated" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sail.nms_rotated.html">5.17.11.1. sail.nms_rotated</a></li>
+</ul>
+</div>
+</section>
+<section id="yolov8-seg-tpu-post-processing-acceleration-interfaces">
+<h2><span class="section-number">5.17.12. </span>Yolov8_seg TPU post-processing acceleration interfaces<a class="headerlink" href="#yolov8-seg-tpu-post-processing-acceleration-interfaces" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sail.algo_yolov8_seg_post_tpu_opt.html">5.17.12.1. sail.algo_yolov8_seg_post_tpu_opt</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../sail.MultiDecoder.html" class="btn btn-neutral float-left" title="5.16. sail.MultiDecoder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sail.TensorPTRWithName.html" class="btn btn-neutral float-right" title="5.17.1. sail.TensorPTRWithName" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SOPHGO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,493 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.17.3. EngineImagePreProcess &mdash; SOPHON-SAIL 3.10.2
+ 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=9080cc91"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=beaddf03"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="4.17.4.1. algo_yolov5_post_1output" href="cpp_algo_yolov5_post_1output.html" />
+    <link rel="prev" title="4.17.2. TensorPTRWithName" href="cpp_TensorPTRWithName.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../1_disclaimer.html">1. 声明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../3_build.html">3. 编译安装指南</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../4_module_cpp.html">4. SAIL C++ API 参考</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cpp_basicfunction.html">4.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../0_enum-type/enum-index.html">4.2. SAIL 枚举类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Handle.html">4.3. Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Tensor.html">4.4. Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Engine.html">4.5. Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_BMImage.html">4.6. BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Bmcv.html">4.7. Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Decoder.html">4.8. Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_MultiDecoder.html">4.9. MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Encoder.html">4.10. Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_PaddingAtrr.html">4.11. PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Blend.html">4.12. Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_Decoder_RawStream.html">4.13. Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_BMImageArray.html">4.14. BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_bm_image.html">4.15. bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cpp_MultiEngine.html">4.16. MultiEngine</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="high_perform_index_cpp.html">4.17. SAIL C++ 高性能接口</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cpp_ImagePreProcess.html">4.17.1. ImagePreProcess</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpp_TensorPTRWithName.html">4.17.2. TensorPTRWithName</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.17.3. EngineImagePreProcess</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">4.17.3.1. 构造函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#initimagepreprocess">4.17.3.2. InitImagePreProcess</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setpaddingatrr">4.17.3.3. SetPaddingAtrr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setconvertatrr">4.17.3.4. SetConvertAtrr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pushimage">4.17.3.5. PushImage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#getbatchdata">4.17.3.6. GetBatchData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#getbatchdata-cv">4.17.3.7. GetBatchData_CV</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-graph-name">4.17.3.8. get_graph_name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-input-width">4.17.3.9. get_input_width</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-input-height">4.17.3.10. get_input_height</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-output-names">4.17.3.11. get_output_names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-output-shape">4.17.3.12. get_output_shape</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#yolov5">4.17.4. Yolov5 后处理加速接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#yolox">4.17.5. Yolox后处理加速接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#yolov8">4.17.6. Yolov8后处理加速接口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#sort">4.17.7. sort 算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#deepsort">4.17.8. deepsort 算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#bytetrack">4.17.9. bytetrack 算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="high_perform_index_cpp.html#openpose">4.17.10. openpose 算法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../5_module_python.html">5. SAIL Python API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../6_appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../4_module_cpp.html"><span class="section-number">4. </span>SAIL C++ API 参考</a></li>
+          <li class="breadcrumb-item"><a href="high_perform_index_cpp.html"><span class="section-number">4.17. </span>SAIL C++ 高性能接口</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.17.3. </span>EngineImagePreProcess</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_cpp/1_high_perform_interface/cpp_EngineImagePreProcess.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="engineimagepreprocess">
+<h1><span class="section-number">4.17.3. </span>EngineImagePreProcess<a class="headerlink" href="#engineimagepreprocess" title="Link to this heading"></a></h1>
+<p>带有预处理功能的图像推理接口，内部使用线程池的方式，Python下面有更高的效率。</p>
+<section id="id1">
+<h2><span class="section-number">4.17.3.1. </span>构造函数<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">EngineImagePreProcess</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">bmodel_path</span><span class="p">,</span>
+<span class="w">                    </span><span class="kt">int</span><span class="w"> </span><span class="n">tpu_id</span><span class="p">,</span>
+<span class="w">                    </span><span class="kt">bool</span><span class="w"> </span><span class="n">use_mat_output</span><span class="o">=</span><span class="nb">false</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">core_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{});</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>bmodel_path: string</p></li>
+</ul>
+<p>输入参数。输入模型的路径。</p>
+<ul class="simple">
+<li><p>tpu_id: int</p></li>
+</ul>
+<p>输入参数。使用的智能视觉深度学习处理器 id。</p>
+<ul class="simple">
+<li><p>use_mat_output: bool</p></li>
+</ul>
+<p>输入参数。是否使用OpenCV的Mat作为图片的输出，默认为False，不使用。</p>
+<ul class="simple">
+<li><p>use_mat_output: bool</p></li>
+</ul>
+<p>输入参数。
+使用支持多核推理的处理器和bmodel时，可以选择推理时使用的多个核心，默认使用从core0开始的N个core来做推理，N由当前bmodel决定。
+对于仅支持单核推理的处理器和bmodel模型，仅支持选择推理使用的单个核心，参数的输入列表长度必须为1，若传入列表长度大于1，将自动在0号核心上推理。
+默认为空不指定时，将默认从0号核心开始的N个core来做推理。</p>
+</section>
+<section id="initimagepreprocess">
+<h2><span class="section-number">4.17.3.2. </span>InitImagePreProcess<a class="headerlink" href="#initimagepreprocess" title="Link to this heading"></a></h2>
+<p>初始化图像预处理模块。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">InitImagePreProcess</span><span class="p">(</span>
+<span class="w">    </span><span class="n">sail_resize_type</span><span class="w"> </span><span class="n">resize_mode</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">bgr2rgb</span><span class="o">=</span><span class="nb">false</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_in_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queue_out_size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>resize_mode: sail_resize_type</p></li>
+</ul>
+<p>输入参数。内部尺度变换的方法。</p>
+<ul class="simple">
+<li><p>bgr2rgb: bool</p></li>
+</ul>
+<p>输入参数。是否将图像有BGR转换为GRB。</p>
+<ul class="simple">
+<li><p>queue_in_size: int</p></li>
+</ul>
+<p>输入参数。输入图像队列缓存的最大长度，默认为20。queue_in_size必须大于模型batch_size，若小于模型batch_size，将自动调整为模型batch_size。</p>
+<ul class="simple">
+<li><p>queue_out_size: int</p></li>
+</ul>
+<p>输入参数。预处理结果Tensor队列缓存的最大长度，默认为20。queue_out_size必须大于模型batch_size，若小于模型batch_size，将自动调整为模型batch_size。</p>
+<p><strong>返回值说明:</strong></p>
+<p>成功返回0，其他值时失败。</p>
+</section>
+<section id="setpaddingatrr">
+<h2><span class="section-number">4.17.3.3. </span>SetPaddingAtrr<a class="headerlink" href="#setpaddingatrr" title="Link to this heading"></a></h2>
+<p>设置Padding的属性，只有在resize_mode为 BM_PADDING_VPP_NEAREST、BM_PADDING_TPU_NEAREST、BM_PADDING_TPU_LINEAR、BM_PADDING_TPU_BICUBIC时生效。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">SetPaddingAtrr</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">padding_b</span><span class="o">=</span><span class="mi">114</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">padding_g</span><span class="o">=</span><span class="mi">114</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">padding_r</span><span class="o">=</span><span class="mi">114</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">align</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong>
+* padding_b: int</p>
+<p>输入参数。要pdding的b通道像素值，默认为114。</p>
+<ul class="simple">
+<li><p>padding_g: int</p></li>
+</ul>
+<p>输入参数。要pdding的g通道像素值，默认为114。</p>
+<ul class="simple">
+<li><p>padding_r: int</p></li>
+</ul>
+<p>输入参数。要pdding的r通道像素值，默认为114。</p>
+<ul class="simple">
+<li><p>align: int</p></li>
+</ul>
+<p>输入参数。图像填充为位置，0表示从左上角开始填充，1表示居中填充，默认为0。</p>
+<p><strong>返回值说明:</strong></p>
+<p>成功返回0，其他值时失败。</p>
+</section>
+<section id="setconvertatrr">
+<h2><span class="section-number">4.17.3.4. </span>SetConvertAtrr<a class="headerlink" href="#setconvertatrr" title="Link to this heading"></a></h2>
+<p>设置线性变换的属性。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">SetConvertAtrr</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">alpha_beta</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul>
+<li><p>alpha_beta: (a0, b0), (a1, b1), (a2, b2)。输入参数。</p>
+<blockquote>
+<div><p>a0 描述了第 0 个 channel 进行线性变换的系数；</p>
+<p>b0 描述了第 0 个 channel 进行线性变换的偏移；</p>
+<p>a1 描述了第 1 个 channel 进行线性变换的系数；</p>
+<p>b1 描述了第 1 个 channel 进行线性变换的偏移；</p>
+<p>a2 描述了第 2 个 channel 进行线性变换的系数；</p>
+<p>b2 描述了第 2 个 channel 进行线性变换的偏移；</p>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>返回值说明:</strong></p>
+<p>设置成功返回0，其他值时设置失败。</p>
+</section>
+<section id="pushimage">
+<h2><span class="section-number">4.17.3.5. </span>PushImage<a class="headerlink" href="#pushimage" title="Link to this heading"></a></h2>
+<p>送入图像数据</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">PushImage</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">channel_idx</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">image_idx</span><span class="p">,</span>
+<span class="w">    </span><span class="n">BMImage</span><span class="w"> </span><span class="o">&amp;</span><span class="n">image</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong>
+* channel_idx: int</p>
+<p>输入参数。输入图像的通道号。</p>
+<ul class="simple">
+<li><p>image_idx: int</p></li>
+</ul>
+<p>输入参数。输入图像的编号。</p>
+<ul class="simple">
+<li><p>image: BMImage</p></li>
+</ul>
+<p>输入参数。输入的图像。</p>
+<p><strong>返回值说明:</strong></p>
+<p>成功返回0，其他值时失败。</p>
+</section>
+<section id="getbatchdata">
+<h2><span class="section-number">4.17.3.6. </span>GetBatchData<a class="headerlink" href="#getbatchdata" title="Link to this heading"></a></h2>
+<p>获取一个batch的推理结果，调用此接口时，由于返回的结果类型为BMImage，所以use_mat_output必须为False。值得注意的是，该接口输出的tensor需要手动进行释放。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">*&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">BMImage</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">GetBatchData</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong></p>
+<p>tuple[output_array, ost_images, channels, image_idxs, padding_attrs]</p>
+<ul class="simple">
+<li><p>output_array: std::map&lt;std::string,sail::Tensor*&gt;</p></li>
+</ul>
+<p>推理结果。</p>
+<ul class="simple">
+<li><p>ost_images: std::vector&lt;BMImage&gt;</p></li>
+</ul>
+<p>原始图片序列。</p>
+<ul class="simple">
+<li><p>channels: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>结果对应的原始图片的通道序列。</p>
+<ul class="simple">
+<li><p>image_idxs: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>结果对应的原始图片的编号序列。</p>
+<ul class="simple">
+<li><p>padding_attrs: std::vector&lt;std::vector&lt;int&gt; &gt;</p></li>
+</ul>
+<p>填充图像的属性列表，填充的起始点坐标x、起始点坐标y、尺度变换之后的宽度、尺度变换之后的高度。</p>
+</section>
+<section id="getbatchdata-cv">
+<h2><span class="section-number">4.17.3.7. </span>GetBatchData_CV<a class="headerlink" href="#getbatchdata-cv" title="Link to this heading"></a></h2>
+<p>获取一个batch的推理结果，调用此接口时，由于返回的结果类型为cv::Mat，所以use_mat_output必须为True。值得注意的是，该接口输出的tensor需要手动进行释放。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">*&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">GetBatchData_CV</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong></p>
+<p>tuple[output_array, ost_images, channels, image_idxs, padding_attrs]</p>
+<ul class="simple">
+<li><p>output_array: std::map&lt;std::string,sail::Tensor*&gt;</p></li>
+</ul>
+<p>推理结果。</p>
+<ul class="simple">
+<li><p>ost_images: std::vector&lt;cv::Mat&gt;</p></li>
+</ul>
+<p>原始图片序列。</p>
+<ul class="simple">
+<li><p>channels: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>结果对应的原始图片的通道序列。</p>
+<ul class="simple">
+<li><p>image_idxs: std::vector&lt;int&gt;</p></li>
+</ul>
+<p>结果对应的原始图片的编号序列。</p>
+<ul class="simple">
+<li><p>padding_attrs: std::vector&lt;std::vector&lt;int&gt; &gt;</p></li>
+</ul>
+<p>填充图像的属性列表，填充的起始点坐标x、起始点坐标y、尺度变换之后的宽度、尺度变换之后的高度。</p>
+</section>
+<section id="get-graph-name">
+<h2><span class="section-number">4.17.3.8. </span>get_graph_name<a class="headerlink" href="#get-graph-name" title="Link to this heading"></a></h2>
+<p>获取模型的运算图名称。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">get_graph_name</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong></p>
+<p>返回模型的第一个运算图名称。</p>
+</section>
+<section id="get-input-width">
+<h2><span class="section-number">4.17.3.9. </span>get_input_width<a class="headerlink" href="#get-input-width" title="Link to this heading"></a></h2>
+<p>获取模型输入的宽度。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">get_input_width</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong></p>
+<p>返回模型输入的宽度。</p>
+</section>
+<section id="get-input-height">
+<h2><span class="section-number">4.17.3.10. </span>get_input_height<a class="headerlink" href="#get-input-height" title="Link to this heading"></a></h2>
+<p>获取模型输入的高度。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">get_input_height</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong></p>
+<p>返回模型输入的宽度。</p>
+</section>
+<section id="get-output-names">
+<h2><span class="section-number">4.17.3.11. </span>get_output_names<a class="headerlink" href="#get-output-names" title="Link to this heading"></a></h2>
+<p>获取模型输出Tensor的名称。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_output_names</span><span class="p">();</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong></p>
+<p>返回模型所有输出Tensor的名称。</p>
+</section>
+<section id="get-output-shape">
+<h2><span class="section-number">4.17.3.12. </span>get_output_shape<a class="headerlink" href="#get-output-shape" title="Link to this heading"></a></h2>
+<p>获取指定输出Tensor的shape</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_output_shape</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">tensor_name</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>tensor_name: string</p></li>
+</ul>
+<p>指定的输出Tensor的名称。</p>
+<p><strong>返回值说明:</strong></p>
+<p>返回指定输出Tensor的shape。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;opencv2/opencv.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fstream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">dev_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">image_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;./data/zidane.jpg&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Decoder</span><span class="w"> </span><span class="n">decoder</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">bmodel_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;../../../sophon-demo/sample/YOLOv5/models/BM1684X/yolov5s_v6.1_3output_int8_1b.bmodel&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">alpha_beta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">255.0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">}};</span>
+
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">sail_resize_type</span><span class="w"> </span><span class="n">resize_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sail</span><span class="o">::</span><span class="n">sail_resize_type</span><span class="o">::</span><span class="n">BM_PADDING_TPU_LINEAR</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">EngineImagePreProcess</span><span class="w"> </span><span class="n">sail_engineipp</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="w"> </span><span class="n">dev_id</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sail_engineipp</span><span class="p">.</span><span class="n">InitImagePreProcess</span><span class="p">(</span><span class="n">resize_type</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sail_engineipp</span><span class="p">.</span><span class="n">SetPaddingAtrr</span><span class="p">();</span>
+<span class="w">    </span><span class="n">sail_engineipp</span><span class="p">.</span><span class="n">SetConvertAtrr</span><span class="p">(</span><span class="n">alpha_beta</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">get_i_w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sail_engineipp</span><span class="p">.</span><span class="n">get_input_width</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">get_i_h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sail_engineipp</span><span class="p">.</span><span class="n">get_input_height</span><span class="p">();</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">output_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sail_engineipp</span><span class="p">.</span><span class="n">get_output_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">];</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">output_shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sail_engineipp</span><span class="p">.</span><span class="n">get_output_shape</span><span class="p">(</span><span class="n">output_name</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">BMImage</span><span class="w"> </span><span class="n">bm_i</span><span class="p">;</span>
+<span class="w">    </span><span class="n">decoder</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">bm_i</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sail_engineipp</span><span class="p">.</span><span class="n">PushImage</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">bm_i</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="n">sail</span><span class="o">::</span><span class="n">Tensor</span><span class="o">*&gt;</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">BMImage</span><span class="o">&gt;</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sail_engineipp</span><span class="p">.</span><span class="n">GetBatchData</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">output_name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">output_shape</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">get_i_h</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">get_i_w</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="cpp_TensorPTRWithName.html" class="btn btn-neutral float-left" title="4.17.2. TensorPTRWithName" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="cpp_algo_yolov5_post_1output.html" class="btn btn-neutral float-right" title="4.17.4.1. algo_yolov5_post_1output" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, SOPHGO。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

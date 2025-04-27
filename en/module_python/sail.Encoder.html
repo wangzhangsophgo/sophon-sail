@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-EN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.12. sail.Encoder &mdash; SOPHON-SAIL 3.10.2
+ documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01d1187f"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.13. sail.Decoder_RawStream" href="sail.Decoder_RawStream.html" />
+    <link rel="prev" title="5.11. sail.Decoder" href="sail.Decoder.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. Compilation and Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Basicfunction.html">5.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_enum_type/enum_index.html">5.2. SAIL enum type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Handle.html">5.3. sail.Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Tensor.html">5.4. sail.Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.PaddingAtrr.html">5.5. sail.PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Engine.html">5.6. sail.Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiEngine.html">5.7. sail.MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.bm_image.html">5.8. sail.bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImage.html">5.9. sail.BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImageArray.html">5.10. sail.BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder.html">5.11. sail.Decoder</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.12. sail.Encoder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#init">5.12.1. __init__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#is-opened">5.12.2. is_opened</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pic-encode">5.12.3. pic_encode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#video-write">5.12.4. video_write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#release">5.12.5. release</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder_RawStream.html">5.13. sail.Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Bmcv.html">5.14. sail.Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Blend.html">5.15. sail.Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiDecoder.html">5.16. sail.MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_high_perform_interface/high_perform_index.html">5.17. SAIL Python high performance interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. Appendix</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../5_module_python.html"><span class="section-number">5. </span>SAIL Python API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.12. </span>sail.Encoder</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_python/sail.Encoder.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sail-encoder">
+<h1><span class="section-number">5.12. </span>sail.Encoder<a class="headerlink" href="#sail-encoder" title="Link to this heading"></a></h1>
+<p>Encoder, supporting video and image encoding.</p>
+<section id="init">
+<h2><span class="section-number">5.12.1. </span>__init__<a class="headerlink" href="#init" title="Link to this heading"></a></h2>
+<p>Encoder init</p>
+<p>piture encoder init:</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>video encoder init:</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">handle</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">enc_fmt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pix_fmt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">enc_params</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cache_buffer_length</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">abort_policy</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">device_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">enc_fmt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pix_fmt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">enc_params</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cache_buffer_length</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">abort_policy</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>output_path: str</p></li>
+</ul>
+<p>output path, support local video file and rtsp/rtmp stream.</p>
+<ul class="simple">
+<li><p>handle: sail.Hnadle</p></li>
+</ul>
+<p>Handle instance. (either handle instance or device_id)</p>
+<ul class="simple">
+<li><p>device_id: int</p></li>
+</ul>
+<p>Encoder device_id. (either handle instance or device_id, when specify device_id, the encoder will create a Handle internally)</p>
+<ul class="simple">
+<li><p>enc_fmt: str</p></li>
+</ul>
+<p>encoder format, support h264_bm and h265_bm/hevc_bm.</p>
+<ul class="simple">
+<li><p>pix_fmt: str</p></li>
+</ul>
+<p>output pixel format, support NV12 and I420. I420 is recommended.</p>
+<ul class="simple">
+<li><p>enc_params: str</p></li>
+</ul>
+<p>encoder params, <code class="docutils literal notranslate"><span class="pre">&quot;width=1902:height=1080:gop=32:gop_preset=3:framerate=25:bitrate=2000&quot;</span></code> , width and height are necessary. By default, Bitrate is used to control quality, and Bitrate becomes invalid when qp is specified in the parameter.</p>
+<ul class="simple">
+<li><p>cache_buffer_length: int</p></li>
+</ul>
+<p>The internal cache queue length defaults to 5. sail.Encoder internally maintains a cache queue to improve flow control fault tolerance during pushing stream.</p>
+<ul class="simple">
+<li><p>abort_policy: int</p></li>
+</ul>
+<p>The reject policy for video_write. 0 for returns -1 immediately. 1 for pop queue header. 2 for clear the queue. 3 for blocking.</p>
+</section>
+<section id="is-opened">
+<h2><span class="section-number">5.12.2. </span>is_opened<a class="headerlink" href="#is-opened" title="Link to this heading"></a></h2>
+<p>Determine if the encoder is turned on.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">is_opened</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>return:</strong></p>
+<ul class="simple">
+<li><p>judge_ret: bool</p></li>
+</ul>
+<p>return True when opened, and False when failed.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">out_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/output/file&quot;</span>
+    <span class="n">enc_fmt</span> <span class="o">=</span> <span class="s2">&quot;h264_bm&quot;</span>
+    <span class="n">pix_fmt</span> <span class="o">=</span> <span class="s2">&quot;I420&quot;</span>
+    <span class="n">enc_params</span> <span class="o">=</span> <span class="s2">&quot;width=1920:height=1080:bitrate=2000:gop=32:gop_preset=2:framerate=25&quot;</span>
+    <span class="n">cache_buffer_length</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">abort_policy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Encoder</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">handle</span><span class="p">,</span> <span class="n">enc_fmt</span><span class="p">,</span> <span class="n">pix_fmt</span><span class="p">,</span> <span class="n">enc_params</span><span class="p">,</span> <span class="n">cache_buffer_length</span><span class="p">,</span> <span class="n">abort_policy</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">encoder</span><span class="o">.</span><span class="n">is_opened</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="pic-encode">
+<h2><span class="section-number">5.12.3. </span>pic_encode<a class="headerlink" href="#pic-encode" title="Link to this heading"></a></h2>
+<p>Encode an image and return the encoded data.</p>
+<dl>
+<dt><strong>Interface1:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">pic_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ext</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">BMImage</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Interface2:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">pic_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ext</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">bm_image</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>ext: str</p></li>
+</ul>
+<p>Image encoding format. such as <code class="docutils literal notranslate"><span class="pre">&quot;.jpg&quot;</span></code> , <code class="docutils literal notranslate"><span class="pre">&quot;.png&quot;</span></code></p>
+<ul class="simple">
+<li><p>image: sail.BMImage</p></li>
+</ul>
+<p>Input image, only supports picture of FORMAT_BGR_PACKED and DATA_TYPE_EXT_1N_BYTE.</p>
+<p><strong>return:</strong></p>
+<ul class="simple">
+<li><p>data: numpy.array</p></li>
+</ul>
+<p>Encoded data stored in system memory.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">img_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/output/file&quot;</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="c1"># img = decoder.read(handle).data()   //bm_image</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Encoder</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">pic_encode</span><span class="p">(</span><span class="s2">&quot;.jpg&quot;</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="video-write">
+<h2><span class="section-number">5.12.4. </span>video_write<a class="headerlink" href="#video-write" title="Link to this heading"></a></h2>
+<p>Send a frame of image to the video encoder. Asynchronous interface, after format conversion, is placed in the internal cache queue.</p>
+<dl>
+<dt><strong>Interface1:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">video_write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImage</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Interface2:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">video_write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">bm_image</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>image: sail.BMImage</p></li>
+</ul>
+<p>On the BM1684,
+when the pixel format (pix_fmt) of the encoder is set to I420, the shape of the image to be encoded can differ from the encoder’s width and height.
+However, when the pixel format is NV12, the image shape must match the encoder’s dimensions. In this case, a format conversion is performed internally using <code class="docutils literal notranslate"><span class="pre">bmcv_image_storage_convert</span></code>, which may utilize NPU resources.</p>
+<p>On the BM1684X,
+the shape of the image to be encoded can differ from the encoder’s width and height. The internal resizing and format conversion are handled by <code class="docutils literal notranslate"><span class="pre">bmcv_image_vpp_convert</span></code>.</p>
+<p><strong>Return:</strong></p>
+<ul class="simple">
+<li><p>judge_ret: int</p></li>
+</ul>
+<p>Successfully returned 0, internal cache queue full returned -1. encode failed returns -2. push stream failed returns -3. unknown abort policy returns -4.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">img_path</span> <span class="o">=</span> <span class="s2">&quot;your_img_path&quot;</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">img_path</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="n">out_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/output/file&quot;</span>
+    <span class="n">enc_fmt</span> <span class="o">=</span> <span class="s2">&quot;h264_bm&quot;</span>
+    <span class="n">pix_fmt</span> <span class="o">=</span> <span class="s2">&quot;I420&quot;</span>
+    <span class="n">enc_params</span> <span class="o">=</span> <span class="s2">&quot;width=1920:height=1080:bitrate=2000:gop=32:gop_preset=2:framerate=25&quot;</span>
+    <span class="n">cache_buffer_length</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">abort_policy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Encoder</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">handle</span><span class="p">,</span> <span class="n">enc_fmt</span><span class="p">,</span> <span class="n">pix_fmt</span><span class="p">,</span> <span class="n">enc_params</span><span class="p">,</span> <span class="n">cache_buffer_length</span><span class="p">,</span> <span class="n">abort_policy</span><span class="p">)</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">video_write</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="c1"># ret = encoder.video_write(img.data())  #  sail.bm_image</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="release">
+<h2><span class="section-number">5.12.5. </span>release<a class="headerlink" href="#release" title="Link to this heading"></a></h2>
+<p>release encoder</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">release</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">out_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/output/file&quot;</span>
+    <span class="n">enc_fmt</span> <span class="o">=</span> <span class="s2">&quot;h264_bm&quot;</span>
+    <span class="n">pix_fmt</span> <span class="o">=</span> <span class="s2">&quot;I420&quot;</span>
+    <span class="n">enc_params</span> <span class="o">=</span> <span class="s2">&quot;width=1920:height=1080:bitrate=2000:gop=32:gop_preset=2:framerate=25&quot;</span>
+    <span class="n">cache_buffer_length</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">abort_policy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Encoder</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">handle</span><span class="p">,</span> <span class="n">enc_fmt</span><span class="p">,</span> <span class="n">pix_fmt</span><span class="p">,</span> <span class="n">enc_params</span><span class="p">,</span> <span class="n">cache_buffer_length</span><span class="p">,</span> <span class="n">abort_policy</span><span class="p">)</span>
+    <span class="n">encoder</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sail.Decoder.html" class="btn btn-neutral float-left" title="5.11. sail.Decoder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sail.Decoder_RawStream.html" class="btn btn-neutral float-right" title="5.13. sail.Decoder_RawStream" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SOPHGO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

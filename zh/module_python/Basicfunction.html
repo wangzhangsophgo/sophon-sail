@@ -1,0 +1,604 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.1. Basic function &mdash; SOPHON-SAIL 3.10.2
+ 文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9080cc91"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="5.2. SAIL 枚举类型" href="0_enum_type/enum_index.html" />
+    <link rel="prev" title="5. SAIL Python API 参考" href="../5_module_python.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. 声明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. 编译安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API 参考</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API 参考</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.1. Basic function</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#get-available-tpu-num">5.1.1. get_available_tpu_num</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-print-flag">5.1.2. set_print_flag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-dump-io-flag">5.1.3. set_dump_io_flag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-loglevel">5.1.4. set_loglevel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-decoder-env">5.1.5. set_decoder_env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#base64-encode">5.1.6. base64_encode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#base64-decode">5.1.7. base64_decode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#base64-encode-array">5.1.8. base64_encode_array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#base64-decode-asarray">5.1.9. base64_decode_asarray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-tpu-util">5.1.10. get_tpu_util</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-vpu-util">5.1.11. get_vpu_util</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-vpp-util">5.1.12. get_vpp_util</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-board-temp">5.1.13. get_board_temp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-chip-temp">5.1.14. get_chip_temp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-dev-stat">5.1.15. get_dev_stat</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="0_enum_type/enum_index.html">5.2. SAIL 枚举类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Handle.html">5.3. sail.Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Tensor.html">5.4. sail.Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Engine.html">5.5. sail.Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.EngineLLM.html">5.6. sail.EngineLLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImage.html">5.7. sail.BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Bmcv.html">5.8. sail.Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder.html">5.9. sail.Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiDecoder.html">5.10. sail.MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Encoder.html">5.11. sail.Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.PaddingAtrr.html">5.12. sail.PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Blend.html">5.13. sail.Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder_RawStream.html">5.14. sail.Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImageArray.html">5.15. sail.BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.bm_image.html">5.16. sail.bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiEngine.html">5.17. sail.MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_high_perform_interface/high_perform_index.html">5.18. SAIL Python 高性能接口</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../5_module_python.html"><span class="section-number">5. </span>SAIL Python API 参考</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.1. </span>Basic function</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_python/Basicfunction.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="basic-function">
+<h1><span class="section-number">5.1. </span>Basic function<a class="headerlink" href="#basic-function" title="Link to this heading"></a></h1>
+<p>主要用于获取或配置设备信息与属性。</p>
+<section id="get-available-tpu-num">
+<h2><span class="section-number">5.1.1. </span>get_available_tpu_num<a class="headerlink" href="#get-available-tpu-num" title="Link to this heading"></a></h2>
+<p>获取当前设备中可用智能视觉深度学习处理器的数量。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_available_tpu_num</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>返回值说明:</strong></p>
+<p>返回当前设备中可用智能视觉深度学习处理器的数量。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">tpu_len</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">get_available_tpu_num</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;available tpu:&#39;</span><span class="p">,</span><span class="n">tpu_len</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="set-print-flag">
+<h2><span class="section-number">5.1.2. </span>set_print_flag<a class="headerlink" href="#set-print-flag" title="Link to this heading"></a></h2>
+<p>设置是否打印程序的计算耗时信息。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_print_flag</span><span class="p">(</span><span class="n">print_flag</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>print_flag: bool</p></li>
+</ul>
+<p>print_flag为True时，打印程序的计算主要的耗时信息，否则不打印。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">sail</span><span class="o">.</span><span class="n">set_print_flag</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="set-dump-io-flag">
+<h2><span class="section-number">5.1.3. </span>set_dump_io_flag<a class="headerlink" href="#set-dump-io-flag" title="Link to this heading"></a></h2>
+<p>设置是否存储输入数据和输出数据。
+每个输入或输出Tensor数据将被分别保存为一个独立的二进制文件。文件名的前缀为时间戳。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_dump_io_flag</span><span class="p">(</span><span class="n">dump_io_flag</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>dump_io_flag: bool</p></li>
+</ul>
+<p>dump_io_flag为True时，存储输入数据和输出数据，否则不存储。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">sail</span><span class="o">.</span><span class="n">set_dump_io_flag</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="set-loglevel">
+<h2><span class="section-number">5.1.4. </span>set_loglevel<a class="headerlink" href="#set-loglevel" title="Link to this heading"></a></h2>
+<p>设置运行过程中的日志级别为指定级别。
+较低的日志等级通常用于生产环境，以减少性能开销和日志数据量，而较高的日志等级则适用于开发和调试，以便能够记录更详细的信息。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_loglevel</span><span class="p">(</span><span class="n">sail</span><span class="o">.</span><span class="n">LogLevel</span> <span class="n">loglevel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>loglevel: LogLevel</p></li>
+</ul>
+<p>期望的日志级别，为 <code class="docutils literal notranslate"><span class="pre">sail.LogLevel</span></code> 枚举值。可选的级别包括 <code class="docutils literal notranslate"><span class="pre">TRACE</span></code>、<code class="docutils literal notranslate"><span class="pre">DEBUG</span></code>、<code class="docutils literal notranslate"><span class="pre">INFO</span></code>、<code class="docutils literal notranslate"><span class="pre">WARN</span></code>、<code class="docutils literal notranslate"><span class="pre">ERR</span></code>、<code class="docutils literal notranslate"><span class="pre">CRITICAL</span></code>、<code class="docutils literal notranslate"><span class="pre">OFF</span></code>，默认级别为 <code class="docutils literal notranslate"><span class="pre">INFO</span></code>。</p>
+<p><strong>返回值说明:</strong></p>
+<p>返回类型：int</p>
+<p>0：日志级别设置成功。
+-1：传入了未知的日志级别，设置失败。</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">set_loglevel</span><span class="p">(</span><span class="n">sail</span><span class="o">.</span><span class="n">LogLevel</span><span class="o">.</span><span class="n">TRACE</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Set log level successfully&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unknown log level, set failed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="set-decoder-env">
+<h2><span class="section-number">5.1.5. </span>set_decoder_env<a class="headerlink" href="#set-decoder-env" title="Link to this heading"></a></h2>
+<p>通过环境变量设置Decoder（也包括MultiDecoder）的参数。
+必须在Decoder构造前设置，否则使用默认值。主要适用于视频解码。</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_decoder_env</span><span class="p">(</span><span class="n">env_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">env_value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>env_name: str</p></li>
+</ul>
+<p>选择设置Decoder的属性名称，可选的属性名称有：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><em>'rtsp_transport'</em> 设置RTSP采用的传输协议。默认为TCP。</p></li>
+<li><p><em>'extra_frame_buffer_num'</em> 设置Decoder的最大缓存帧数。默认为5。</p></li>
+<li><p><em>'stimeout'</em> 设置阻塞超时时间，单位为ms。默认为20000000，即20s。</p></li>
+<li><p><em>'skip_non_idr'</em> 解码跳帧模式。0，关闭跳帧；1，跳过Non-RAP帧；2，跳过非参考帧。默认为0。</p></li>
+<li><p><em>'fflags'</em> 格式相关的flag。比如&quot;nobuffer&quot;。详细信息请参考ffmpeg官方文档。</p></li>
+<li><p><em>'rtsp_flags'</em> 设置RTSP是否自定义IO。默认为prefer_tcp。</p></li>
+<li><p><em>'refcounted_frames'</em> 是否使用引用计数机制。设置为1时，解码出来的图像需要程序手动释放，为0时由Decoder自动释放。</p></li>
+<li><p><em>'probesize'</em> 解析视频流时读取的最大字节数。默认为5000000。</p></li>
+<li><p><em>'analyzeduration'</em> 解析文件时读取的最大时长，单位为ms。默认为5000000。</p></li>
+<li><p><em>'buffer_size'</em> 设置缓存大小。</p></li>
+<li><p><em>'max_delay'</em> 设置最大时延。</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>env_value: str</p></li>
+</ul>
+<p>该属性的配置值</p>
+<dl>
+<dt><strong>示例代码:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">sail</span><span class="o">.</span><span class="n">set_decoder_env</span><span class="p">(</span><span class="s2">&quot;extra_frame_buffer_num&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">)</span> <span class="c1"># 减小buffer以降低内存占用</span>
+    <span class="n">sail</span><span class="o">.</span><span class="n">set_decoder_env</span><span class="p">(</span><span class="s2">&quot;probesize&quot;</span><span class="p">,</span> <span class="s2">&quot;1024&quot;</span><span class="p">)</span> <span class="c1"># 减小probesize以降低拉流延迟</span>
+    <span class="n">sail</span><span class="o">.</span><span class="n">set_decoder_env</span><span class="p">(</span><span class="s2">&quot;skip_non_idr&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">)</span> <span class="c1"># 跳过非参考帧</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">video_path</span> <span class="o">=</span> <span class="s2">&quot;input_video.mp4&quot;</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="n">video_path</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dev_id</span><span class="p">)</span>
+    <span class="n">bmimg</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="base64-encode">
+<h2><span class="section-number">5.1.6. </span>base64_encode<a class="headerlink" href="#base64-encode" title="Link to this heading"></a></h2>
+<p>将字节数据进行base64编码，返回bytes类型的编码数据。不支持BM1688和CV186AH PCIE模式。</p>
+<dl>
+<dt><strong>接口形式：</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">base64_encode</span><span class="p">(</span><span class="n">handle</span><span class="p">:</span> <span class="n">Handle</span><span class="p">,</span> <span class="n">input_bytes</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>handle: sail.Handle</p></li>
+</ul>
+<p>设备的handle句柄，使用sail.Handle(dev_id)创建</p>
+<ul class="simple">
+<li><p>input_bytes: bytes</p></li>
+</ul>
+<p>待编码的字节数据</p>
+<p><strong>返回值说明</strong></p>
+<p>返回base64编码的字节数据</p>
+<dl>
+<dt><strong>示例代码</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># 示例 NumPy 数组</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+    <span class="c1"># 转为字节数据</span>
+    <span class="n">arr_bytes</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+    <span class="c1"># 创建handle，soc设备默认为dev_id为0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># base字节编码</span>
+    <span class="n">base64_encoded_arr</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">base64_encode</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="n">arr_bytes</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="base64-decode">
+<h2><span class="section-number">5.1.7. </span>base64_decode<a class="headerlink" href="#base64-decode" title="Link to this heading"></a></h2>
+<p>将base64的字节编码数据进行解码，返回解码后的字节数据。不支持BM1688和CV186AH PCIE模式。</p>
+<dl>
+<dt><strong>接口形式：</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">base64_decode</span><span class="p">(</span><span class="n">handle</span><span class="p">:</span> <span class="n">Handle</span><span class="p">,</span> <span class="n">encode_bytes</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>handle: sail.Handle</p></li>
+</ul>
+<p>设备的handle句柄，使用sail.Handle(dev_id)创建</p>
+<ul class="simple">
+<li><p>encode_bytes: bytes</p></li>
+</ul>
+<p>base64的字节编码数据</p>
+<p><strong>返回值说明</strong></p>
+<p>返回base64解码的字节数据</p>
+<dl>
+<dt><strong>示例代码</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># 示例 NumPy 数组</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span>
+    <span class="c1"># 转为字节数据</span>
+    <span class="n">arr_bytes</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+    <span class="c1"># 创建handle，soc设备默认为dev_id为0</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># base字节编码</span>
+    <span class="n">base64_encoded_arr</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">base64_encode</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="n">arr_bytes</span><span class="p">)</span>
+
+    <span class="c1"># 解码数据</span>
+    <span class="n">base64_decode_arr</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">base64_decode</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="n">base64_encoded_arr</span><span class="p">)</span>
+    <span class="c1"># 将生成byte数据转换为numpy数据</span>
+    <span class="n">res_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">arr_bytes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="base64-encode-array">
+<h2><span class="section-number">5.1.8. </span>base64_encode_array<a class="headerlink" href="#base64-encode-array" title="Link to this heading"></a></h2>
+<p>对numpy.array进行base64编码，生成字节编码数据。不支持BM1688和CV186AH PCIE模式。</p>
+<p>示例代码请参考 <strong>base64_decode_asarray</strong> 接口提供的示例代码</p>
+<dl>
+<dt><strong>接口形式：</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">base64_encode_array</span><span class="p">(</span><span class="n">handle</span><span class="p">:</span> <span class="n">Handle</span><span class="p">,</span> <span class="n">input_arr</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>handle: sail.Handle</p></li>
+</ul>
+<p>设备的handle句柄，使用sail.Handle(dev_id)创建</p>
+<ul class="simple">
+<li><p>input_arr: numpy.ndarray</p></li>
+</ul>
+<p>待编码的numpy.ndarray数据</p>
+<p><strong>返回值说明</strong></p>
+<p>返回base64解码的字节数据</p>
+</section>
+<section id="base64-decode-asarray">
+<h2><span class="section-number">5.1.9. </span>base64_decode_asarray<a class="headerlink" href="#base64-decode-asarray" title="Link to this heading"></a></h2>
+<p>base64解码，生成numpy.array数据</p>
+<dl>
+<dt><strong>接口形式：</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">base64_decode_asarray</span><span class="p">(</span><span class="n">handle</span><span class="p">:</span> <span class="n">Handle</span><span class="p">,</span> <span class="n">encode_arr_bytes</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">array_type</span><span class="p">:</span><span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;uint8&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>handle: sail.Handle</p></li>
+</ul>
+<p>设备的handle句柄，使用sail.Handle(dev_id)创建</p>
+<ul class="simple">
+<li><p>encode_arr_bytes: bytes</p></li>
+</ul>
+<p>base64编码后的numpy.ndarray的字节数据</p>
+<ul class="simple">
+<li><p>dtype: str</p></li>
+</ul>
+<p>numpy.ndarray的数据类型，默认uint8，支持float、uint8、int8、int16、int32、int64</p>
+<p><strong>返回值说明</strong></p>
+<p>返回base64解码的一维numpay.array数组</p>
+<dl>
+<dt><strong>示例代码</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># 示例 NumPy 数组</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]],</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="c1"># base64编码</span>
+    <span class="n">base64_encoded</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">base64_encode_array</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="n">arr</span><span class="p">)</span>
+    <span class="c1"># base64解码</span>
+    <span class="n">res_array</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">base64_decode_asarray</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="n">base64_encoded</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-tpu-util">
+<h2><span class="section-number">5.1.10. </span>get_tpu_util<a class="headerlink" href="#get-tpu-util" title="Link to this heading"></a></h2>
+<p>获取对应设备的处理器使用率</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_tpu_util</span><span class="p">(</span><span class="n">dev_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>dev_id: int</p></li>
+</ul>
+<p>需要获取处理器使用率的设备的ID。</p>
+<p><strong>返回值说明:</strong></p>
+<p>返回对应设备的处理器使用率百分比。</p>
+<dl>
+<dt><strong>示例代码</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dev </span><span class="si">{}</span><span class="s2"> tpu-util is </span><span class="si">{}</span><span class="s2"> %&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dev_id</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">get_tpu_util</span><span class="p">(</span><span class="n">dev_id</span><span class="p">)))</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-vpu-util">
+<h2><span class="section-number">5.1.11. </span>get_vpu_util<a class="headerlink" href="#get-vpu-util" title="Link to this heading"></a></h2>
+<p>获取对应设备的VPU使用率</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_vpu_util</span><span class="p">(</span><span class="n">dev_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>dev_id: int</p></li>
+</ul>
+<p>需要获取VPU使用率的设备的ID。</p>
+<p><strong>返回值说明:</strong></p>
+<p>bm1684为5核vpu，返回值为长度为5的List，bm1684x为3核vpu， 返回值为长度为3的List。
+List中的每项数据为对应核心的使用率百分比。</p>
+<dl>
+<dt><strong>示例代码</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;get_vpu_util&quot;</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">get_vpu_util</span><span class="p">(</span><span class="n">dev_id</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-vpp-util">
+<h2><span class="section-number">5.1.12. </span>get_vpp_util<a class="headerlink" href="#get-vpp-util" title="Link to this heading"></a></h2>
+<p>获取对应设备的VPP使用率</p>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_vpp_util</span><span class="p">(</span><span class="n">dev_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>dev_id: int</p></li>
+</ul>
+<p>需要获取VPP使用率的设备的ID。</p>
+<p><strong>返回值说明:</strong></p>
+<p>bm1684与bm1684x均为2核vpp，返回值为长度为2的List。
+List中的每项数据为对应核心的使用率百分比。</p>
+<dl>
+<dt><strong>示例代码</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;get_vpp_util&quot;</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">get_vpp_util</span><span class="p">(</span><span class="n">dev_id</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-board-temp">
+<h2><span class="section-number">5.1.13. </span>get_board_temp<a class="headerlink" href="#get-board-temp" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_board_temp</span><span class="p">(</span><span class="n">dev_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>dev_id: int</p></li>
+</ul>
+<p>需要获取对应板卡所在设备的ID。</p>
+<p><strong>返回值说明:</strong></p>
+<p>返回对应板卡的板级温度，默认单位摄氏度（℃）。</p>
+<dl>
+<dt><strong>示例代码</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;get_board_temp&quot;</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">get_board_temp</span><span class="p">(</span><span class="n">dev_id</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-chip-temp">
+<h2><span class="section-number">5.1.14. </span>get_chip_temp<a class="headerlink" href="#get-chip-temp" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_chip_temp</span><span class="p">(</span><span class="n">dev_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>dev_id: int</p></li>
+</ul>
+<p>需要获取处理器温度的设备的ID。</p>
+<p><strong>返回值说明:</strong></p>
+<p>返回对应设备的处理器的温度。，默认单位摄氏度（℃）。</p>
+<dl>
+<dt><strong>示例代码</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;get_chip_temp&quot;</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">get_chip_temp</span><span class="p">(</span><span class="n">dev_id</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-dev-stat">
+<h2><span class="section-number">5.1.15. </span>get_dev_stat<a class="headerlink" href="#get-dev-stat" title="Link to this heading"></a></h2>
+<dl>
+<dt><strong>接口形式:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_dev_stat</span><span class="p">(</span><span class="n">dev_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>参数说明:</strong></p>
+<ul class="simple">
+<li><p>dev_id: int</p></li>
+</ul>
+<p>需要获取内存信息的设备的ID。</p>
+<p><strong>返回值说明:</strong></p>
+<p>返回对应设备的内存信息列表:[mem_total,mem_used,tpu_util]。</p>
+<dl>
+<dt><strong>示例代码</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;get_dev_stat&quot;</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">get_dev_stat</span><span class="p">(</span><span class="n">dev_id</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../5_module_python.html" class="btn btn-neutral float-left" title="5. SAIL Python API 参考" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="0_enum_type/enum_index.html" class="btn btn-neutral float-right" title="5.2. SAIL 枚举类型" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, SOPHGO。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

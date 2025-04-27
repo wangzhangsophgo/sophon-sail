@@ -1,0 +1,235 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-EN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.15. sail.Blend &mdash; SOPHON-SAIL 3.10.2
+ documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01d1187f"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.16. sail.MultiDecoder" href="sail.MultiDecoder.html" />
+    <link rel="prev" title="5.14. sail.Bmcv" href="sail.Bmcv.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. Compilation and Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Basicfunction.html">5.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_enum_type/enum_index.html">5.2. SAIL enum type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Handle.html">5.3. sail.Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Tensor.html">5.4. sail.Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.PaddingAtrr.html">5.5. sail.PaddingAtrr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Engine.html">5.6. sail.Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiEngine.html">5.7. sail.MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.bm_image.html">5.8. sail.bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImage.html">5.9. sail.BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImageArray.html">5.10. sail.BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder.html">5.11. sail.Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Encoder.html">5.12. sail.Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder_RawStream.html">5.13. sail.Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Bmcv.html">5.14. sail.Bmcv</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.15. sail.Blend</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#init">5.15.1. __init__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process">5.15.2. process</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiDecoder.html">5.16. sail.MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_high_perform_interface/high_perform_index.html">5.17. SAIL Python high performance interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. Appendix</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../5_module_python.html"><span class="section-number">5. </span>SAIL Python API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.15. </span>sail.Blend</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_python/sail.Blend.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sail-blend">
+<h1><span class="section-number">5.15. </span>sail.Blend<a class="headerlink" href="#sail-blend" title="Link to this heading"></a></h1>
+<p>Picture stitching. Multiple pictures can be stitched together. Only BM1688 and CV186AH SoC mode support this interface.</p>
+<section id="init">
+<h2><span class="section-number">5.15.1. </span>__init__<a class="headerlink" href="#init" title="Link to this heading"></a></h2>
+<p>Initialize Blend.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src_h</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ovlap_attr</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">bd_attr</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">wgt_phy_mem</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">string</span><span class="p">]],</span> <span class="n">wgt_mode</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">blend_wgt_mode</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>src_h: int</p></li>
+</ul>
+<p>Input images. The height of the input images must be consistent.</p>
+<ul class="simple">
+<li><p>ovlap_attr: list[list[int]]</p></li>
+</ul>
+<p>The left and right boundaries of the images overlap area.</p>
+<ul class="simple">
+<li><p>bd_attr: list[list[int]]</p></li>
+</ul>
+<p>The left and right black border properties of the input images. This option is not currently supported, so just leave it blank.</p>
+<ul class="simple">
+<li><p>wgt_phy_mem: list[list[string]]</p></li>
+</ul>
+<p>Weights file for input images. Reference[<a class="reference internal" href="../appendix/get_image_wgt.html#get-weight-files-of-images"><span class="std std-ref">Get weight files of images</span></a>]，get image weight files。</p>
+<ul class="simple">
+<li><p>wgt_mode: sail.blend_wgt_mode</p></li>
+</ul>
+<p>The stitching mode of the input image. Currently the following two stitching modes are supported, usually sail.blend_wgt_mode.BM_STITCH_WGT_YUV_SHARE is selected.</p>
+<ul class="simple">
+<li><p>sail.blend_wgt_mode.BM_STITCH_WGT_YUV_SHARE: YUV share alpha and beta(1 alpha + 1 beta)</p></li>
+<li><p>sail.blend_wgt_mode.BM_STITCH_WGT_UV_SHARE: UV share alpha and beta(2 alpha + 2 beta)</p></li>
+</ul>
+</section>
+<section id="process">
+<h2><span class="section-number">5.15.2. </span>process<a class="headerlink" href="#process" title="Link to this heading"></a></h2>
+<p>Perform image stitching.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BMImage</span><span class="p">],</span> <span class="n">output</span><span class="p">:</span> <span class="n">BMImage</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>ret: int</p></li>
+</ul>
+<p>Returns whether the image stitching is successful, 0 means success, other values ​​mean failure.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>input: list[BMImage]</p></li>
+</ul>
+<p>Input BMImage to be stitched.</p>
+<ul class="simple">
+<li><p>output: BMImage</p></li>
+</ul>
+<p>Output stitched BMImage.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BMImage</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">BMImage</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>output: BMImage</p></li>
+</ul>
+<p>Return stitched BMImage.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>input: list[BMImage]</p></li>
+</ul>
+<p>Input BMImage to be stitched.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w">  </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="s2">&quot;./left.jpg&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">image_left</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImage</span><span class="p">()</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">image_left</span><span class="p">)</span>
+
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Decoder</span><span class="p">(</span><span class="s2">&quot;./right.jpg&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">image_right</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">BMImage</span><span class="p">()</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">image_right</span><span class="p">)</span>
+
+    <span class="n">blend_obj</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Blend</span><span class="p">(</span><span class="mi">2240</span><span class="p">,</span> <span class="p">[[</span><span class="mi">2112</span><span class="p">],[</span><span class="mi">2239</span><span class="p">]],</span> <span class="p">[],</span> <span class="p">[[</span><span class="s2">&quot;data/wgt/c01_alpha_444p_m2__0_2240x128.bin&quot;</span><span class="p">,</span><span class="s2">&quot;data/wgt/c01_beta_444p_m2__0_2240x128.bin&quot;</span><span class="p">]],</span> <span class="n">sail</span><span class="o">.</span><span class="n">blend_wgt_mode</span><span class="o">.</span><span class="n">BM_STITCH_WGT_YUV_SHARE</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">blend_obj</span><span class="o">.</span><span class="n">process</span><span class="p">([</span><span class="n">image_left</span><span class="p">,</span><span class="n">image_right</span><span class="p">])</span>
+
+    <span class="n">sail</span><span class="o">.</span><span class="n">Bmcv</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s2">&quot;result.jpg&quot;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sail.Bmcv.html" class="btn btn-neutral float-left" title="5.14. sail.Bmcv" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sail.MultiDecoder.html" class="btn btn-neutral float-right" title="5.16. sail.MultiDecoder" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SOPHGO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

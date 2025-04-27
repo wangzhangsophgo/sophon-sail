@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-EN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.3. PaddingAtrr &mdash; SOPHON-SAIL 3.10.2
+ documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01d1187f"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.4. Handle" href="cpp_Handle.html" />
+    <link rel="prev" title="4.2.6. sail_resize_type" href="0_enum-type/cpp_sail_resize_type.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. Compilation and Installation Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cpp_basicfunction.html">4.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_enum-type/enum-index.html">4.2. SAIL enum type</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.3. PaddingAtrr</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#constructor-paddingatrr">4.3.1. Constructor PaddingAtrr()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-stx">4.3.2. set_stx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-sty">4.3.3. set_sty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-w">4.3.4. set_w</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-h">4.3.5. set_h</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-r">4.3.6. set_r</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-g">4.3.7. set_g</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-b">4.3.8. set_b</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Handle.html">4.4. Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Tensor.html">4.5. Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Engine.html">4.6. Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_MultiEngine.html">4.7. MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_bm_image.html">4.8. bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_BMImage.html">4.9. BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_BMImageArray.html">4.10. BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Decoder.html">4.11. Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Encoder.html">4.12. Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Decoder_RawStream.html">4.13. Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Bmcv.html">4.14. Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_Blend.html">4.15. Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp_MultiDecoder.html">4.16. MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_high_perform_interface/high_perform_index_cpp.html">4.17. SAIL C++ high performance interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. Appendix</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../4_module_cpp.html"><span class="section-number">4. </span>SAIL C++ API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.3. </span>PaddingAtrr</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_cpp/cpp_PaddingAtrr.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="paddingatrr">
+<h1><span class="section-number">4.3. </span>PaddingAtrr<a class="headerlink" href="#paddingatrr" title="Link to this heading"></a></h1>
+<p>PaddingAtrr stores various attributes of data padding, and data filling can be performed by configuring PaddingAtrr.</p>
+<blockquote>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">class</span><span class="w"> </span><span class="n">PaddingAtrr</span><span class="w"> </span><span class="p">{</span>
+<span class="n">public</span><span class="o">:</span>
+<span class="w">        </span><span class="n">PaddingAtrr</span><span class="p">(){};</span>
+<span class="w">        </span><span class="n">PaddingAtrr</span><span class="p">(</span>
+<span class="w">            </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">crop_start_x</span><span class="p">,</span>
+<span class="w">            </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">crop_start_y</span><span class="p">,</span>
+<span class="w">            </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">crop_width</span><span class="p">,</span>
+<span class="w">            </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">crop_height</span><span class="p">,</span>
+<span class="w">            </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">padding_value_r</span><span class="p">,</span>
+<span class="w">            </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">padding_value_g</span><span class="p">,</span>
+<span class="w">            </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">padding_value_b</span><span class="p">);</span>
+<span class="w">    </span><span class="n">PaddingAtrr</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">PaddingAtrr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">);</span>
+<span class="w">    </span><span class="o">~</span><span class="n">PaddingAtrr</span><span class="p">(){};</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_stx</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stx</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_sty</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sty</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_w</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">w</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_h</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">h</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_r</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">r</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_g</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">g</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_b</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w">    </span><span class="n">dst_crop_stx</span><span class="p">;</span><span class="w"> </span><span class="c1">// Offset x information relative to the origin of dst image</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w">    </span><span class="n">dst_crop_sty</span><span class="p">;</span><span class="w"> </span><span class="c1">// Offset y information relative to the origin of dst image</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w">    </span><span class="n">dst_crop_w</span><span class="p">;</span><span class="w">   </span><span class="c1">// The width after resize</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w">    </span><span class="n">dst_crop_h</span><span class="p">;</span><span class="w">   </span><span class="c1">// The height after resize</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w">   </span><span class="n">padding_r</span><span class="p">;</span><span class="w">    </span><span class="c1">// Pixel value information of R channel</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w">   </span><span class="n">padding_g</span><span class="p">;</span><span class="w">    </span><span class="c1">// Pixel value information of G channel</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w">   </span><span class="n">padding_b</span><span class="p">;</span><span class="w">    </span><span class="c1">// Pixel value information of B channel</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div></blockquote>
+<section id="constructor-paddingatrr">
+<h2><span class="section-number">4.3.1. </span>Constructor PaddingAtrr()<a class="headerlink" href="#constructor-paddingatrr" title="Link to this heading"></a></h2>
+<p>Initialize PaddingAtrr</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">PaddingAtrr</span><span class="p">()</span>
+
+<span class="n">PaddingAtrr</span><span class="p">(</span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">crop_start_x</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">crop_start_y</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">crop_width</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">crop_height</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">padding_value_r</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">padding_value_g</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">padding_value_b</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>crop_start_x: int</p></li>
+</ul>
+<p>The offset of the original image relative to the target image in the x direction.</p>
+<ul class="simple">
+<li><p>crop_start_y: int</p></li>
+</ul>
+<p>The offset of the original image relative to the target image in the y direction</p>
+<ul class="simple">
+<li><p>crop_width: int</p></li>
+</ul>
+<p>The original image can be resized while padding. Width is the width of the original image after resize. If no resize is performed, width is the width of the original image.</p>
+<ul class="simple">
+<li><p>crop_height: int</p></li>
+</ul>
+<p>The original image can be resized while padding. Height is the height of the original image after resize. If no resize is performed, height is the height of the original image.</p>
+<ul class="simple">
+<li><p>padding_value_r: int</p></li>
+</ul>
+<p>The pixel value to fill on the R channel when padding.</p>
+<ul class="simple">
+<li><p>padding_value_g: int</p></li>
+</ul>
+<p>The pixel value to fill on the G channel when padding.</p>
+<ul class="simple">
+<li><p>padding_value_b: int</p></li>
+</ul>
+<p>The pixel value to fill on the B channel when padding</p>
+</section>
+<section id="set-stx">
+<h2><span class="section-number">4.3.2. </span>set_stx<a class="headerlink" href="#set-stx" title="Link to this heading"></a></h2>
+<p>Set the offset of the original image relative to the target image in the x direction</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">set_stx</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stx</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>stx: int</p></li>
+</ul>
+<p>The offset of the original image relative to the target image in the x direction</p>
+</section>
+<section id="set-sty">
+<h2><span class="section-number">4.3.3. </span>set_sty<a class="headerlink" href="#set-sty" title="Link to this heading"></a></h2>
+<p>Set the offset of the original image relative to the target image in the y direction</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">set_sty</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sty</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>sty: int</p></li>
+</ul>
+<p>The offset of the original image relative to the target image in the y direction</p>
+</section>
+<section id="set-w">
+<h2><span class="section-number">4.3.4. </span>set_w<a class="headerlink" href="#set-w" title="Link to this heading"></a></h2>
+<p>Set the width of the original image after resize</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">set_w</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">w</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>width: int</p></li>
+</ul>
+<p>The original image can be resized while padding. Width is the width of the original image after resize. If no resize is performed, width is the width of the original image.</p>
+</section>
+<section id="set-h">
+<h2><span class="section-number">4.3.5. </span>set_h<a class="headerlink" href="#set-h" title="Link to this heading"></a></h2>
+<p>Set the height of the original image after resize</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">set_h</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">h</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>height: int</p></li>
+</ul>
+<p>The original image can be resized while padding. Height is the height of the original image after resize. If no resize is performed, height is the height of the original image.</p>
+</section>
+<section id="set-r">
+<h2><span class="section-number">4.3.6. </span>set_r<a class="headerlink" href="#set-r" title="Link to this heading"></a></h2>
+<p>Set the padding value on the R channel</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">set_r</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">r</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>r: int</p></li>
+</ul>
+<p>The padding value on R channel</p>
+</section>
+<section id="set-g">
+<h2><span class="section-number">4.3.7. </span>set_g<a class="headerlink" href="#set-g" title="Link to this heading"></a></h2>
+<p>Set the padding value on the G channel</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">set_g</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">g</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p>g: int</p></li>
+</ul>
+<p>The padding value on G channel</p>
+</section>
+<section id="set-b">
+<h2><span class="section-number">4.3.8. </span>set_b<a class="headerlink" href="#set-b" title="Link to this heading"></a></h2>
+<p>Set the padding value on the B channel</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">set_b</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>b: int</p></li>
+</ul>
+<p>The padding value on channel B</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="0_enum-type/cpp_sail_resize_type.html" class="btn btn-neutral float-left" title="4.2.6. sail_resize_type" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cpp_Handle.html" class="btn btn-neutral float-right" title="4.4. Handle" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SOPHGO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

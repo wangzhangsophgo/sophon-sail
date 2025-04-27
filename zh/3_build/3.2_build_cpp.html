@@ -1,0 +1,864 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C++ SAIL的编译与安装 &mdash; SOPHON-SAIL 3.10.2
+ 文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=9080cc91"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">目录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. 声明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. 编译安装指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API 参考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">C++ SAIL的编译与安装</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/3_build/3.2_build_cpp.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="c-sail">
+<h1>C++ SAIL的编译与安装<a class="headerlink" href="#c-sail" title="Link to this heading"></a></h1>
+<section id="c">
+<h2>编译可被C++接口调用的动态库及头文件<a class="headerlink" href="#c" title="Link to this heading"></a></h2>
+<p><em>注意: BM1688和CV186AH处理器仅支持SOC MODE章节,BM1684和BM1684X处理器无此限制。对于BM1688或者CV186AH处理器,下列命令中的sophon-mw应改为sophon-media。</em></p>
+<section id="pcie-mode">
+<h3>PCIE MODE<a class="headerlink" href="#pcie-mode" title="Link to this heading"></a></h3>
+<p><strong>.安装libsophon,sophon-ffmpeg,sophon-opencv的SAIL</strong></p>
+<p>libsophon,sophon-ffmpeg,sophon-opencv的安装方式可参考算能官方文档</p>
+<p><strong>.编译包含多媒体模块的SAIL</strong></p>
+<p>使用默认安装路径,编译包含bmcv,sophon-ffmpeg,sophon-opencv的SAIL</p>
+<ol class="arabic">
+<li><p>下载SOPHON-SAIL源码,解压后进入其源码目录</p></li>
+<li><p>创建编译文件夹build,并进入build文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>执行编译命令</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">-</span><span class="n">DBUILD_PYSAIL</span><span class="o">=</span><span class="n">OFF</span> <span class="o">..</span>
+<span class="n">make</span> <span class="n">sail</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>安装SAIL动态库及头文件,编译结果将安装在‘/opt/sophon’下面</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p><strong>.编译不包含多媒体模块的SAIL</strong></p>
+<p>使用默认安装路径,编译不包含bmcv,sophon-ffmpeg,sophon-opencv的SAIL,</p>
+<p><em>通过此方式编译出来的SAIL无法使用其Decoder、Bmcv等多媒体相关接口。适用于只需要大语言模型推理能力、不需要处理图片或视频的场景。</em></p>
+<ol class="arabic">
+<li><p>下载SOPHON-SAIL源码,解压后进入其源码目录</p></li>
+<li><p>创建编译文件夹build,并进入build文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>执行编译命令</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">-</span><span class="n">DONLY_RUNTIME</span><span class="o">=</span><span class="n">ON</span> <span class="o">-</span><span class="n">DBUILD_PYSAIL</span><span class="o">=</span><span class="n">OFF</span> <span class="o">..</span>
+<span class="n">make</span> <span class="n">sail</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>安装SAIL动态库及头文件,编译结果将安装在‘/opt/sophon’下面</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+<section id="soc-mode">
+<h3>SOC MODE<a class="headerlink" href="#soc-mode" title="Link to this heading"></a></h3>
+<p><strong>.获取交叉编译需要使用的libsophon,sophon-ffmpeg,sophon-opencv</strong></p>
+<p><em>此章节所有的编译操作都是在x86主机上,使用交叉编译的方式进行编译。下面示例中选择libsophon的版本为0.4.1, sophon-ffmpeg的版本为0.4.1,sophon-opencv的版本为0.4.1。</em></p>
+<ol class="arabic">
+<li><p>从算能官网中获取‘libsophon_soc_0.4.1_aarch64.tar.gz’,并解压</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">libsophon_soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>解压后libsophon的目录为‘libsophon_soc_0.4.1_aarch64/opt/sophon/libsophon-0.4.1’</p>
+<ol class="arabic" start="2">
+<li><p>从算能官网中获取‘sophon-mw-soc_0.4.1_aarch64.tar.gz’,并解压</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw</span><span class="o">-</span><span class="n">soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>解压后sophon-ffmpeg的目录为‘sophon-mw-soc_0.4.1_aarch64/opt/sophon/sophon-ffmpeg_0.4.1’。</p>
+<p>解压后sophon-opencv的目录为‘sophon-mw-soc_0.4.1_aarch64/opt/sophon/sophon-opencv_0.4.1’。</p>
+<p><strong>.安装g++-aarch64-linux-gnu工具链</strong></p>
+<p><em>如果已经安装,可忽略此步骤</em></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">g</span><span class="o">++-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.编译包含多媒体模块的SAIL</strong></p>
+<p>通过交叉编译的方式,编译出包含bmcv,sophon-ffmpeg,sophon-opencv的SAIL。</p>
+<ol class="arabic">
+<li><p>下载SOPHON-SAIL源码,解压后进入其源码目录</p></li>
+<li><p>创建编译文件夹build,并进入build文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>执行编译命令</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>soc<span class="w"> </span>-DBUILD_PYSAIL<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_SOC/ToolChain_aarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_soc_0.4.1_aarch64/opt/sophon/libsophon-0.4.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DFFMPEG_BASIC_PATH<span class="o">=</span>sophon-mw-soc_0.4.1_aarch64/opt/sophon/sophon-ffmpeg_0.4.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DOPENCV_BASIC_PATH<span class="o">=</span>sophon-mw-soc_0.4.1_aarch64/opt/sophon/sophon-opencv_0.4.1<span class="w"> </span>..
+make<span class="w"> </span>sail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>安装SAIL动态库及头文件,程序将自动在源码目录下创建‘build_soc’,编译结果将安装在‘build_soc’下面</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>将‘build_soc’文件夹下的‘sophon-sail’拷贝至目标SOC的‘/opt/sophon’目录下,即可在soc上面进行调用。</p></li>
+</ol>
+<p><strong>.编译不包含多媒体模块的SAIL</strong></p>
+<p>通过交叉编译的方式,编译出不包含bmcv,sophon-ffmpeg,sophon-opencv的SAIL。</p>
+<p><em>通过此方式编译出来的SAIL无法使用其Decoder、Bmcv等多媒体相关接口。适用于只需要大语言模型推理能力、不需要处理图片或视频的场景。</em></p>
+<ol class="arabic">
+<li><p>下载SOPHON-SAIL源码,解压后进入其源码目录</p></li>
+<li><p>创建编译文件夹build,并进入build文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>执行编译命令</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>soc<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_PYSAIL<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DONLY_RUNTIME<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_SOC/ToolChain_aarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_soc_0.4.1_aarch64/opt/sophon/libsophon-0.4.1<span class="w"> </span>..
+make<span class="w"> </span>sail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>安装SAIL动态库及头文件,程序将自动在源码目录下创建‘build_soc’,编译结果将安装在‘build_soc’下面</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>将‘build_soc’文件夹下的‘sophon-sail’拷贝至目标SOC的‘/opt/sophon’目录下,即可在soc上进行调用。</p></li>
+</ol>
+</section>
+<section id="arm-pcie-mode">
+<h3>ARM PCIE MODE<a class="headerlink" href="#arm-pcie-mode" title="Link to this heading"></a></h3>
+<p><strong>.获取交叉编译需要使用的libsophon,sophon-ffmpeg,sophon-opencv</strong></p>
+<p><em>此章节所有的编译操作都是在x86主机上,使用交叉编译的方式进行编译。下面示例中选择libsophon的版本为0.4.1, sophon-ffmpeg的版本为0.4.1,sophon-opencv的版本为0.4.1。</em></p>
+<ol class="arabic">
+<li><p>从算能官网中获取‘libsophon_0.4.1_aarch64.tar.gz’,并解压</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">libsophon_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>解压后libsophon的目录为‘libsophon_0.4.1_aarch64/opt/sophon/libsophon-0.4.1’</p>
+<ol class="arabic" start="2">
+<li><p>从算能官网中获取‘sophon-mw_0.4.1_aarch64.tar.gz’,并解压</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>解压后sophon-ffmpeg的目录为‘sophon-mw_0.4.1_aarch64/opt/sophon/sophon-ffmpeg_0.4.1’。</p>
+<p>解压后sophon-opencv的目录为‘sophon-mw_0.4.1_aarch64/opt/sophon/sophon-opencv_0.4.1’。</p>
+<p><strong>.安装g++-aarch64-linux-gnu工具链</strong></p>
+<p><em>如果已经安装,可忽略此步骤</em></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">g</span><span class="o">++-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.编译包含多媒体模块的SAIL</strong></p>
+<p>通过交叉编译的方式,编译出包含bmcv,sophon-ffmpeg,sophon-opencv的SAIL。</p>
+<ol class="arabic">
+<li><p>下载SOPHON-SAIL源码,解压后进入其源码目录</p></li>
+<li><p>创建编译文件夹build,并进入build文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>执行编译命令</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>arm_pcie<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_PYSAIL<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_ARM_PCIE/ToolChain_aarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_0.4.1_aarch64/opt/sophon/libsophon-0.4.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DFFMPEG_BASIC_PATH<span class="o">=</span>sophon-mw_0.4.1_aarch64/opt/sophon/sophon-ffmpeg_0.4.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DOPENCV_BASIC_PATH<span class="o">=</span>sophon-mw_0.4.1_aarch64/opt/sophon/sophon-opencv_0.4.1<span class="w"> </span>..
+make<span class="w"> </span>sail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>安装SAIL动态库及头文件,程序将自动在源码目录下创建‘build_arm_pcie’,编译结果将安装在‘build_arm_pcie’下面</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>将‘build_arm_pcie’文件夹下的‘sophon-sail’拷贝至目标ARM主机的‘/opt/sophon’目录下,即可在目标机器上面进行调用。</p></li>
+</ol>
+<p><strong>.编译不包含多媒体模块的SAIL</strong></p>
+<p>通过交叉编译的方式,编译出不包含bmcv,sophon-ffmpeg,sophon-opencv的SAIL。</p>
+<p><em>通过此方式编译出来的SAIL无法使用其Decoder、Bmcv等多媒体相关接口。适用于只需要大语言模型推理能力、不需要处理图片或视频的场景。</em></p>
+<ol class="arabic">
+<li><p>下载SOPHON-SAIL源码,解压后进入其源码目录</p></li>
+<li><p>创建编译文件夹build,并进入build文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>执行编译命令</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>arm_pcie<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DONLY_RUNTIME<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_PYSAIL<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_ARM_PCIE/ToolChain_aarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_0.4.1_aarch64/opt/sophon/libsophon-0.4.1<span class="w"> </span>..
+make<span class="w"> </span>sail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>安装SAIL动态库及头文件,程序将自动在源码目录下创建‘build_arm_pcie’,编译结果将安装在‘build_arm_pcie’下面</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>将‘build_arm_pcie’文件夹下的‘sophon-sail’拷贝至目标ARM主机的‘/opt/sophon’目录下,即可在目标机器上面进行调用。</p></li>
+</ol>
+</section>
+<section id="loongarch64-mode">
+<h3>LOONGARCH64 MODE<a class="headerlink" href="#loongarch64-mode" title="Link to this heading"></a></h3>
+<p>此小节描述的是，如何在x86主机上，使用交叉编译的方式编译 LoongArch64 版本的SAIL。
+如果需要在 LoongArch64 主机上本地编译，操作过程与x86本地编译类似，请参考 PCIE MODE 章节。</p>
+<p><strong>.安装loongarch64-linux-gnu工具链</strong></p>
+<p>从LoongArch64官网获取其[交叉编译的工具链](<a class="reference external" href="http://ftp.loongnix.cn/toolchain/gcc/release/loongarch/gcc8/loongson-gnu-toolchain-8.3-x86_64-loongarch64-linux-gnu-rc1.1.tar.xz">http://ftp.loongnix.cn/toolchain/gcc/release/loongarch/gcc8/loongson-gnu-toolchain-8.3-x86_64-loongarch64-linux-gnu-rc1.1.tar.xz</a>),
+解压到本地，解压后的目录结构如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>└── loongson-gnu-toolchain-8.3-x86_64-loongarch64-linux-gnu-rc1.1
+    ├── bin
+    ├── lib
+    ├── lib64
+    ├── libexec
+    ├── loongarch64-linux-gnu
+    ├── share
+    ├── sysroot
+    └── versions
+</pre></div>
+</div>
+<p><strong>.获取交叉编译需要使用的libsophon,sophon-ffmpeg,sophon-opencv</strong></p>
+<p><em>此章节所有的编译操作都是在x86主机上,使用交叉编译的方式进行编译。下面示例中选择libsophon的版本为0.4.7, sophon-ffmpeg的版本为0.6.0,sophon-opencv的版本为0.6.0。</em></p>
+<p><strong>.编译包含多媒体模块的SAIL</strong></p>
+<p>通过交叉编译的方式,编译出包含bmcv,sophon-ffmpeg,sophon-opencv的SAIL,</p>
+<ol class="arabic">
+<li><p>下载SOPHON-SAIL源码,解压后进入其源码目录</p></li>
+<li><p>创建编译文件夹build,并进入build文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>执行编译命令</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>loongarch<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_PYSAIL<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DTOOLCHAIN_BASIC_PATH<span class="o">=</span>toolchains/loongson-gnu-toolchain-8.3-x86_64-loongarch64-linux-gnu-rc1.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_LoongArch64/ToolChain_loongarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_0.4.7_loongarch64/opt/sophon/libsophon-0.4.7<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DFFMPEG_BASIC_PATH<span class="o">=</span>sophon-mw_0.6.0_loongarch64/opt/sophon/sophon-ffmpeg_0.6.0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DOPENCV_BASIC_PATH<span class="o">=</span>sophon-mw_0.6.0_loongarch64/opt/sophon/sophon-opencv_0.6.0<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>..
+make<span class="w"> </span>sail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>安装SAIL动态库及头文件,程序将自动在源码目录下创建‘build_loongarch’,编译结果将安装在‘build_loongarch’下面</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>将‘build_loongarch’文件夹下的‘sophon-sail’拷贝至目标龙芯主机的‘/opt/sophon’目录下,即可在目标机器上调用。</p></li>
+</ol>
+<p><strong>.编译不包含多媒体模块的SAIL</strong></p>
+<p>通过交叉编译的方式,编译出不包含bmcv,sophon-ffmpeg,sophon-opencv的SAIL。</p>
+<p><em>通过此方式编译出来的SAIL无法使用其Decoder、Bmcv等多媒体相关接口。适用于只需要大语言模型推理能力、不需要处理图片或视频的场景。</em></p>
+<ol class="arabic">
+<li><p>下载SOPHON-SAIL源码,解压后进入其源码目录</p></li>
+<li><p>创建编译文件夹build,并进入build文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>执行编译命令</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>loongarch<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_PYSAIL<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DONLY_RUNTIME<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DTOOLCHAIN_BASIC_PATH<span class="o">=</span>toolchains/loongson-gnu-toolchain-8.3-x86_64-loongarch64-linux-gnu-rc1.1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_LoongArch64/ToolChain_loongarch64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_0.4.7_loongarch64/opt/sophon/libsophon-0.4.7<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>..
+make<span class="w"> </span>sail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>安装SAIL动态库及头文件,程序将自动在源码目录下创建‘build_loongarch’,编译结果将安装在‘build_loongarch’下面</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>将‘build_loongarch’文件夹下的‘sophon-sail’拷贝至目标龙芯主机的‘/opt/sophon’目录下,即可在目标机器上调用。</p></li>
+</ol>
+</section>
+<section id="riscv-mode">
+<h3>RISCV MODE<a class="headerlink" href="#riscv-mode" title="Link to this heading"></a></h3>
+<p>此小节描述的是，如何在x86主机上，使用交叉编译的方式编译 riscv64 版本的SAIL。
+如果需要在 riscv64 主机上本地编译，操作过程与x86本地编译类似，请参考 PCIE MODE 章节。</p>
+<p><strong>.获取交叉编译需要使用的libsophon,sophon-ffmpeg,sophon-opencv</strong></p>
+<p><em>此章节所有的编译操作都是在x86主机上,使用交叉编译的方式进行编译。下面示例中选择libsophon的版本为0.5.0, sophon-ffmpeg的版本为0.6.0,sophon-opencv的版本为0.6.0。</em></p>
+<ol class="arabic">
+<li><p>从算能官网中获取‘libsophon_0.5.0_riscv64.tar.gz’,并解压</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">libsophon_0</span><span class="mf">.4.0</span><span class="n">_riscv64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>解压后libsophon的目录为‘libsophon_0.5.0_riscv64/opt/sophon/libsophon-0.5.0’</p>
+<ol class="arabic" start="2">
+<li><p>从算能官网中获取‘sophon-mw_0.6.0_riscv_64.tar.gz’,并解压</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw_0</span><span class="mf">.6.0</span><span class="n">_riscv_64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>解压后sophon-ffmpeg的目录为‘sophon-mw_0.6.0_riscv_64/opt/sophon/sophon-ffmpeg_0.6.0’。</p>
+<p>解压后sophon-opencv的目录为‘sophon-mw_0.6.0_riscv_64/opt/sophon/sophon-opencv_0.6.0’。</p>
+<p><strong>.安装g++-riscv64-linux-gnu工具链</strong></p>
+<p><em>如果已经安装,可忽略此步骤</em></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">riscv64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">g</span><span class="o">++-</span><span class="n">riscv64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.编译包含多媒体模块的SAIL</strong></p>
+<p>通过交叉编译的方式,编译出包含bmcv,sophon-ffmpeg,sophon-opencv的SAIL。</p>
+<ol class="arabic">
+<li><p>下载SOPHON-SAIL源码,解压后进入其源码目录</p></li>
+<li><p>创建编译文件夹build,并进入build文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>执行编译命令</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>riscv<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_PYSAIL<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_RISCV/ToolChain_riscv64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_0.5.0_riscv64/opt/sophon/libsophon-0.5.0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DFFMPEG_BASIC_PATH<span class="o">=</span>sophon-mw_0.6.0_riscv_64/opt/sophon/sophon-ffmpeg_0.6.0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DOPENCV_BASIC_PATH<span class="o">=</span>sophon-mw_0.6.0_riscv_64/opt/sophon/sophon-opencv_0.6.0<span class="w"> </span>..
+make<span class="w"> </span>sail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>安装SAIL动态库及头文件,程序将自动在源码目录下创建‘build_riscv’,编译结果将安装在‘build_riscv’下面</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>将‘build_riscv’文件夹下的‘sophon-sail’拷贝至目标RISCV主机的‘/opt/sophon’目录下,即可在目标机器上面进行调用。</p></li>
+</ol>
+<p><strong>.编译不包含多媒体模块的SAIL</strong></p>
+<p>通过交叉编译的方式,编译出不包含bmcv,sophon-ffmpeg,sophon-opencv的SAIL。</p>
+<p><em>通过此方式编译出来的SAIL无法使用其Decoder、Bmcv等多媒体相关接口。适用于只需要大语言模型推理能力、不需要处理图片或视频的场景。</em></p>
+<ol class="arabic">
+<li><p>下载SOPHON-SAIL源码,解压后进入其源码目录</p></li>
+<li><p>创建编译文件夹build,并进入build文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>执行编译命令</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_TYPE<span class="o">=</span>riscv<span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-DONLY_RUNTIME<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DBUILD_PYSAIL<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../cmake/BM168x_RISCV/ToolChain_riscv64_linux.cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DLIBSOPHON_BASIC_PATH<span class="o">=</span>libsophon_0.5.0_riscv64/opt/sophon/libsophon-0.5.0<span class="w"> </span>..
+make<span class="w"> </span>sail
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>安装SAIL动态库及头文件,程序将自动在源码目录下创建‘build_riscv’,编译结果将安装在‘build_riscv’下面</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>将‘build_riscv’文件夹下的‘sophon-sail’拷贝至目标RISCV主机的‘/opt/sophon’目录下,即可在目标机器上面进行调用。</p></li>
+</ol>
+</section>
+<section id="windows-mode">
+<h3>WINDOWS MODE<a class="headerlink" href="#windows-mode" title="Link to this heading"></a></h3>
+<p><strong>.安装libsophon,sophon-ffmpeg,sophon-opencv的SAIL</strong></p>
+<p>windows下libsophon,sophon-ffmpeg,sophon-opencv的安装方式可参考算能官方文档</p>
+<p>下载并安装Visual Studio 2019 作为windows下的开发工具</p>
+<p><strong>.编译包含多媒体模块的SAIL</strong></p>
+<p>编译出包含bmcv,sophon-ffmpeg,sophon-opencv的SAIL</p>
+<ol class="arabic">
+<li><p>下载SOPHON-SAIL源码,解压后进入其源码目录</p></li>
+<li><p>创建编译文件夹build,并进入build文件夹</p></li>
+<li><p>执行cmake命令，生成项目文件 .sln</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">-</span><span class="n">DBUILD_TYPE</span><span class="o">=</span><span class="n">windows</span> <span class="o">-</span><span class="n">DTARGET_TYPE</span><span class="o">=</span><span class="n">release</span> <span class="o">-</span><span class="n">DRUNTIME_LIB</span><span class="o">=</span><span class="n">MT</span> <span class="o">-</span><span class="n">DBUILD_PYSAIL</span><span class="o">=</span><span class="n">OFF</span> <span class="o">-</span><span class="n">DLIBSOPHON_DIR</span><span class="o">=</span><span class="n">C</span><span class="p">:</span><span class="o">/</span><span class="n">sophon_sdk_win_release_MT</span><span class="o">/</span><span class="n">libsophon_0</span><span class="mf">.4.9</span><span class="o">/</span><span class="n">data</span> <span class="o">-</span><span class="n">DOPENCV_DIR</span><span class="o">=</span><span class="n">C</span><span class="p">:</span><span class="o">/</span><span class="n">sophon_sdk_win_release_MT</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">opencv_0</span><span class="mf">.6.0</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">cmake</span><span class="o">/</span><span class="n">opencv4</span> <span class="o">-</span><span class="n">DFFMPEG_DIR</span><span class="o">=</span><span class="n">C</span><span class="p">:</span><span class="o">/</span><span class="n">sophon_sdk_win_release_MT</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">ffmpeg_0</span><span class="mf">.6.0</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">cmake</span> <span class="o">..</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>在vs2019下打开.sln项目文件，修改编译模式为release，点击生成项目。</p></li>
+<li><p>项目编译成功后会在build/lib/Release文件夹下生成sail.lib,sail.exp,sail.dll等文件。</p></li>
+<li><p>安装sail库，在build路径下运行指令,生成build_windows文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">--</span><span class="n">install</span> <span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>在CMakeLists.txt文件中引入sail库即可，如：</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set(SAIL_DIR your_path/build_windows/sophon-sail/lib/cmake)
+find_package(SAIL REQUIRED)
+include_directories(${SAIL_INCLUDE_DIRS})
+link_directories(${SAIL_LIB_DIRS})
+    ...
+target_link_libraries(your_project sail.lib)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p><strong>.编译不包含多媒体模块的SAIL</strong></p>
+<p>编译不包含bmcv,sophon-ffmpeg,sophon-opencv的SAIL,</p>
+<p><em>通过此方式编译出来的SAIL无法使用其Decoder、Bmcv等多媒体相关接口。适用于只需要大语言模型推理能力、不需要处理图片或视频的场景。</em></p>
+<ol class="arabic">
+<li><p>下载SOPHON-SAIL源码,解压后进入其源码目录</p></li>
+<li><p>创建编译文件夹build,并进入build文件夹</p></li>
+<li><p>执行cmake命令，生成项目文件 .sln</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">-</span><span class="n">DBUILD_TYPE</span><span class="o">=</span><span class="n">windows</span> <span class="o">-</span><span class="n">DTARGET_TYPE</span><span class="o">=</span><span class="n">release</span> <span class="o">-</span><span class="n">DRUNTIME_LIB</span><span class="o">=</span><span class="n">MT</span> <span class="o">-</span><span class="n">DBUILD_PYSAIL</span><span class="o">=</span><span class="n">OFF</span> <span class="o">-</span><span class="n">DONLY_RUNTIME</span><span class="o">=</span><span class="n">ON</span> <span class="o">-</span><span class="n">DLIBSOPHON_DIR</span><span class="o">=</span><span class="n">C</span><span class="p">:</span><span class="o">/</span><span class="n">sophon_sdk_win_release_MT</span><span class="o">/</span><span class="n">libsophon_0</span><span class="mf">.4.9</span><span class="o">/</span><span class="n">data</span> <span class="o">..</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>在vs2019下打开.sln项目文件，修改编译模式为release，点击生成项目。</p></li>
+<li><p>项目编译成功后会在build/lib/Release文件夹下生成sail.lib,sail.exp,sail.dll等文件。</p></li>
+<li><p>安装sail库，在build路径下运行指令,生成build_windows文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">--</span><span class="n">install</span> <span class="o">.</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>在CMakeLists.txt文件中引入sail库即可，如：</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set(SAIL_DIR your_path/build_windows/sophon-sail/lib/cmake)
+find_package(SAIL REQUIRED)
+include_directories(${SAIL_INCLUDE_DIRS})
+link_directories(${SAIL_LIB_DIRS})
+    ...
+target_link_libraries(your_project sail.lib)
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+</section>
+<section id="sailc">
+<h2>使用SAIL的C++接口进行开发<a class="headerlink" href="#sailc" title="Link to this heading"></a></h2>
+<p><em>注意: BM1688和CV186AH处理器仅支持SOC MODE章节,BM1684和BM1684X处理器无此限制。对于BM1688或者CV186AH处理器,下列命令中的sophon-mw应改为sophon-media。</em></p>
+<section id="id1">
+<h3>PCIE MODE<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>在使用PCIE MODE编译好SAIL,并且通过执行‘sudo make install’或者通过拷贝的方式安装好SAIL的c++库之后,
+推荐使用cmake来将SAIL中的库链接到自己的程序中,如果需要使用SAIL多媒体相关的功能,
+也需要将libsophon,sophon-ffmpeg,sophon-opencv的头文件目录及动态库目录添加到自己的程序中。
+可以在您程序的CMakeLists.txt中添加如下段落:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>find_package(libsophon REQUIRED)
+include_directories(${LIBSOPHON_INCLUDE_DIRS})
+# 添加libsophon的头文件目录
+
+set(SAIL_DIR  /opt/sophon/sophon-sail/lib/cmake)
+find_package(SAIL REQUIRED)
+include_directories(${SAIL_INCLUDE_DIRS})
+link_directories(${SAIL_LIB_DIRS})
+# 添加SAIL的头文件及动态库目录
+
+find_package(libsophon REQUIRED)
+include_directories(${LIBSOPHON_INCLUDE_DIRS})
+# 添加libsophon的头文件目录
+
+set(OpenCV_DIR  /opt/sophon/sophon-opencv-latest/lib/cmake/opencv4)
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+# 添加sophon-opencv的头文件目录
+
+set(FFMPEG_DIR  /opt/sophon/sophon-ffmpeg-latest/lib/cmake)
+find_package(FFMPEG REQUIRED)
+include_directories(${FFMPEG_INCLUDE_DIRS})
+link_directories(${FFMPEG_LIB_DIRS})
+# 添加sophon-ffmpeg的头文件及动态库目录
+
+add_executable(${YOUR_TARGET_NAME} ${YOUR_SOURCE_FILES})
+target_link_libraries(${YOUR_TARGET_NAME} sail)
+</pre></div>
+</div>
+<p>在您的代码中即可以调用sail中的函数：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define USE_FFMPEG  1</span>
+<span class="cp">#define USE_OPENCV  1</span>
+<span class="cp">#define USE_BMCV    1</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sail/cvwrapper.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">device_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">video_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;test.avi&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Decoder</span><span class="w"> </span><span class="n">decoder</span><span class="p">(</span><span class="n">video_path</span><span class="p">,</span><span class="nb">true</span><span class="p">,</span><span class="n">device_id</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">decoder</span><span class="p">.</span><span class="n">is_opened</span><span class="p">()){</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Video[%s] read failed!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">video_path</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+<span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Handle</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="n">device_id</span><span class="p">);</span>
+<span class="w">    </span><span class="n">sail</span><span class="o">::</span><span class="n">Bmcv</span><span class="w"> </span><span class="n">bmcv</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
+<span class="w">        </span><span class="n">sail</span><span class="o">::</span><span class="n">BMImage</span><span class="w"> </span><span class="n">ost_image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">decoder</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+<span class="w">        </span><span class="n">bmcv</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">&quot;test.jpg&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ost_image</span><span class="p">);</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>SOC MODE<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p><strong>.SOC设备上编译程序</strong></p>
+<p>在SOC设备上安装好libsophon,sophon-ffmpeg,sophon-opencv,及SAIL之后,您可以参考PCIE MODE的开发方法使用cmake将SAIL中的库链接到自己的程序中,
+如果需要使用SAIL多媒体相关的功能,
+也需要将libsophon,sophon-ffmpeg,sophon-opencv的头文件目录及动态库目录添加到自己的程序中。</p>
+<p><strong>.x86交叉编译程序</strong></p>
+<p>如果您希望使用SAIL搭建交叉编译环境,您需要用到libsophon,sophon-ffmpeg,sophon-opencv以及gcc-aarch64-linux-gnu工具链。</p>
+<p><strong>.创建‘soc-sdk’文件夹</strong></p>
+<p>创建‘soc-sdk’文件夹,后续交叉编译需要用到的头文件及动态库都将存放在此目录中。</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.获取交叉编译需要使用的libsophon,sophon-ffmpeg,sophon-opencv</strong></p>
+<p><em>下面示例中选择libsophon的版本为0.4.1, sophon-ffmpeg的版本为0.4.1,sophon-opencv的版本为0.4.1。</em></p>
+<ol class="arabic">
+<li><p>从算能官网中获取‘libsophon_soc_0.4.1_aarch64.tar.gz’,并解压拷贝至‘soc-sdk’文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">libsophon_soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">libsophon_soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">libsophon</span><span class="o">-</span><span class="mf">0.4.1</span><span class="o">/</span><span class="n">include</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">libsophon_soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">libsophon</span><span class="o">-</span><span class="mf">0.4.1</span><span class="o">/</span><span class="n">lib</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>解压后libsophon的目录为‘libsophon_soc_0.4.1_aarch64/opt/sophon/libsophon-0.4.1’</p>
+<ol class="arabic" start="2">
+<li><p>从算能官网中获取‘sophon-mw-soc_0.4.1_aarch64.tar.gz’,并解压拷贝至‘soc-sdk’文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw</span><span class="o">-</span><span class="n">soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw</span><span class="o">-</span><span class="n">soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">ffmpeg_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">include</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw</span><span class="o">-</span><span class="n">soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">ffmpeg_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">lib</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw</span><span class="o">-</span><span class="n">soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">opencv_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">opencv4</span><span class="o">/</span><span class="n">opencv2</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span><span class="o">/</span><span class="n">include</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw</span><span class="o">-</span><span class="n">soc_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">opencv_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">lib</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p><strong>.将交叉编译好的SAIL,也即是‘build_soc’拷贝至‘soc-sdk’文件夹</strong></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="n">build_soc</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">sail</span><span class="o">/</span><span class="n">include</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="n">build_soc</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">sail</span><span class="o">/</span><span class="n">lib</span> <span class="n">soc</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.安装g++-aarch64-linux-gnu工具链</strong></p>
+<p><em>如果已经安装,可忽略此步骤</em></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">g</span><span class="o">++-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>上述步骤配置好之后,可以通过配置cmake来完成交叉编译,在您程序的CMakeLists.txt中添加如下段落:</p>
+<p><em>CMakeLists.txt中需要使用‘soc-sdk’的绝对路径为‘/opt/sophon/soc-sdk’,实际应用中需要根据自己实际的位置来进行配置。</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set(CMAKE_C_COMPILER aarch64-linux-gnu-gcc)
+set(CMAKE_ASM_COMPILER aarch64-linux-gnu-gcc)
+set(CMAKE_CXX_COMPILER aarch64-linux-gnu-g++)
+
+include_directories(&quot;/opt/sophon/soc-sdk/include&quot;)
+include_directories(&quot;/opt/sophon/soc-sdk/include/sail&quot;)
+# 添加交叉编译需要使用的头文件目录
+
+link_directories(&quot;/opt/sophon/soc-sdk/lib&quot;)
+# 添加交叉编译需要使用的动态库目录
+
+add_executable(${YOUR_TARGET_NAME} ${YOUR_SOURCE_FILES})
+target_link_libraries(${YOUR_TARGET_NAME} sail)
+# sail为需要链接的库
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>ARM PCIE MODE<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p><strong>.ARM主机上编译程序</strong></p>
+<p>在ARM主机上安装好libsophon,sophon-ffmpeg,sophon-opencv,及SAIL之后,您可以参考PCIE MODE的开发方法使用cmake将SAIL中的库链接到自己的程序中,
+如果需要使用SAIL多媒体相关的功能,
+也需要将libsophon,sophon-ffmpeg,sophon-opencv的头文件目录及动态库目录添加到自己的程序中。</p>
+<p><strong>.x86交叉编译程序</strong></p>
+<p>如果您希望使用SAIL搭建交叉编译环境,您需要用到libsophon,sophon-ffmpeg,sophon-opencv以及gcc-aarch64-linux-gnu工具链。</p>
+<p><strong>.创建‘arm_pcie-sdk’文件夹</strong></p>
+<p>创建‘arm_pcie-sdk’文件夹,后续交叉编译需要用到的头文件及动态库都将存放在此目录中。</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.获取交叉编译需要使用的libsophon,sophon-ffmpeg,sophon-opencv</strong></p>
+<p><em>下面示例中选择libsophon的版本为0.4.1, sophon-ffmpeg的版本为0.4.1,sophon-opencv的版本为0.4.1。</em></p>
+<ol class="arabic">
+<li><p>从算能官网中获取‘libsophon_0.4.1_aarch64.tar.gz’,并解压拷贝至‘arm_pcie-sdk’文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">libsophon_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">libsophon_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">libsophon</span><span class="o">-</span><span class="mf">0.4.1</span><span class="o">/</span><span class="n">include</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">libsophon_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">libsophon</span><span class="o">-</span><span class="mf">0.4.1</span><span class="o">/</span><span class="n">lib</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>解压后libsophon的目录为‘libsophon_0.4.1_aarch64/opt/sophon/libsophon-0.4.1’</p>
+<ol class="arabic" start="2">
+<li><p>从算能官网中获取‘sophon-mw_0.4.1_aarch64.tar.gz’,并解压拷贝至‘arm_pcie-sdk’文件夹</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xvf</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">ffmpeg_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">include</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">ffmpeg_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">lib</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">opencv_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">opencv4</span><span class="o">/</span><span class="n">opencv2</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span><span class="o">/</span><span class="n">include</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">sophon</span><span class="o">-</span><span class="n">mw_0</span><span class="mf">.4.1</span><span class="n">_aarch64</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">sophon</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">opencv_0</span><span class="mf">.4.1</span><span class="o">/</span><span class="n">lib</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p><strong>.将交叉编译好的SAIL,也即是‘build_arm_pcie’拷贝至‘arm_pcie-sdk’文件夹</strong></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="n">build_arm_pcie</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">sail</span><span class="o">/</span><span class="n">include</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+<span class="n">cp</span> <span class="n">build_arm_pcie</span><span class="o">/</span><span class="n">sophon</span><span class="o">-</span><span class="n">sail</span><span class="o">/</span><span class="n">lib</span> <span class="n">arm_pcie</span><span class="o">-</span><span class="n">sdk</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>.安装g++-aarch64-linux-gnu工具链</strong></p>
+<p><em>如果已经安装,可忽略此步骤</em></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span> <span class="n">g</span><span class="o">++-</span><span class="n">aarch64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>上述步骤配置好之后,可以通过配置cmake来完成交叉编译,在您程序的CMakeLists.txt中添加如下段落:</p>
+<p><em>CMakeLists.txt中需要使用‘arm_pcie-sdk’的绝对路径为‘/opt/sophon/arm_pcie-sdk’,实际应用中需要根据自己实际的位置来进行配置。</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set(CMAKE_C_COMPILER aarch64-linux-gnu-gcc)
+set(CMAKE_ASM_COMPILER aarch64-linux-gnu-gcc)
+set(CMAKE_CXX_COMPILER aarch64-linux-gnu-g++)
+
+include_directories(&quot;/opt/sophon/arm_pcie-sdk/include&quot;)
+include_directories(&quot;/opt/sophon/arm_pcie-sdk/include/sail&quot;)
+# 添加交叉编译需要使用的头文件目录
+
+link_directories(&quot;/opt/sophon/arm_pcie-sdk/lib&quot;)
+# 添加交叉编译需要使用的动态库目录
+
+add_executable(${YOUR_TARGET_NAME} ${YOUR_SOURCE_FILES})
+target_link_libraries(${YOUR_TARGET_NAME} sail)
+# sail为需要链接的库
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, SOPHGO。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

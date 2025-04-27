@@ -1,0 +1,965 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en-EN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.6. sail.Engine &mdash; SOPHON-SAIL 3.10.2
+ documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01d1187f"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.7. sail.MultiEngine" href="sail.MultiEngine.html" />
+    <link rel="prev" title="5.5. sail.PaddingAtrr" href="sail.PaddingAtrr.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SOPHON-SAIL
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1_disclaimer.html">1. Disclaimer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2_sail.html">2. SAIL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_build.html">3. Compilation and Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_module_cpp.html">4. SAIL C++ API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../5_module_python.html">5. SAIL Python API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Basicfunction.html">5.1. Basic function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0_enum_type/enum_index.html">5.2. SAIL enum type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Handle.html">5.3. sail.Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Tensor.html">5.4. sail.Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.PaddingAtrr.html">5.5. sail.PaddingAtrr</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.6. sail.Engine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#init">5.6.1. __init__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-handle">5.6.2. get_handle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#load">5.6.3. load</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-graph-names">5.6.4. get_graph_names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-io-mode">5.6.5. set_io_mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graph-is-dynamic">5.6.6. graph_is_dynamic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-input-names">5.6.7. get_input_names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-output-names">5.6.8. get_output_names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-max-input-shapes">5.6.9. get_max_input_shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-input-shape">5.6.10. get_input_shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-max-output-shapes">5.6.11. get_max_output_shapes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-output-shape">5.6.12. get_output_shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-input-dtype">5.6.13. get_input_dtype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-output-dtype">5.6.14. get_output_dtype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-input-scale">5.6.15. get_input_scale</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-output-scale">5.6.16. get_output_scale</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process">5.6.17. process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get-device-id">5.6.18. get_device_id</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-input-tensors-map">5.6.19. create_input_tensors_map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-output-tensors-map">5.6.20. create_output_tensors_map</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiEngine.html">5.7. sail.MultiEngine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.bm_image.html">5.8. sail.bm_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImage.html">5.9. sail.BMImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.BMImageArray.html">5.10. sail.BMImageArray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder.html">5.11. sail.Decoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Encoder.html">5.12. sail.Encoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Decoder_RawStream.html">5.13. sail.Decoder_RawStream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Bmcv.html">5.14. sail.Bmcv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.Blend.html">5.15. sail.Blend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sail.MultiDecoder.html">5.16. sail.MultiDecoder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_high_perform_interface/high_perform_index.html">5.17. SAIL Python high performance interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../6_appendix.html">6. Appendix</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SOPHON-SAIL</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../5_module_python.html"><span class="section-number">5. </span>SAIL Python API</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.6. </span>sail.Engine</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_python/sail.Engine.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sail-engine">
+<h1><span class="section-number">5.6. </span>sail.Engine<a class="headerlink" href="#sail-engine" title="Link to this heading"></a></h1>
+<section id="init">
+<h2><span class="section-number">5.6.1. </span>__init__<a class="headerlink" href="#init" title="Link to this heading"></a></h2>
+<p>Constructor without or with bmodel loaded.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="n">tpu_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>tpu_id : int</p></li>
+</ul>
+<p>Tensor Computing Processor ID. You can use bm-smi to see available IDs</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handle</span><span class="p">:</span> <span class="n">Handle</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>hanle : Handle</p></li>
+</ul>
+<p>A Handle instance</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">bmodel_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">tpu_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">mode</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>bmodel_path : str</p></li>
+</ul>
+<p>Path to bmodel</p>
+<ul class="simple">
+<li><p>tpu_id : int</p></li>
+</ul>
+<p>Tensor Computing Processor ID. You can use bm-smi to see available IDs</p>
+<ul class="simple">
+<li><p>mode : sail.IOMode</p></li>
+</ul>
+<p>Specify the input/output tensors are in system memory or device memory</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">bmodel_bytes</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span>
+            <span class="n">bmodel_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">tpu_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">mode</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>bmodel_bytes : bytes</p></li>
+</ul>
+<p>Bytes of  bmodel in system memory</p>
+<ul class="simple">
+<li><p>bmodel_size : int</p></li>
+</ul>
+<p>Bmodel byte size</p>
+<ul class="simple">
+<li><p>tpu_id : int</p></li>
+</ul>
+<p>Tensor Computing Processor ID. You can use bm-smi to see available IDs</p>
+<ul class="simple">
+<li><p>mode : sail.IOMode</p></li>
+</ul>
+<p>Specify the input/output tensors are in system memory or device memory</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">engine1</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Handle</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">engine2</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+
+    <span class="n">engine3</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="s2">&quot;rb&quot;</span><span class="p">)</span>
+    <span class="n">datas</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">file_size</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">)</span>
+    <span class="n">engine4</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">datas</span><span class="p">,</span><span class="n">file_size</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-handle">
+<h2><span class="section-number">5.6.2. </span>get_handle<a class="headerlink" href="#get-handle" title="Link to this heading"></a></h2>
+<p>Get Handle instance.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_handle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">sail</span><span class="o">.</span><span class="n">Handle</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>handle: sail.Handle</p></li>
+</ul>
+<p>Handle instance</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">engine1</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">handle</span> <span class="o">=</span> <span class="n">engine1</span><span class="o">.</span><span class="n">get_handle</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="load">
+<h2><span class="section-number">5.6.3. </span>load<a class="headerlink" href="#load" title="Link to this heading"></a></h2>
+<p>Load bmodel from file.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bmodel_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">bool</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>bmodel_path : str</p></li>
+</ul>
+<p>Path to bmodel</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bmodel_bytes</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">bmodel_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">bool</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>bmodel_bytes : bytes</p></li>
+</ul>
+<p>Bytes of  bmodel in system memory</p>
+<ul class="simple">
+<li><p>bmodel_size : int</p></li>
+</ul>
+<p>Bmodel byte size</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine1</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">engine1</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-graph-names">
+<h2><span class="section-number">5.6.4. </span>get_graph_names<a class="headerlink" href="#get-graph-names" title="Link to this heading"></a></h2>
+<p>Get all graph names in the loaded bmodels.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_graph_names</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nb">list</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>graph_names : list</p></li>
+</ul>
+<p>Graph names list in loaded context</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine1</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">engine1</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">)</span>
+    <span class="n">graph_names</span> <span class="o">=</span> <span class="n">engine1</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="set-io-mode">
+<h2><span class="section-number">5.6.5. </span>set_io_mode<a class="headerlink" href="#set-io-mode" title="Link to this heading"></a></h2>
+<p>Set IOMode for a graph.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">set_io_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name: str</p></li>
+</ul>
+<p>The specified graph name</p>
+<ul class="simple">
+<li><p>mode : sail.IOMode</p></li>
+</ul>
+<p>Specified io mode</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">engine</span><span class="o">.</span><span class="n">set_io_mode</span><span class="p">(</span><span class="n">graph_name</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="graph-is-dynamic">
+<h2><span class="section-number">5.6.6. </span>graph_is_dynamic<a class="headerlink" href="#graph-is-dynamic" title="Link to this heading"></a></h2>
+<p>Determine whether a selected computational map is dynamic.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">graph_is_dynamic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>Specified graph name</p>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>is_dynamic : bool</p></li>
+</ul>
+<p>A boolean value indicating whether the selected computation graph is dynamic or not.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">is_dynamic</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">graph_is_dynamic</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-input-names">
+<h2><span class="section-number">5.6.7. </span>get_input_names<a class="headerlink" href="#get-input-names" title="Link to this heading"></a></h2>
+<p>Get all input tensor names of the specified graph.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_input_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>Specified graph name</p>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>input_names : list</p></li>
+</ul>
+<p>All the input tensor names of the graph</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">input_names</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_input_names</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-output-names">
+<h2><span class="section-number">5.6.8. </span>get_output_names<a class="headerlink" href="#get-output-names" title="Link to this heading"></a></h2>
+<p>Get all output tensor names of the specified graph.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_output_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nb">list</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>Specified graph name</p>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>input_names : list</p></li>
+</ul>
+<p>All the output tensor names of the graph</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">output_names</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_output_names</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-max-input-shapes">
+<h2><span class="section-number">5.6.9. </span>get_max_input_shapes<a class="headerlink" href="#get-max-input-shapes" title="Link to this heading"></a></h2>
+<p>Get max shapes of input tensors in a graph. For static models, the max shape is fixed and it should not be changed. For dynamic models, the tensor shape should be smaller than or equal to the max shape.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_max_input_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nb">dict</span> <span class="p">{</span><span class="nb">str</span> <span class="p">:</span> <span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>The specified graph name</p>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>max_shapes : dict {str : list}</p></li>
+</ul>
+<p>Max shape of the input tensors</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">max_input_shapes</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_max_input_shapes</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-input-shape">
+<h2><span class="section-number">5.6.10. </span>get_input_shape<a class="headerlink" href="#get-input-shape" title="Link to this heading"></a></h2>
+<p>Get the maximum dimension shape of an input tensor in a graph. There are cases that there are multiple input shapes in one input name, This API only returns the maximum dimension one for the memory allocation  in order to get the best performance.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_input_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tensor_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nb">list</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>The specified graph name</p>
+<ul class="simple">
+<li><p>tensor_name : str</p></li>
+</ul>
+<p>The specified input tensor name</p>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>tensor_shape : list</p></li>
+</ul>
+<p>The maxmim dimension shape of the tensor</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">input_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_input_names</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">input_shape</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_input_shape</span><span class="p">(</span><span class="n">graph_name</span><span class="p">,</span><span class="n">input_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-max-output-shapes">
+<h2><span class="section-number">5.6.11. </span>get_max_output_shapes<a class="headerlink" href="#get-max-output-shapes" title="Link to this heading"></a></h2>
+<p>Get max shapes of input tensors in a graph. For static models, the max shape is fixed and it should not be changed. For dynamic models, the tensor shape should be smaller than or equal to the max shape.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_max_output_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nb">dict</span> <span class="p">{</span><span class="nb">str</span> <span class="p">:</span> <span class="nb">list</span><span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>The specified graph name</p>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>max_shapes : dict {str : list}</p></li>
+</ul>
+<p>Max shape of the output tensors</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">max_output_shapes</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_max_output_shapes</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-output-shape">
+<h2><span class="section-number">5.6.12. </span>get_output_shape<a class="headerlink" href="#get-output-shape" title="Link to this heading"></a></h2>
+<p>Get the shape of an output tensor in a graph.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_output_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tensor_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nb">list</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>The specified graph name</p>
+<ul class="simple">
+<li><p>tensor_name : str</p></li>
+</ul>
+<p>The specified output tensor name</p>
+<p><strong>Returns</strong></p>
+<p>tensor_shape : list</p>
+<p>The shape of the tensor</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">output_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_output_names</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">input_shape</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_output_shape</span><span class="p">(</span><span class="n">graph_name</span><span class="p">,</span><span class="n">output_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-input-dtype">
+<h2><span class="section-number">5.6.13. </span>get_input_dtype<a class="headerlink" href="#get-input-dtype" title="Link to this heading"></a></h2>
+<p>Get scale of an input tensor. Only used for int8 models.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_input_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tensor_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">sail</span><span class="o">.</span><span class="n">Dtype</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>The specified graph name</p>
+<ul class="simple">
+<li><p>tensor_name : str</p></li>
+</ul>
+<p>The specified output tensor name</p>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>scale: sail.Dtype</p></li>
+</ul>
+<p>Data type of the input tensor</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">input_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_input_names</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">input_dtype</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_input_dtype</span><span class="p">(</span><span class="n">graph_name</span><span class="p">,</span><span class="n">input_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-output-dtype">
+<h2><span class="section-number">5.6.14. </span>get_output_dtype<a class="headerlink" href="#get-output-dtype" title="Link to this heading"></a></h2>
+<p>Get scale of an output tensor. Only used for int8 models.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_output_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tensor_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">sail</span><span class="o">.</span><span class="n">Dtype</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>The specified graph name</p>
+<ul class="simple">
+<li><p>tensor_name : str</p></li>
+</ul>
+<p>The specified output tensor name</p>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>scale: sail.Dtype</p></li>
+</ul>
+<p>Data type of the output tensor</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">output_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_output_names</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">input_shape</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_output_dtype</span><span class="p">(</span><span class="n">graph_name</span><span class="p">,</span><span class="n">output_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-input-scale">
+<h2><span class="section-number">5.6.15. </span>get_input_scale<a class="headerlink" href="#get-input-scale" title="Link to this heading"></a></h2>
+<p>Get scale of an input tensor. Only used for int8 models.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_input_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tensor_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">float32</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>The specified graph name</p>
+<ul class="simple">
+<li><p>tensor_name : str</p></li>
+</ul>
+<p>The specified output tensor name</p>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>scale: float32</p></li>
+</ul>
+<p>Scale of the input tensor</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">input_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_input_names</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">input_scale</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_input_scale</span><span class="p">(</span><span class="n">graph_name</span><span class="p">,</span><span class="n">input_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-output-scale">
+<h2><span class="section-number">5.6.16. </span>get_output_scale<a class="headerlink" href="#get-output-scale" title="Link to this heading"></a></h2>
+<p>Get scale of an output tensor. Only used for int8 models.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_output_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tensor_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span> <span class="n">float32</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>The specified graph name</p>
+<ul class="simple">
+<li><p>tensor_name : str</p></li>
+</ul>
+<p>The specified output tensor name</p>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>scale: float32</p></li>
+</ul>
+<p>Scale of the output tensor</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">output_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_output_names</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">output_scale</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_output_scale</span><span class="p">(</span><span class="n">graph_name</span><span class="p">,</span><span class="n">output_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="process">
+<h2><span class="section-number">5.6.17. </span>process<a class="headerlink" href="#process" title="Link to this heading"></a></h2>
+<p>Inference with provided system data of input tensors, with or without input shapes and output tensors.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">input_tensors</span><span class="p">:</span> <span class="nb">dict</span> <span class="p">{</span><span class="nb">str</span> <span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">},</span>
+            <span class="n">core_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span><span class="o">-&gt;</span> <span class="nb">dict</span> <span class="p">{</span><span class="nb">str</span> <span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>The specified graph name</p>
+<ul class="simple">
+<li><p>input_tensors : dict {str : numpy.array}</p></li>
+</ul>
+<p>Data of all input tensors in system memory</p>
+<ul class="simple">
+<li><p>core_list : list[int]</p></li>
+</ul>
+<p>This parameter is only valid for processors that support multi-core inference, and the core used for inference can be selected. Set bmodel as the corresponding kernel number N, and if corelist is empty, use N cores starting from core0 for inference; If the length of corelist is greater than N, use the corresponding top N cores in corelist for inference. This parameter can be ignored for processors that only support single core inference.
+<strong>Returns</strong></p>
+<ul class="simple">
+<li><p>output_tensors : dict {str : numpy.array}</p></li>
+</ul>
+<p>Data of all output tensors in system memory</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">input_tensors</span><span class="p">:</span> <span class="nb">dict</span> <span class="p">{</span><span class="nb">str</span> <span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">Tensor</span><span class="p">},</span>
+            <span class="n">output_tensors</span><span class="p">:</span> <span class="nb">dict</span> <span class="p">{</span><span class="nb">str</span> <span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">Tensor</span><span class="p">},</span>
+            <span class="n">core_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>The specified graph name</p>
+<ul class="simple">
+<li><p>input_tensors : dict {str : sail.Tensor}</p></li>
+</ul>
+<p>Input tensors managed by user</p>
+<ul class="simple">
+<li><p>output_tensors : dict {str : sail.Tensor}</p></li>
+</ul>
+<p>Output tensors managed by user</p>
+<ul class="simple">
+<li><p>core_list : list[int]</p></li>
+</ul>
+<p>This parameter is only valid for processors that support multi-core inference, and the core used for inference can be selected. Set bmodel as the corresponding kernel number N, and if corelist is empty, use N cores starting from core0 for inference; If the length of corelist is greater than N, use the corresponding top N cores in corelist for inference. This parameter can be ignored for processors that only support single core inference.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">input_tensors</span><span class="p">:</span> <span class="nb">dict</span> <span class="p">{</span><span class="nb">str</span> <span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">Tensor</span><span class="p">},</span>
+            <span class="n">input_shapes</span><span class="p">:</span> <span class="nb">dict</span> <span class="p">{</span><span class="nb">str</span> <span class="p">:</span> <span class="nb">list</span><span class="p">},</span>
+            <span class="n">output_tensors</span><span class="p">:</span> <span class="nb">dict</span> <span class="p">{</span><span class="nb">str</span> <span class="p">:</span> <span class="n">sail</span><span class="o">.</span><span class="n">Tensor</span><span class="p">},</span>
+            <span class="n">core_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong></p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>The specified graph name</p>
+<ul class="simple">
+<li><p>input_tensors : dict {str : sail.Tensor}</p></li>
+</ul>
+<p>Input tensors managed by user</p>
+<ul class="simple">
+<li><p>input_shapes : dict {str : list}</p></li>
+</ul>
+<p>Shapes of all input tensors</p>
+<ul class="simple">
+<li><p>output_tensors : dict {str : sail.Tensor}</p></li>
+</ul>
+<p>Output tensors managed by user</p>
+<ul class="simple">
+<li><p>core_list : list[int]</p></li>
+</ul>
+<p>This parameter is only valid for processors that support multi-core inference, and the core used for inference can be selected. Set bmodel as the corresponding kernel number N, and if corelist is empty, use N cores starting from core0 for inference; If the length of corelist is greater than N, use the corresponding top N cores in corelist for inference. This parameter can be ignored for processors that only support single core inference.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># prepare tensor map</span>
+    <span class="n">input_tensors_map</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">create_input_tensors_map</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)</span>
+    <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">tensor</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">()</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="n">input_tensors_map</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="c1"># inference type1</span>
+    <span class="n">output_tensors_map</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">graph_name</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">)</span>
+
+    <span class="c1"># inference type2</span>
+    <span class="n">output_tensors_map_</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">create_output_tensors_map</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)</span>
+    <span class="n">engine</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">graph_name</span><span class="p">,</span> <span class="n">input_tensors_map</span><span class="p">,</span> <span class="n">output_tensors_map_</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="get-device-id">
+<h2><span class="section-number">5.6.18. </span>get_device_id<a class="headerlink" href="#get-device-id" title="Link to this heading"></a></h2>
+<p>Get device id of this engine</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_device_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nb">int</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>tpu_id : int</p></li>
+</ul>
+<p>Tensor Computing Processor id of this engine</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">dev_id</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_device_id</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="create-input-tensors-map">
+<h2><span class="section-number">5.6.19. </span>create_input_tensors_map<a class="headerlink" href="#create-input-tensors-map" title="Link to this heading"></a></h2>
+<p>Create input tensors map, according to and bmodel.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_input_tensors_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                            <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                            <span class="n">create_mode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">Tensor</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>The specified graph name.</p>
+<ul class="simple">
+<li><p>create_mode: int</p></li>
+</ul>
+<p>Tensor Create mode, case 0: only allocate system memory; case 1: only allocate device memory; case other: according to engine IOMode.</p>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>output: dict[str,Tensor]</p></li>
+</ul>
+<p>Output result.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># prepare tensor map</span>
+    <span class="n">input_tensors_map</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">create_input_tensors_map</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+<section id="create-output-tensors-map">
+<h2><span class="section-number">5.6.20. </span>create_output_tensors_map<a class="headerlink" href="#create-output-tensors-map" title="Link to this heading"></a></h2>
+<p>Create output tensors map, according to and bmodel.</p>
+<dl>
+<dt><strong>Interface:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_output_tensors_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                            <span class="n">graph_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                            <span class="n">create_mode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="n">Tensor</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p>graph_name : str</p></li>
+</ul>
+<p>The specified graph name.</p>
+<ul class="simple">
+<li><p>create_mode: int</p></li>
+</ul>
+<p>Tensor Create mode, case 0: only allocate system memory; case 1: only allocate device memory; case other: according to engine IOMode.</p>
+<p><strong>Returns</strong></p>
+<ul class="simple">
+<li><p>output: dict[str,Tensor]</p></li>
+</ul>
+<p>Output result.</p>
+<dl>
+<dt><strong>Sample:</strong></dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sophon.sail</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sail</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bmodel_path</span> <span class="o">=</span> <span class="s2">&quot;your_bmodel.bmodel&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">sail</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">bmodel_path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sail</span><span class="o">.</span><span class="n">IOMode</span><span class="o">.</span><span class="n">SYSI</span><span class="p">)</span>
+    <span class="n">graph_name</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_graph_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># prepare tensor map</span>
+    <span class="n">output_tensors_map</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">create_output_tensors_map</span><span class="p">(</span><span class="n">graph_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sail.PaddingAtrr.html" class="btn btn-neutral float-left" title="5.5. sail.PaddingAtrr" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sail.MultiEngine.html" class="btn btn-neutral float-right" title="5.7. sail.MultiEngine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SOPHGO.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
